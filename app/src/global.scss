@@ -23,11 +23,18 @@ body {
     padding: 0;
     font-family: Oswald, sans-serif;
     background-color: $black-primary;
+    color: $white-primary;
 }
 
 h1, h2, h3, h4, h5, h6, p {
     margin-block: 0;
     padding-block: 0;
+}
+
+a {
+    margin-block: 0;
+    padding-block: 0;
+    text-decoration: none;
 }
 
 ::-webkit-scrollbar {
