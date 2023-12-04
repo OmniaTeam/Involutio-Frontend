@@ -1,9 +1,12 @@
 import { Link } from "react-router-dom";
 
+import grad from '../assets/gradient.svg'
+
 export default function IndexPage() {
 	return <main>
 		<section className={'hero'}>
 			<div className={'hero--container'}>
+				<img className={'gradient'} src={grad} alt=""/>
 				<div className={'heading'}>
 					<h1 className={'heading--title'}>Involutio</h1>
 					<p className={'heading--description'}>
