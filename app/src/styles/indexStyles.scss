@@ -59,7 +59,7 @@
 }
 
 .gradient {
-    position: absolute;
+    position: fixed;
     z-index: -1;
     top: 200px;
     transform: translate(10%, -35%);
