@@ -1,6 +1,13 @@
+import { useState } from "react";
+
 import grad from "../../assets/gradient.svg";
 
 export default function AuthPage() {
+	//@ts-ignore
+	const [login, setLogin] = useState<string>('')
+	//@ts-ignore
+	const [password, setPassword] = useState<string>('')
+
 	return <main>
 		<section className={'auth'}>
 			<img className={'gradient'} src={grad} alt=""/>
@@ -8,8 +15,16 @@ export default function AuthPage() {
 				<form className={'form'}>
 					<h2 className={'form--title'}>Sign In</h2>
 					<div className={'form--inputs'}>
-						<input className={'form--inputs__login'} type="text" placeholder={'login'}/>
-						<input className={'form--inputs__password'} type="password" placeholder={'password'}/>
+						<input className={'form--inputs__login'}
+						       type="text"
+						       placeholder={'login'}
+						       onChange={(event) => setLogin(event.target.value)}
+						/>
+						<input className={'form--inputs__password'}
+						       type="password"
+						       placeholder={'password'}
+						       onChange={(event) => setPassword(event.target.value)}
+						/>
 					</div>
 					<button className={'form--sign'}>sign_in</button>
 				</form>

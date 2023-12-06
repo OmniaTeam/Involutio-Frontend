@@ -1,3 +1,7 @@
 export default function Sidebar() {
-	return <></>
+	return <aside className={'sidebar'}>
+		<div className={'navigation'}>
+
+		</div>
+	</aside>
 }

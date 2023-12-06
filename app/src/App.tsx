@@ -3,6 +3,7 @@ import ReactDOM from "react-dom/client";
 
 import './global.scss'
 import './styles/indexStyles.scss'
+import './styles/headerStyles.scss'
 
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
@@ -22,7 +23,7 @@ const App = () => {
                 <Routes>
                     <Route path="/" index={true} element={<IndexPage/>}/>
                     <Route path="/auth" element={<AuthPage/>}/>
-                    <Route path="/app" element={<AppLayout/>}>
+                    <Route path="/application" element={<AppLayout/>}>
                         <Route index={true} element={<HomePage/>}/>
                     </Route>
                 </Routes>
