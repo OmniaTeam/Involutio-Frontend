@@ -5,7 +5,7 @@ import './global.scss'
 import './styles/indexStyles.scss'
 import './styles/headerStyles.scss'
 import './styles/sidebarStyles.scss'
-import './styles/employeeCardStyled.scss'
+import './styles/employeeCardStyles.scss'
 
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Provider } from "react-redux";

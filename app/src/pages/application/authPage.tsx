@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { motion } from "framer-motion";
 
 import grad from "../../assets/gradient.svg";
 
@@ -11,7 +12,11 @@ export default function AuthPage() {
 	return <main>
 		<section className={'auth'}>
 			<div className={'auth--container'}>
-				<img className={'gradient'} src={grad} alt=""/>
+				<motion.img className={'gradient'} src={grad} alt=""
+		            initial={{ opacity: 0, scale: 0.5 }}
+		            animate={{ opacity: 1, scale: 1 }}
+		            transition={{ duration: 0.5 }}
+				/>
 				<form className={'form'}>
 					<h2 className={'form--title'}>Sign In</h2>
 					<div className={'form--inputs'}>
