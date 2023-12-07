@@ -9,6 +9,7 @@ import './styles/employeeCardStyled.scss'
 
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Provider } from "react-redux";
+import { setupStore } from "./store/store.ts";
 
 import IndexPage from "./pages/indexPage.tsx";
 import AuthPage from "./pages/application/authPage.tsx";
@@ -17,6 +18,8 @@ import HomePage from "./pages/application/homePage.tsx";
 import EmployeesPage from "./pages/application/employeesPage.tsx";
 import ReportsPage from "./pages/application/reportsPage.tsx";
 import EmployeePage from "./pages/application/employeePage.tsx";
+
+const store = setupStore()
 
 const root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement
