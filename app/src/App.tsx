@@ -5,7 +5,7 @@ import './global.scss'
 import './styles/indexStyles.scss'
 import './styles/headerStyles.scss'
 import './styles/sidebarStyles.scss'
-import './styles/applicationStyles.scss'
+import './styles/employeeCardStyled.scss'
 
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
@@ -15,6 +15,7 @@ import AppLayout from "./layouts/appLayout.tsx";
 import HomePage from "./pages/application/homePage.tsx";
 import EmployeesPage from "./pages/application/employeesPage.tsx";
 import ReportsPage from "./pages/application/reportsPage.tsx";
+import EmployeePage from "./pages/application/employeePage.tsx";
 
 const root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement
@@ -31,6 +32,7 @@ const App = () => {
                         <Route index={true} element={<HomePage/>}/>
                         <Route path={'employees'} element={<EmployeesPage/>}/>
                         <Route path={'reports'} element={<ReportsPage/>}/>
+                        <Route path={'employee/:id'} element={<EmployeePage/>}/>
                     </Route>
                 </Routes>
             </BrowserRouter>

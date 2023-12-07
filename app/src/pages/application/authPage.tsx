@@ -10,8 +10,8 @@ export default function AuthPage() {
 
 	return <main>
 		<section className={'auth'}>
-			<img className={'gradient'} src={grad} alt=""/>
 			<div className={'auth--container'}>
+				<img className={'gradient'} src={grad} alt=""/>
 				<form className={'form'}>
 					<h2 className={'form--title'}>Sign In</h2>
 					<div className={'form--inputs'}>
@@ -26,7 +26,9 @@ export default function AuthPage() {
 						       onChange={(event) => setPassword(event.target.value)}
 						/>
 					</div>
-					<button className={'form--sign'}>sign_in</button>
+					<button className={'form--sign'} type={'button'}  onClick={() => {
+						window.location.href = '/application'
+					}}>sign_in</button>
 				</form>
 				<p className={'auth--container__omnia'}>BY OMNIA</p>
 			</div>
