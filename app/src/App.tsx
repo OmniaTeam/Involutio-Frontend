@@ -5,7 +5,7 @@ import './global.scss'
 import './styles/indexStyles.scss'
 import './styles/headerStyles.scss'
 import './styles/sidebarStyles.scss'
-import './styles/homeStyles.scss'
+import './styles/applicationStyles.scss'
 
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 

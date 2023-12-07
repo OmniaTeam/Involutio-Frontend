@@ -1,3 +1,5 @@
+@import "../global";
+
 .sidebar {;
     width: 80px;
     position: fixed;
@@ -22,6 +24,19 @@
             margin-right: -1px;
             text-align: center;
         }
+        &__exit {
+            svg {
+                path {
+                    transition: 150ms ease-in;
+                    fill: $white-secondary;
+                }
+                &:hover {
+                    path {
+                        fill: $white-primary
+                    }
+                }
+            }
+        }
     }
 }
 
@@ -38,9 +53,21 @@
         width: 6px;
         height: 70px;
         border-radius: 0 5px 5px 0;
-        background: #D9D9D9;
+        background: $white-secondary;
         left: 0;
         top: -3px;
         transition: 150ms ease-in;
+    }
+    &--link {
+        svg {
+            path {
+                transition: 150ms ease-in;
+            }
+            &:hover {
+                path {
+                    fill: $white-primary;
+                }
+            }
+        }
     }
 }
