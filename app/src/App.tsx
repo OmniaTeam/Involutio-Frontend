@@ -8,6 +8,7 @@ import './styles/sidebarStyles.scss'
 import './styles/employeeCardStyled.scss'
 
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { Provider } from "react-redux";
 
 import IndexPage from "./pages/indexPage.tsx";
 import AuthPage from "./pages/application/authPage.tsx";
@@ -24,18 +25,20 @@ const root = ReactDOM.createRoot(
 const App = () => {
     return <>
         <React.StrictMode>
-            <BrowserRouter>
-                <Routes>
-                    <Route path="/" index={true} element={<IndexPage/>}/>
-                    <Route path="/auth" element={<AuthPage/>}/>
-                    <Route path="/application" element={<AppLayout/>}>
-                        <Route index={true} element={<HomePage/>}/>
-                        <Route path={'employees'} element={<EmployeesPage/>}/>
-                        <Route path={'reports'} element={<ReportsPage/>}/>
-                        <Route path={'employee/:id'} element={<EmployeePage/>}/>
-                    </Route>
-                </Routes>
-            </BrowserRouter>
+            <Provider store={store}>
+                <BrowserRouter>
+                    <Routes>
+                        <Route path="/" index={true} element={<IndexPage/>}/>
+                        <Route path="/auth" element={<AuthPage/>}/>
+                        <Route path="/application" element={<AppLayout/>}>
+                            <Route index={true} element={<HomePage/>}/>
+                            <Route path={'employees'} element={<EmployeesPage/>}/>
+                            <Route path={'reports'} element={<ReportsPage/>}/>
+                            <Route path={'employee/:id'} element={<EmployeePage/>}/>
+                        </Route>
+                    </Routes>
+                </BrowserRouter>
+            </Provider>
         </React.StrictMode>
     </>
 };
