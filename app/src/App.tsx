@@ -18,6 +18,7 @@ import HomePage from "./pages/application/homePage.tsx";
 import EmployeesPage from "./pages/application/employeesPage.tsx";
 import ReportsPage from "./pages/application/reportsPage.tsx";
 import EmployeePage from "./pages/application/employeePage.tsx";
+import ErrorPage from "./pages/errorPage.tsx";
 
 const store = setupStore()
 
@@ -39,6 +40,8 @@ const App = () => {
                             <Route path={'reports'} element={<ReportsPage/>}/>
                             <Route path={'employee/:id'} element={<EmployeePage/>}/>
                         </Route>
+                        <Route path="/*" element={<ErrorPage/>}/>
+                        <Route path="/*/*" element={<ErrorPage/>}/>
                     </Routes>
                 </BrowserRouter>
             </Provider>
