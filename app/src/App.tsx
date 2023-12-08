@@ -5,9 +5,11 @@ import './global.scss'
 import './styles/indexStyles.scss'
 import './styles/headerStyles.scss'
 import './styles/sidebarStyles.scss'
-import './styles/applicationStyles.scss'
+import './styles/cardsStyles.scss'
 
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { Provider } from "react-redux";
+import { setupStore } from "./store/store.ts";
 
 import IndexPage from "./pages/indexPage.tsx";
 import AuthPage from "./pages/application/authPage.tsx";
@@ -15,6 +17,9 @@ import AppLayout from "./layouts/appLayout.tsx";
 import HomePage from "./pages/application/homePage.tsx";
 import EmployeesPage from "./pages/application/employeesPage.tsx";
 import ReportsPage from "./pages/application/reportsPage.tsx";
+import EmployeePage from "./pages/application/employeePage.tsx";
+
+const store = setupStore()
 
 const root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement
@@ -23,17 +28,20 @@ const root = ReactDOM.createRoot(
 const App = () => {
     return <>
         <React.StrictMode>
-            <BrowserRouter>
-                <Routes>
-                    <Route path="/" index={true} element={<IndexPage/>}/>
-                    <Route path="/auth" element={<AuthPage/>}/>
-                    <Route path="/application" element={<AppLayout/>}>
-                        <Route index={true} element={<HomePage/>}/>
-                        <Route path={'employees'} element={<EmployeesPage/>}/>
-                        <Route path={'reports'} element={<ReportsPage/>}/>
-                    </Route>
-                </Routes>
-            </BrowserRouter>
+            <Provider store={store}>
+                <BrowserRouter>
+                    <Routes>
+                        <Route path="/" index={true} element={<IndexPage/>}/>
+                        <Route path="/auth" element={<AuthPage/>}/>
+                        <Route path="/application" element={<AppLayout/>}>
+                            <Route index={true} element={<HomePage/>}/>
+                            <Route path={'employees'} element={<EmployeesPage/>}/>
+                            <Route path={'reports'} element={<ReportsPage/>}/>
+                            <Route path={'employee/:id'} element={<EmployeePage/>}/>
+                        </Route>
+                    </Routes>
+                </BrowserRouter>
+            </Provider>
         </React.StrictMode>
     </>
 };

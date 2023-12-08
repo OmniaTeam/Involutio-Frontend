@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { motion } from "framer-motion";
 
 import grad from "../../assets/gradient.svg";
 
@@ -10,8 +11,12 @@ export default function AuthPage() {
 
 	return <main>
 		<section className={'auth'}>
-			<img className={'gradient'} src={grad} alt=""/>
 			<div className={'auth--container'}>
+				<motion.img className={'gradient'} src={grad} alt=""
+		            initial={{ opacity: 0, scale: 0.5 }}
+		            animate={{ opacity: 1, scale: 1 }}
+		            transition={{ duration: 0.5 }}
+				/>
 				<form className={'form'}>
 					<h2 className={'form--title'}>Sign In</h2>
 					<div className={'form--inputs'}>
@@ -26,7 +31,9 @@ export default function AuthPage() {
 						       onChange={(event) => setPassword(event.target.value)}
 						/>
 					</div>
-					<button className={'form--sign'}>sign_in</button>
+					<button className={'form--sign'} type={'button'}  onClick={() => {
+						window.location.href = '/application'
+					}}>sign_in</button>
 				</form>
 				<p className={'auth--container__omnia'}>BY OMNIA</p>
 			</div>

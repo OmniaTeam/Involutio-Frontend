@@ -62,6 +62,7 @@
         svg {
             path {
                 transition: 150ms ease-in;
+                fill: $white-secondary
             }
             &:hover {
                 path {
