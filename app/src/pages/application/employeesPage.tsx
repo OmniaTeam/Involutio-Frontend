@@ -14,12 +14,16 @@ export default function EmployeesPage() {
 	        animate={{ opacity: 1 }}
 	        transition={{ duration: 0.5 }}
 		>
-			<div className={'attributes'}>
+			<motion.div className={'attributes'}
+	            initial={{ opacity: 0 }}
+	            animate={{ opacity: 1 }}
+	            transition={{ duration: 0.5 }}
+			>
 				<p className={'attributes--path'}>фио</p>
 				<p className={'attributes--path'}>отдел</p>
 				<p className={'attributes--path'}>должность</p>
 				<p className={'attributes--path'}>вероятность</p>
-			</div>
+			</motion.div>
 			<div className={'employees--cards'}>
 				<LineInformationCard
 					type={'employee'}
