@@ -1,6 +1,6 @@
 @import "../global";
 
-.employee-card {
+.line-card {
     display: grid;
     grid-template-columns: 1fr min-content;
     align-items: center;
@@ -16,8 +16,8 @@
         gap: 10px;
         align-items: center;
         &__name,
-        &__department,
-        &__position,
+        &__second-column,
+        &__third-column,
         &__probability {
             font-size: 20px;
             line-height: 20px;

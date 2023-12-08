@@ -160,7 +160,8 @@
     }
 }
 
-.employees {
+.employees,
+.reports {
     &--title {
         @include applicationTitle
     }

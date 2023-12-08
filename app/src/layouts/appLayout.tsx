@@ -1,4 +1,5 @@
 import { Outlet } from "react-router-dom";
+import { motion } from "framer-motion";
 
 import Header from "../components/header";
 import Sidebar from "../components/sidebar.tsx";
@@ -9,7 +10,11 @@ export default function AppLayout() {
 	return <main className={'application'}>
 		<Header/>
 		<Sidebar/>
-		<img className={'gradient'} src={grad} alt=""/>
+		<motion.img className={'gradient'} src={grad} alt=""
+            initial={{ opacity: 0, scale: 0.5 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.5 }}
+		/>
 		<section className={'application--section'}>
 			<Outlet/>
 		</section>

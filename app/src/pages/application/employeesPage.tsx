@@ -1,9 +1,19 @@
-import EmployeeCard from "../../components/employeeCard";
+import { motion } from "framer-motion";
+
+import LineInformationCard from "../../components/lineInformationCard";
 
 export default function EmployeesPage() {
 	return <div className={'employees'}>
-		<h2 className={'employees--title'}>Сотрудники</h2>
-		<div className={'employees--content'}>
+		<motion.h2 className={'employees--title'}
+           initial={{ opacity: 0 }}
+           animate={{ opacity: 1 }}
+           transition={{ duration: 0.5 }}
+		>Сотрудники</motion.h2>
+		<motion.div className={'employees--content'}
+	        initial={{ opacity: 0 }}
+	        animate={{ opacity: 1 }}
+	        transition={{ duration: 0.5 }}
+		>
 			<div className={'attributes'}>
 				<p className={'attributes--path'}>фио</p>
 				<p className={'attributes--path'}>отдел</p>
@@ -11,21 +21,27 @@ export default function EmployeesPage() {
 				<p className={'attributes--path'}>вероятность</p>
 			</div>
 			<div className={'employees--cards'}>
-				<EmployeeCard
-					name="Иван Иванов Иванович"
-					department="Отдел продаж"
-					position="Менеджер"
+				<LineInformationCard
+					type={'employee'}
+					name={'Иван Иванов Иванович'}
+					secondColumn={'Отдел продаж'}
+					thirdColumn={'Менеджер'}
 					dismissalProbability={20}
 					id={1}
+					initialY={10}
+					link={'/application/employee/1'}
 				/>
-				<EmployeeCard
-					name="Алексей Смирнов Викторович"
-					department="Отдел разработки"
-					position="Старший программист"
+				<LineInformationCard
+					type={'employee'}
+					name={'Алексей Смирнов Викторович'}
+					secondColumn={'Отдел разработки'}
+					thirdColumn={'Старший программист'}
 					dismissalProbability={5}
 					id={2}
+					initialY={15}
+					link={'/application/employee/2'}
 				/>
 			</div>
-		</div>
+		</motion.div>
 	</div>
 }
