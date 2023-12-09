@@ -15,9 +15,9 @@ export default function ReportsPage() {
 	            animate={{ opacity: 1 }}
 	            transition={{ duration: 0.5 }}
 			>
-				<p className={'attributes--path'}>фио</p>
-				<p className={'attributes--path'}>дата создания</p>
-				<p className={'attributes--path'}>временной период</p>
+				<p className={'attributes--path'}>1 - фио сотрудника</p>
+				<p className={'attributes--path'}>2 - дата создания отчёта</p>
+				<p className={'attributes--path'}>3 - временной период</p>
 			</motion.div>
 			<div className={'reports--cards'}>
 				<LineInformationCard

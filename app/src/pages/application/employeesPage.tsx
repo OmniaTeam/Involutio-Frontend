@@ -19,10 +19,10 @@ export default function EmployeesPage() {
 	            animate={{ opacity: 1 }}
 	            transition={{ duration: 0.5 }}
 			>
-				<p className={'attributes--path'}>фио</p>
-				<p className={'attributes--path'}>отдел</p>
-				<p className={'attributes--path'}>должность</p>
-				<p className={'attributes--path'}>вероятность</p>
+				<p className={'attributes--path'}>1 - фио сотрудника</p>
+				<p className={'attributes--path'}>2 - отдел</p>
+				<p className={'attributes--path'}>3 - должность</p>
+				<p className={'attributes--path'}>4 - вероятность увольнения</p>
 			</motion.div>
 			<div className={'employees--cards'}>
 				<LineInformationCard
