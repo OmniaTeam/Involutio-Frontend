@@ -7,7 +7,7 @@ export default function EmployeesPage() {
 		<motion.h2 className={'employees--title'}
            initial={{ opacity: 0 }}
            animate={{ opacity: 1 }}
-           transition={{ duration: 0.5 }}
+           transition={{ delay: 0.1, duration: 0.5 }}
 		>Сотрудники</motion.h2>
 		<motion.div className={'employees--content'}
 	        initial={{ opacity: 0 }}

@@ -7,7 +7,7 @@ export default function ReportsPage() {
 		<motion.h2 className={'reports--title'}
 			initial={{ opacity: 0 }}
 		    animate={{ opacity: 1 }}
-		    transition={{ duration: 0.5 }}
+		    transition={{ delay: 0.1, duration: 0.5 }}
 		>Отчёты</motion.h2>
 		<div className={'reports--content'}>
 			<motion.div className={'attributes'} style={{gridTemplateColumns: "repeat(3, 1fr)"}}

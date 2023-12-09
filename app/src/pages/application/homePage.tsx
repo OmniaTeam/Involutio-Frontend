@@ -5,7 +5,7 @@ export default function HomePage() {
 		<motion.h2 className={'home--title'}
            initial={{ opacity: 0 }}
            animate={{ opacity: 1 }}
-           transition={{ duration: 0.5 }}
+           transition={{ delay: 0.1, duration: 0.5 }}
 		>Обзор</motion.h2>
 	</div>
 }

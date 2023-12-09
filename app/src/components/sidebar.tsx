@@ -1,9 +1,14 @@
 import { Link } from "react-router-dom";
+import { motion } from "framer-motion"
 
 export default function Sidebar() {
 
 	return (<>
-		<nav className={'sidebar'}>
+		<motion.nav className={'sidebar'}
+	        initial={{ opacity: 0 }}
+	        animate={{ opacity: 1 }}
+	        transition={{ duration: 0.2 }}
+		>
 			<div className={'sidebar--container'}>
 				<p className={'sidebar--container__name'}>Involutio</p>
 				<div className={'navigation'}>
@@ -41,6 +46,6 @@ export default function Sidebar() {
 					</svg>
 				</Link>
 			</div>
-		</nav>
+		</motion.nav>
 	</>)
 }

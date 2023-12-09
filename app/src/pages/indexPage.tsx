@@ -13,14 +13,40 @@ export default function IndexPage() {
 		            transition={{ duration: 0.5 }}
 				/>
 				<div className={'heading'}>
-					<h1 className={'heading--title'}>Involutio</h1>
-					<p className={'heading--description'}>
+					<motion.h1 className={'heading--title'}
+						initial={{ opacity: 0 }}
+					    animate={{ opacity: 1 }}
+					    transition={{ duration: 0.5 }}
+					>
+						{ "Involutio".split('').map((value, index) =>
+							<motion.span
+								initial={{ opacity: 0 }}
+								animate={{ opacity: 1 }}
+								transition={{ delay: 0.2 + index / 10 }}
+							>{value}</motion.span>
+						)}
+					</motion.h1>
+					<motion.p className={'heading--description'}
+						initial={{ opacity: 0 }}
+						animate={{ opacity: 1 }}
+						transition={{ delay: 1, duration: 0.5 }}
+					>
 						Lorem ipsum dolor sit amet, consectetur adipiscing elit,
 						sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-					</p>
+					</motion.p>
 				</div>
-				<Link className={'hero--container__button'} to={'/auth'}>Try It</Link>
-				<p className={'hero--container__omnia'}>BY OMNIA</p>
+				<motion.div
+					initial={{ opacity: 0 }}
+					animate={{ opacity: 1 }}
+					transition={{ delay: 1.2, duration: 0.5 }}
+				>
+					<Link className={'hero--container__button'} to={'/auth'}>Try It</Link>
+				</motion.div>
+				<motion.p className={'hero--container__omnia'}
+					initial={{ opacity: 0 }}
+					animate={{ opacity: 1 }}
+					transition={{  delay: 1.4, duration: 0.5}}
+				>BY OMNIA</motion.p>
 			</div>
 		</section>
 	</main>

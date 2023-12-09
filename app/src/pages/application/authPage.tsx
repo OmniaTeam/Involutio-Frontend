@@ -17,7 +17,11 @@ export default function AuthPage() {
 		            animate={{ opacity: 1, scale: 1 }}
 		            transition={{ duration: 0.5 }}
 				/>
-				<form className={'form'}>
+				<motion.form className={'form'}
+					initial={{ opacity: 0, y: 20 }}
+					animate={{ opacity: 1, y: 0 }}
+					transition={{ delay: 0.2, duration: 0.5 }}
+				>
 					<h2 className={'form--title'}>Sign In</h2>
 					<div className={'form--inputs'}>
 						<input className={'form--inputs__login'}
@@ -34,7 +38,7 @@ export default function AuthPage() {
 					<button className={'form--sign'} type={'button'}  onClick={() => {
 						window.location.href = '/application'
 					}}>sign_in</button>
-				</form>
+				</motion.form>
 				<p className={'auth--container__omnia'}>BY OMNIA</p>
 			</div>
 		</section>
