@@ -8,9 +8,9 @@ export default function Header() {
 	>
 		<div className={'header--container'}>
 			<div className={'information'}>
-				<h3 className={'information--name'}>admin_name</h3>
+				<h3 className={'information--name'}>manager_name</h3>
 				<div className={'information--avatar'}>
-					<p>A</p>
+					<p>M</p>
 				</div>
 			</div>
 		</div>
