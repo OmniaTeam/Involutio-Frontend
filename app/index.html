@@ -4,12 +4,20 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/logo.svg" />
     <meta name="theme-color" content="#000000" />
+    <link rel="manifest" href="manifest.json">
     <meta name="description" content="We help you get to know your employees better" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Involutio</title>
   </head>
   <body>
     <div id="root"></div>
+    <script>
+      if ("serviceWorker" in navigator) {
+        navigator.serviceWorker.register("./src/service-worker.js").catch(e => {
+          console.log("Registration fail: ", e);
+        });
+      }
+    </script>
     <script type="module" src="./src/App.tsx"></script>
   </body>
 </html>
