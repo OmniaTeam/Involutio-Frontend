@@ -64,6 +64,8 @@
 
 .gradient {
     position: fixed;
+    left: 0;
+    right: 0;
     z-index: -1;
     top: 200px;
     transform: translate(10%, -35%) !important;
