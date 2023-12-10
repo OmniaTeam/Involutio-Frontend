@@ -1,6 +1,8 @@
 import { motion } from "framer-motion";
+import { useAppSelector } from "../hooks/redux.ts";
 
 export default function Header() {
+	const USER = useAppSelector((state) => state.user)
 	return <motion.header className={'header'}
 		initial={{ opacity: 0 }}
 		animate={{ opacity: 1 }}
@@ -8,9 +10,9 @@ export default function Header() {
 	>
 		<div className={'header--container'}>
 			<div className={'information'}>
-				<h3 className={'information--name'}>manager_name</h3>
+				<h3 className={'information--name'}>{USER.name}</h3>
 				<div className={'information--avatar'}>
-					<p>M</p>
+					<p>{USER.name[0].toUpperCase()}</p>
 				</div>
 			</div>
 		</div>

@@ -7,7 +7,7 @@ export default function ErrorPage() {
 		<motion.img className={'gradient'} src={grad} alt=""
 		            initial={{opacity: 0, scale: 0.5}}
 		            animate={{opacity: 1, scale: 1}}
-		            transition={{duration: 0.5, repeat: Infinity}}
+		            transition={{delay: 0.2, duration: 0.5}}
 		/>
 		<section className={'error'}>
 			<div className={'error--container'}>

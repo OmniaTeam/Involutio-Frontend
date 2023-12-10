@@ -2,9 +2,9 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { IUser, IUserRole } from "../../models/IUser";
 
 const initialState : IUser = {
-	name : "",
-	password : "",
-	role : IUserRole.manager
+	name : "nothing",
+	password : "nothing",
+	role : IUserRole.non
 }
 
 export const IUserSlice = createSlice({
@@ -22,5 +22,3 @@ export const IUserSlice = createSlice({
 export const {
 	signIn
 } = IUserSlice.actions
-
-export default IUserSlice.reducer

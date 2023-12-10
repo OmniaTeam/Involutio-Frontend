@@ -1,7 +1,22 @@
 import { motion } from "framer-motion";
 import LineInformationCard from "../../components/lineInformationCard.tsx";
+import {useEffect} from "react";
+import {IUserRole} from "../../models/IUser.ts";
+import {useAppSelector} from "../../hooks/redux.ts";
 
 export default function DepartmentsPage() {
+	const USER = useAppSelector((state) => state.user)
+
+	useEffect(() => {
+		console.log(USER.role)
+		if (USER.role !== IUserRole.admin) {
+			window.location.href = '/'
+		}
+		else {
+			console.log(USER.role)
+		}
+	}, [])
+
 	return (<>
 		<div className={'departments'}>
 			<motion.h2 className={'departments--title'}

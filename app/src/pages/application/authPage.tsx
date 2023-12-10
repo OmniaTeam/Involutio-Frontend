@@ -1,5 +1,9 @@
 import { useState } from "react";
+import { useAppDispatch } from "../../hooks/redux.ts";
+import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
+import { signIn } from "../../store/reducers/IUserSlice.ts";
+import { IUserRole } from "../../models/IUser.ts";
 
 import grad from "../../assets/gradient.svg";
 
@@ -8,6 +12,10 @@ export default function AuthPage() {
 	const [login, setLogin] = useState<string>('')
 	//@ts-ignore
 	const [password, setPassword] = useState<string>('')
+
+	const navigator = useNavigate()
+
+	const dispatch = useAppDispatch()
 
 	return <main>
 		<section className={'auth'}>
@@ -37,12 +45,23 @@ export default function AuthPage() {
 					</div>
 					<button className={'form--sign'} type={'button'}  onClick={() => {
 						if (login === "manager" && password === "manager") {
-							localStorage.setItem("auth-role", "manager")
-							window.location.href = '/application'
+							dispatch(signIn({
+								name: login,
+								password: password,
+								role: IUserRole.manager
+							}))
+							navigator('/application')
 						}
 						if (login === "admin" && password === "admin") {
-							localStorage.setItem("auth-role", "admin")
-							window.location.href = '/application'
+							dispatch(signIn({
+								name: login,
+								password: password,
+								role: IUserRole.admin
+							}))
+							navigator('/application')
+						}
+						else {
+							console.log(login, password)
 						}
 					}}>sign_in</button>
 				</motion.form>
