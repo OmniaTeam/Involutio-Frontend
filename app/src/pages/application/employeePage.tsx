@@ -3,6 +3,7 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 
 import Modal from "../../components/modal";
+import Chart from "../../components/chart.tsx";
 
 export default function EmployeePage() {
 	const { id } = useParams()
@@ -29,7 +30,7 @@ export default function EmployeePage() {
 			            initial={{ opacity: 0, y: 10 }}
 			            animate={{ opacity: 1, y: 0 }}
 			            transition={{ duration: 0.5 }}
-					>Дироктор по тому-то сему-то</motion.p>
+					>Директор по тому-то сему-то</motion.p>
 					<motion.p className={'statistic--path'}
 			            initial={{ opacity: 0, y: 10 }}
 			            animate={{ opacity: 1, y: 0 }}
@@ -42,7 +43,9 @@ export default function EmployeePage() {
 					        transition={{ delay: 0.2, duration: 0.5 }}
 					>Составить отчёт</motion.button>
 				</div>
-				<div className={'employee--content__graph'}></div>
+				<div className={'employee--content__graph'}>
+					<Chart/>
+				</div>
 			</div>
 		</div>
 		{ isModalOpen && (
