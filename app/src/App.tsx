@@ -31,7 +31,6 @@ const root = ReactDOM.createRoot(
 )
 
 const App = () => {
-    const role = localStorage.getItem('auth-role')
     return <>
         <React.StrictMode>
             <Provider store={store}>
@@ -39,12 +38,6 @@ const App = () => {
                     <Routes>
                         <Route path="/" index={true} element={<IndexPage/>}/>
                         <Route path="/auth" element={<AuthPage/>}/>
-                        { role === "manager"
-                            ? <Route path={'/application'} element={<AppLayout/>}>
-
-                            </Route>
-                            : <></>
-                        }
                         <Route path="/application" element={<AppLayout/>}>
                             <Route path={''} element={<HomePage/>}/>
                             <Route path={'employees'} element={<EmployeesPage/>}/>

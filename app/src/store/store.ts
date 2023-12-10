@@ -4,7 +4,7 @@ import { AuthService } from "../services/authService";
 
 const rootReducer = combineReducers({
 	[AuthService.reducerPath] : AuthService.reducer,
-	user : IUserSlice
+	user : IUserSlice.reducer
 })
 
 export const setupStore = () => configureStore({
