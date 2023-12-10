@@ -36,7 +36,14 @@ export default function AuthPage() {
 						/>
 					</div>
 					<button className={'form--sign'} type={'button'}  onClick={() => {
-						window.location.href = '/application'
+						if (login === "manager" && password === "manager") {
+							localStorage.setItem("auth-role", "manager")
+							window.location.href = '/application'
+						}
+						if (login === "admin" && password === "admin") {
+							localStorage.setItem("auth-role", "admin")
+							window.location.href = '/application'
+						}
 					}}>sign_in</button>
 				</motion.form>
 				<p className={'auth--container__omnia'}>BY OMNIA</p>

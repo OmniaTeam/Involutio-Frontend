@@ -21,6 +21,8 @@ import EmployeesPage from "./pages/application/employeesPage.tsx";
 import ReportsPage from "./pages/application/reportsPage.tsx";
 import EmployeePage from "./pages/application/employeePage.tsx";
 import ErrorPage from "./pages/errorPage.tsx";
+import DepartmentsPage from "./pages/application/departmentsPage.tsx";
+import DepartmentPage from "./pages/application/departmentPage.tsx";
 
 const store = setupStore()
 
@@ -29,6 +31,7 @@ const root = ReactDOM.createRoot(
 )
 
 const App = () => {
+    const role = localStorage.getItem('auth-role')
     return <>
         <React.StrictMode>
             <Provider store={store}>
@@ -36,11 +39,19 @@ const App = () => {
                     <Routes>
                         <Route path="/" index={true} element={<IndexPage/>}/>
                         <Route path="/auth" element={<AuthPage/>}/>
+                        { role === "manager"
+                            ? <Route path={'/application'} element={<AppLayout/>}>
+
+                            </Route>
+                            : <></>
+                        }
                         <Route path="/application" element={<AppLayout/>}>
                             <Route path={''} element={<HomePage/>}/>
                             <Route path={'employees'} element={<EmployeesPage/>}/>
                             <Route path={'reports'} element={<ReportsPage/>}/>
                             <Route path={'employee/:id'} element={<EmployeePage/>}/>
+                            <Route path={'departments'} element={<DepartmentsPage/>}/>
+                            <Route path={'department/:id'} element={<DepartmentPage/>}/>
                         </Route>
                         <Route path="/*" element={<ErrorPage/>}/>
                         <Route path="/*/*" element={<ErrorPage/>}/>
