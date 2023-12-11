@@ -28,6 +28,7 @@ export default function AuthPage() {
 
 	useEffect(() => {
 		console.log(isSuccess)
+		console.log(data)
 		if (isSuccess) {
 			dispatch(setLogin(userLogin))
 			console.log("yees", userLogin, userPassword)
@@ -47,7 +48,7 @@ export default function AuthPage() {
 				navigator('/')
 			}
 		}
-	}, [signIn])
+	})
 
 	return <main>
 		<section className={'auth'}>
