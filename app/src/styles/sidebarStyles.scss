@@ -26,6 +26,8 @@
             text-align: center;
         }
         &__exit {
+            background-color: rgba(0, 0, 0, 0);
+            border: none;
             svg {
                 path {
                     transition: 150ms ease-in;

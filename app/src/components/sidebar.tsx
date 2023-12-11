@@ -2,11 +2,16 @@ import { Link } from "react-router-dom";
 import { motion } from "framer-motion"
 import { useAppSelector } from "../hooks/redux.ts";
 import { EUserRole } from "../models/IUser.ts";
-import { useLogOutQuery } from "../services/authService.ts";
 
 export default function Sidebar() {
 	const USER = useAppSelector((state) => state.user)
-	const logOutHandler = () => useLogOutQuery('')
+	const logOutHandler = async () => await fetch(
+		"https://involutio.the-omnia.ru/api/v3/authentication/logout", {
+			method: "GET",
+			headers : {
+				"Content-Type": "application/json",
+			}
+		})
 	return (<>
 		<motion.nav className={'sidebar'}
 	        initial={{ opacity: 0 }}
