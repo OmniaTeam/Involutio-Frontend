@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 import { useAppDispatch } from "../../hooks/redux.ts";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import { useSignInMutation } from "../../services/authService.ts";
-import { setLogin, setRole } from "../../store/reducers/IUserSlice.ts";
+import {useGetUserQuery, useSignInMutation} from "../../services/authService.ts";
+import {setLogin, setName, setRole} from "../../store/reducers/IUserSlice.ts";
 import { EUserRole } from "../../models/IUser.ts";
 
 import grad from "../../assets/gradient.svg";
@@ -14,7 +14,7 @@ export default function AuthPage() {
 	//@ts-ignore
 	const [userPassword, setUserPassword] = useState<string>('')
 	const [signIn, { isSuccess, data }] = useSignInMutation()
-
+	const getUser = useGetUserQuery('')
 	const dispatch = useAppDispatch()
 
 	const navigator = useNavigate()
@@ -29,7 +29,18 @@ export default function AuthPage() {
 	useEffect(() => {
 		console.log(isSuccess)
 		console.log(data)
-		if (isSuccess) {
+		if (getUser.isSuccess) {
+			dispatch(setName(getUser.data.login))
+			if (getUser.data.role === 'MANAGER') {
+				dispatch(setRole(EUserRole.manager))
+				navigator('/application')
+			}
+			if (getUser.data.role === 'ADMIN') {
+				dispatch(setRole(EUserRole.admin))
+				navigator('/application')
+			}
+		}
+		else if (isSuccess) {
 			dispatch(setLogin(userLogin))
 			console.log("yees", userLogin, userPassword)
 			console.log(data)
