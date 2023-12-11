@@ -6,7 +6,7 @@ import { useLogOutQuery } from "../services/authService.ts";
 
 export default function Sidebar() {
 	const USER = useAppSelector((state) => state.user)
-	const logOut = useLogOutQuery('')
+	const logOutHandler = () => useLogOutQuery('')
 	return (<>
 		<motion.nav className={'sidebar'}
 	        initial={{ opacity: 0 }}
@@ -63,11 +63,7 @@ export default function Sidebar() {
 						</svg>
 					</Link>
 				</div>
-				<button type={'button'} className={'sidebar--container__exit'} onClick={() => {
-					if (logOut.isSuccess) {
-						window.location.reload()
-					}
-				}}>
+				<button type={'button'} className={'sidebar--container__exit'} onClick={logOutHandler}>
 					<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40">
 						<path
 							d="M7.5 37.5H22.5C23.1628 37.4992 23.7983 37.2356 24.2669 36.7669C24.7356 36.2983 24.9992 35.6628 25 35V31.25H22.5V35H7.5V5H22.5V8.75H25V5C24.9992 4.33719 24.7356 3.70175 24.2669 3.23307C23.7983 2.7644 23.1628 2.50076 22.5 2.5H7.5C6.83719 2.50076 6.20175 2.7644 5.73307 3.23307C5.2644 3.70175 5.00076 4.33719 5 5V35C5.00076 35.6628 5.2644 36.2983 5.73307 36.7669C6.20175 37.2356 6.83719 37.4992 7.5 37.5Z"/>
