@@ -34,7 +34,6 @@ export default function AuthPage() {
 	}
 
 	useEffect(() => {
-		console.log(data)
 		if (getUser.isSuccess) {
 			dispatch(setName(getUser.data.login))
 			if (getUser.data.role === 'MANAGER') {
@@ -46,7 +45,11 @@ export default function AuthPage() {
 				navigator('/application')
 			}
 		}
-		else if (isSuccess) {
+	}, [getUser]);
+
+	useEffect(() => {
+		console.log(data)
+		if (isSuccess) {
 			dispatch(setLogin(userLogin))
 			console.log("Success!")
 			console.log(data)
