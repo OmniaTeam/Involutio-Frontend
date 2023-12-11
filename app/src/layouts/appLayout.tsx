@@ -27,8 +27,7 @@ export default function AppLayout() {
 		}
 	}, [getUser])
 	useEffect(() => {
-		console.log(USER)
-		/*if (USER.role === EUserRole.non) window.location.href = '/auth'*/
+		if (USER.role === EUserRole.non) window.location.href = '/auth'
 	}, [])
 	return <main className={'application'}>
 		<Header/>
