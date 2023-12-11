@@ -34,7 +34,7 @@ export default function AuthPage() {
 			console.log("yees", userLogin, userPassword)
 			console.log(data)
 			//@ts-ignore
-			if (data.role === EUserRole.manager) {
+			if (data.role === 'MANAGER') {
 				dispatch(setRole(EUserRole.manager))
 				navigator('/application')
 			}
