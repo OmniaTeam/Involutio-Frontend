@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { useAppDispatch } from "../hooks/redux.ts";
 import { motion } from "framer-motion";
 import { useGetUserQuery } from "../services/authService.ts";
-import { setName, setRole } from "../store/reducers/IUserSlice.ts";
+import { setId, setLogin, setName, setRole } from "../store/reducers/IUserSlice.ts";
 import { EUserRole } from "../models/EUserRole.ts";
 
 import Header from "../components/header";
@@ -18,7 +18,9 @@ export default function AppLayout() {
 	useEffect(() => {
 		console.log(getUser)
 		if (getUser.isSuccess) {
+			dispatch(setId(getUser.data.id))
 			dispatch(setName(getUser.data.login))
+			dispatch(setLogin(getUser.data.fio))
 			if (getUser.data.role === 'MANAGER') dispatch(setRole(EUserRole.manager))
 			if (getUser.data.role === 'ADMIN') dispatch(setRole(EUserRole.admin))
 		} else if (getUser) {

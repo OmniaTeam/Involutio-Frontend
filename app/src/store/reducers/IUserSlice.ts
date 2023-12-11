@@ -31,5 +31,6 @@ export const IUserSlice = createSlice({
 export const {
 	setName,
 	setLogin,
-	setRole
+	setRole,
+	setId
 } = IUserSlice.actions
