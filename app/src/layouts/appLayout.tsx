@@ -21,7 +21,7 @@ export default function AppLayout() {
 			dispatch(setName(getUser.data.login))
 			if (getUser.data.role === 'MANAGER') dispatch(setRole(EUserRole.manager))
 			if (getUser.data.role === 'ADMIN') dispatch(setRole(EUserRole.admin))
-		} else {
+		} else if (getUser) {
 			dispatch(setRole(EUserRole.non))
 		}
 		if (getUser.isError) {

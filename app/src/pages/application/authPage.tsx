@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 import { useAppDispatch } from "../../hooks/redux.ts";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import {useGetUserQuery, useSignInMutation} from "../../services/authService.ts";
-import {setLogin, setName, setRole} from "../../store/reducers/IUserSlice.ts";
+import { useGetUserQuery, useSignInMutation } from "../../services/authService.ts";
+import { setLogin, setName, setRole } from "../../store/reducers/IUserSlice.ts";
 import { EUserRole } from "../../models/IUser.ts";
 
 import grad from "../../assets/gradient.svg";
@@ -13,7 +13,14 @@ export default function AuthPage() {
 	const [userLogin, setUserLogin] = useState<string>('')
 	//@ts-ignore
 	const [userPassword, setUserPassword] = useState<string>('')
-	const [signIn, { isSuccess, data }] = useSignInMutation()
+	const [signIn,
+		{
+			isSuccess,
+			data,
+			isLoading,
+			isError,
+			error
+		}] = useSignInMutation()
 	const getUser = useGetUserQuery('')
 	const dispatch = useAppDispatch()
 
@@ -27,7 +34,6 @@ export default function AuthPage() {
 	}
 
 	useEffect(() => {
-		console.log(isSuccess)
 		console.log(data)
 		if (getUser.isSuccess) {
 			dispatch(setName(getUser.data.login))
@@ -42,22 +48,30 @@ export default function AuthPage() {
 		}
 		else if (isSuccess) {
 			dispatch(setLogin(userLogin))
-			console.log("yees", userLogin, userPassword)
+			console.log("Success!")
 			console.log(data)
 			//@ts-ignore
 			if (data.role === EUserRole.manager) {
 				dispatch(setRole(EUserRole.manager))
-				navigator('/application')
+				console.log("manager")
+				/*navigator('/application')*/
 			}
 			//@ts-ignore
 			if (data.role === EUserRole.admin) {
 				dispatch(setRole(EUserRole.admin))
-				navigator('/application')
+				console.log("admin")
+				/*navigator('/application')*/
 			}
 			else {
 				dispatch(setRole(EUserRole.non))
-				console.log("huy tebe")
+				console.log("nothing")
 			}
+		}
+		else if (isLoading) {
+			console.log('Loading...')
+		}
+		else if (isError) {
+			console.log("Error!", error)
 		}
 	}, [isSuccess])
 
