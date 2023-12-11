@@ -48,7 +48,7 @@ export default function AuthPage() {
 				navigator('/')
 			}
 		}
-	})
+	}, [isSuccess])
 
 	return <main>
 		<section className={'auth'}>
