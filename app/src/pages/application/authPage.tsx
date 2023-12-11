@@ -27,6 +27,7 @@ export default function AuthPage() {
 	}
 
 	useEffect(() => {
+		console.log(isSuccess)
 		if (isSuccess) {
 			dispatch(setLogin(userLogin))
 			console.log("yees", userLogin, userPassword)
