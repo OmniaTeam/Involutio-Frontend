@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import ReactDOM from "react-dom/client";
 
 import './global.scss'
@@ -9,6 +9,9 @@ import './styles/cardsStyles.scss'
 import './styles/modalStyles.scss'
 import './styles/chartsStyles.scss'
 
+import { useGetUserQuery } from "./services/authService.ts";
+import { setName, setRole } from "./store/reducers/IUserSlice.ts";
+import { useAppDispatch } from "./hooks/redux.ts";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Provider } from "react-redux";
 import { setupStore } from "./store/store.ts";
@@ -31,6 +34,17 @@ const root = ReactDOM.createRoot(
 )
 
 const App = () => {
+    const dispatch = useAppDispatch()
+    const getUser = useGetUserQuery('')
+
+    useEffect(() => {
+        console.log(getUser)
+        if (getUser.isSuccess) {
+            dispatch(setName(getUser.data.login))
+            dispatch(setRole(getUser.data.role))
+        }
+    }, [getUser])
+
     return <>
         <React.StrictMode>
             <Provider store={store}>

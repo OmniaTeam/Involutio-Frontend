@@ -17,10 +17,20 @@ export const AuthService = createApi({
 				redirect: "follow",
 				body: JSON.stringify(auth)
 			})
+		}),
+		getUser : build.query<IUser, any>({
+			query : () => ({
+				url : "/authentication",
+				headers : {
+					"Content-Type": "application/json",
+				},
+				method: "GET",
+			})
 		})
 	})
 })
 
 export const {
 	useSignInMutation,
+	useGetUserQuery
 } = AuthService;
