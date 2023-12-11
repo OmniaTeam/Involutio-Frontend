@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { IUser, EUserRole } from "../../models/IUser";
+import { IUser } from "../../models/IUser";
+import { EUserRole } from "../../models/EUserRole.ts";
 
 const initialState : IUser = {
 	id: 0,
