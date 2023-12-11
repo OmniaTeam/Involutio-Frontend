@@ -10,9 +10,9 @@ export default function Header() {
 	>
 		<div className={'header--container'}>
 			<div className={'information'}>
-				<h3 className={'information--name'}>{USER.login}</h3>
+				<h3 className={'information--name'}>{USER.fio}</h3>
 				<div className={'information--avatar'}>
-					<p>{USER.login[0].toUpperCase()}</p>
+					<p>{USER.fio[0].toUpperCase()}</p>
 				</div>
 			</div>
 		</div>

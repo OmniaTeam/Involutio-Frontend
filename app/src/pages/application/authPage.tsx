@@ -3,7 +3,7 @@ import { useAppDispatch } from "../../hooks/redux.ts";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { useSignInMutation } from "../../services/authService.ts";
-import {setLogin, setRole } from "../../store/reducers/IUserSlice.ts";
+import { setLogin, setRole } from "../../store/reducers/IUserSlice.ts";
 import { EUserRole } from "../../models/IUser.ts";
 
 import grad from "../../assets/gradient.svg";

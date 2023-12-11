@@ -1,15 +1,15 @@
-import {Outlet} from "react-router-dom";
-import {useEffect} from "react";
-import {motion} from "framer-motion";
-import {useGetUserQuery} from "../services/authService.ts";
-import {setName, setRole} from "../store/reducers/IUserSlice.ts";
-import {useAppDispatch, useAppSelector} from "../hooks/redux.ts";
+import { Outlet } from "react-router-dom";
+import { useEffect } from "react";
+import { useAppDispatch, useAppSelector } from "../hooks/redux.ts";
+import { motion } from "framer-motion";
+import { useGetUserQuery } from "../services/authService.ts";
+import { setName, setRole } from "../store/reducers/IUserSlice.ts";
+import { EUserRole } from "../models/IUser.ts";
 
 import Header from "../components/header";
 import Sidebar from "../components/sidebar.tsx";
 
 import grad from "../assets/gradient.svg";
-import {EUserRole} from "../models/IUser.ts";
 
 export default function AppLayout() {
 	const USER = useAppSelector((state) => state.user)
@@ -22,7 +22,8 @@ export default function AppLayout() {
 			dispatch(setName(getUser.data.login))
 			if (getUser.data.role === 'MANAGER') dispatch(setRole(EUserRole.manager))
 			if (getUser.data.role === 'ADMIN') dispatch(setRole(EUserRole.admin))
-			else dispatch(setRole(EUserRole.non))
+		} else {
+			dispatch(setRole(EUserRole.non))
 		}
 	}, [getUser])
 	useEffect(() => {
