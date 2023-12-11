@@ -2,7 +2,6 @@ import { Outlet } from "react-router-dom";
 import { useEffect } from "react";
 import { motion } from "framer-motion";
 import { useAppSelector } from "../hooks/redux.ts";
-import { EUserRole } from "../models/IUser.ts";
 
 import Header from "../components/header";
 import Sidebar from "../components/sidebar.tsx";
@@ -12,7 +11,8 @@ import grad from "../assets/gradient.svg";
 export default function AppLayout() {
 	const USER = useAppSelector((state) => state.user)
 	useEffect(() => {
-		if (USER.role === EUserRole.non) window.location.href = '/auth'
+		console.log(USER)
+		/*if (USER.role === EUserRole.non) window.location.href = '/auth'*/
 	}, [])
 	return <main className={'application'}>
 		<Header/>
