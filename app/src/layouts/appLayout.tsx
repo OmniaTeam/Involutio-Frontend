@@ -1,6 +1,6 @@
 import { Outlet } from "react-router-dom";
 import { useEffect } from "react";
-import { useAppDispatch, useAppSelector } from "../hooks/redux.ts";
+import { useAppDispatch } from "../hooks/redux.ts";
 import { motion } from "framer-motion";
 import { useGetUserQuery } from "../services/authService.ts";
 import { setName, setRole } from "../store/reducers/IUserSlice.ts";
@@ -12,7 +12,9 @@ import Sidebar from "../components/sidebar.tsx";
 import grad from "../assets/gradient.svg";
 
 export default function AppLayout() {
+/*
 	const USER = useAppSelector((state) => state.user)
+*/
 	const dispatch = useAppDispatch()
 	const getUser = useGetUserQuery('')
 
@@ -25,10 +27,10 @@ export default function AppLayout() {
 		} else {
 			dispatch(setRole(EUserRole.non))
 		}
+		if (getUser.isError) {
+			window.location.href = '/auth'
+		}
 	}, [getUser])
-	useEffect(() => {
-		if (USER.role === EUserRole.non) window.location.href = '/auth'
-	}, [])
 	return <main className={'application'}>
 		<Header/>
 		<Sidebar/>
