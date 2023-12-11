@@ -45,7 +45,6 @@ export default function AuthPage() {
 			}
 			else {
 				dispatch(setRole(EUserRole.non))
-				navigator('/')
 				console.log("huy tebe")
 			}
 		}
