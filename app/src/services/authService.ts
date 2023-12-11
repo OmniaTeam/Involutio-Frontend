@@ -26,21 +26,11 @@ export const AuthService = createApi({
 				},
 				method: "GET"
 			})
-		}),
-		logOut : build.query<any, any>({
-			query : () => ({
-				url : "/authentication/logout",
-				headers : {
-					"Content-Type": "application/json",
-				},
-				method: "GET"
-			})
 		})
 	})
 })
 
 export const {
 	useSignInMutation,
-	useGetUserQuery,
-	useLogOutQuery
+	useGetUserQuery
 } = AuthService;
