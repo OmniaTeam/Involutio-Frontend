@@ -57,13 +57,13 @@ export default function AuthPage() {
 			if (data.role === EUserRole.manager) {
 				dispatch(setRole(EUserRole.manager))
 				console.log("manager")
-				/*navigator('/application')*/
+				navigator('/application')
 			}
 			//@ts-ignore
 			if (data.role === EUserRole.admin) {
 				dispatch(setRole(EUserRole.admin))
 				console.log("admin")
-				/*navigator('/application')*/
+				navigator('/application')
 			}
 			else {
 				dispatch(setRole(EUserRole.non))

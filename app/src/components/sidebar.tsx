@@ -11,7 +11,7 @@ export default function Sidebar() {
 			headers : {
 				"Content-Type": "application/json",
 			}
-		})
+		}).then((result) => {if (result.ok) window.location.reload()})
 	return (<>
 		<motion.nav className={'sidebar'}
 	        initial={{ opacity: 0 }}
