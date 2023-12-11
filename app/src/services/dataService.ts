@@ -10,7 +10,7 @@ export const DataService = createApi({
 		/*Получение всех отделов и короткой информации по ним*/
 		getDepartments : build.query<IDepartment[], any>({
 			query : () => ({
-				url : "",
+				url : "/manager/all",
 				headers : {
 					"Content-Type": "application/json",
 				},
