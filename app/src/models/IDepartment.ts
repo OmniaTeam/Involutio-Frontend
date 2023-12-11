@@ -1,5 +1,5 @@
 export interface IDepartment {
-	managerId : number,
+	id : number,
 	userId : number,
 	department : string,
 	rating : number

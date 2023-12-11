@@ -1,4 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import {IDepartment} from "../models/IDepartment.ts";
 
 export const DataService = createApi({
 	reducerPath : "data-service",
@@ -7,7 +8,7 @@ export const DataService = createApi({
 	}),
 	endpoints : (build) => ({
 		/*Получение всех отделов и короткой информации по ним*/
-		getDepartments : build.query<any, any>({
+		getDepartments : build.query<IDepartment[], any>({
 			query : () => ({
 				url : "",
 				headers : {

@@ -1,12 +1,14 @@
 import { useEffect } from "react";
 import { motion } from "framer-motion";
 import { useAppSelector } from "../../hooks/redux.ts";
+import { useGetDepartmentsQuery } from "../../services/dataService.ts";
 import { EUserRole } from "../../models/EUserRole.ts";
 
 import LineInformationCard from "../../components/lineInformationCard.tsx";
 
 export default function DepartmentsPage() {
 	const USER = useAppSelector((state) => state.user)
+	const DEPARTMENTS = useGetDepartmentsQuery('')
 
 	useEffect(() => {
 		console.log(USER.role)
@@ -36,33 +38,24 @@ export default function DepartmentsPage() {
 				<p className={'attributes--path'}>3 - средний процент заинтерисованности</p>
 			</motion.div>
 			<div className={'departments--cards'}>
-				<LineInformationCard
-					type={'department'}
-					name={'Отдел разработки'}
-					secondColumn={'Фамилия Имя Отчество'}
-					thirdColumn={'Средняя вероятность 20%'}
-					id={1}
-					initialY={10}
-					link={'/application/department/1'}
-				/>
-				<LineInformationCard
-					type={'department'}
-					name={'Отдел маркетинга'}
-					secondColumn={'Фамилия Имя Отчество'}
-					thirdColumn={'Средняя вероятность 15%'}
-					id={2}
-					initialY={10}
-					link={'/application/department/2'}
-				/>
-				<LineInformationCard
-					type={'department'}
-					name={'Юридический отдел'}
-					secondColumn={'Фамилия Имя Отчество'}
-					thirdColumn={'Средняя вероятность 32%'}
-					id={3}
-					initialY={10}
-					link={'/application/department/2'}
-				/>
+				{ DEPARTMENTS.isSuccess
+					? <>{
+					//@ts-ignore
+					DEPARTMENTS.data.map((value, index) =>
+						<div key={index}>
+							<LineInformationCard
+								type={'department'}
+								name={value.department}
+								secondColumn={value.userId.toString()}
+								thirdColumn={`Средняя вероятность ${value.rating}`}
+								id={1}
+								initialY={10}
+								link={`/application/department/${value.id}`}
+							/>
+						</div>
+					)}</>
+					: <>Не загрузил(</>
+				}
 			</div>
 		</div>
 	</>)
