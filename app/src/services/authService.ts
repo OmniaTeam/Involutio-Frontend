@@ -1,15 +1,15 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { IUser } from "../models/IUser.ts";
+import {IUser, IUserRequest} from "../models/IUser.ts";
 
 export const AuthService = createApi({
 	reducerPath : "auth-service",
 	baseQuery : fetchBaseQuery({
-		baseUrl : "http://localhost:8000/api"
+		baseUrl : "https://involutio.the-omnia.ru/api/v3"
 	}),
 	endpoints : (build) => ({
-		signIn : build.mutation<IUser, IUser>({
+		signIn : build.mutation<IUser, IUserRequest>({
 			query : ( auth ) => ({
-				url : "/auth",
+				url : "/authentication",
 				headers : {
 					"Content-Type": "application/json",
 				},

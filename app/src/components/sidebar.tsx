@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion"
 import { useAppSelector } from "../hooks/redux.ts";
-import { IUserRole } from "../models/IUser.ts";
+import { EUserRole } from "../models/IUser.ts";
 
 export default function Sidebar() {
 	const USER = useAppSelector((state) => state.user)
@@ -28,7 +28,7 @@ export default function Sidebar() {
 							22.9444V33.1667H7.63889V15.3564L20.4167 5.40247L33.1944 15.3698V33.1667H25.5278Z"/>
 						</svg>
 					</Link>
-					{ USER.role === IUserRole.admin
+					{ USER.role === EUserRole.admin
 						? <>
 							<Link to={'departments'} className={'navigation--link'}>
 								<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40"

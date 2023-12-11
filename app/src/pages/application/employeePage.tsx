@@ -2,7 +2,7 @@ import { Link, useParams } from "react-router-dom";
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { useAppSelector } from "../../hooks/redux.ts";
-import { IUserRole } from "../../models/IUser.ts";
+import { EUserRole } from "../../models/IUser.ts";
 
 import Modal from "../../components/modal";
 import Chart from "../../components/chart.tsx";
@@ -24,13 +24,13 @@ export default function EmployeePage() {
 			>Фамилия Имя Отчество #{id}</motion.h2>
 			<div className={'employee--content'}>
 				<div className={'statistic'}>
-					{USER.role === IUserRole.admin
+					{USER.role === EUserRole.admin
 						? <motion.div className={'statistic--button'}
 							initial={{opacity: 0, y: 10}}
 							animate={{opacity: 1, y: 0}}
 							transition={{duration: 0.5}}
 						>
-							<Link to={'/application/department/:1'} style={{
+							<Link to={'/application/department/1'} style={{
 								color: "#FFFFFF",
 								fontWeight: "400",
 								textUnderlineOffset: "5px"
@@ -54,7 +54,7 @@ export default function EmployeePage() {
 			            animate={{ opacity: 1, y: 0 }}
 			            transition={{ duration: 0.5 }}
 					>Вероятность увольнения на данный момент равна __%</motion.p>
-					{USER.role === IUserRole.manager
+					{USER.role === EUserRole.manager
 						? <motion.button className={'statistic--button'} type={'button'}
 							onClick={() => setIsModalOpen(true)}
 							initial={{opacity: 0}}

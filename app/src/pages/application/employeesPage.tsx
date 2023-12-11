@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { useAppSelector } from "../../hooks/redux.ts";
-import { IUserRole } from "../../models/IUser.ts";
+import { EUserRole } from "../../models/IUser.ts";
 
 import LineInformationCard from "../../components/lineInformationCard";
 
@@ -12,7 +12,7 @@ export default function EmployeesPage() {
            initial={{ opacity: 0 }}
            animate={{ opacity: 1 }}
            transition={{ delay: 0.1, duration: 0.5 }}
-		>Сотрудники {USER.role === IUserRole.admin ? "для админа" : "для менеджера"} </motion.h2>
+		>Сотрудники {USER.role === EUserRole.admin ? "для админа" : "для менеджера"} </motion.h2>
 		<motion.div className={'employees--content'}
 	        initial={{ opacity: 0 }}
 	        animate={{ opacity: 1 }}

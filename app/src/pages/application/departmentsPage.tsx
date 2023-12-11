@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import LineInformationCard from "../../components/lineInformationCard.tsx";
 import {useEffect} from "react";
-import {IUserRole} from "../../models/IUser.ts";
+import {EUserRole} from "../../models/IUser.ts";
 import {useAppSelector} from "../../hooks/redux.ts";
 
 export default function DepartmentsPage() {
@@ -9,7 +9,7 @@ export default function DepartmentsPage() {
 
 	useEffect(() => {
 		console.log(USER.role)
-		if (USER.role !== IUserRole.admin) {
+		if (USER.role !== EUserRole.admin) {
 			window.location.href = '/'
 		}
 		else {

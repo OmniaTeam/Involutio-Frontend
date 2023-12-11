@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useAppDispatch } from "../../hooks/redux.ts";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import { signIn } from "../../store/reducers/IUserSlice.ts";
-import { IUserRole } from "../../models/IUser.ts";
+import { useSignInMutation } from "../../services/authService.ts";
+import { setName, setRole } from "../../store/reducers/IUserSlice.ts";
+import { EUserRole } from "../../models/IUser.ts";
 
 import grad from "../../assets/gradient.svg";
 
@@ -12,10 +13,38 @@ export default function AuthPage() {
 	const [login, setLogin] = useState<string>('')
 	//@ts-ignore
 	const [password, setPassword] = useState<string>('')
+	const [signIn, { isSuccess, data }] = useSignInMutation()
+
+	const dispatch = useAppDispatch()
 
 	const navigator = useNavigate()
 
-	const dispatch = useAppDispatch()
+	const authHandler = () => {
+		signIn({
+			login: login,
+			password: password,
+		})
+	}
+
+	useEffect(() => {
+		if (isSuccess) {
+			dispatch(setName(login))
+			//@ts-ignore
+			if (data.role === EUserRole.manager) {
+				dispatch(setRole(EUserRole.manager))
+				navigator('/application')
+			}
+			//@ts-ignore
+			if (data.role === EUserRole.admin) {
+				dispatch(setRole(EUserRole.admin))
+				navigator('/application')
+			}
+			else {
+				dispatch(setRole(EUserRole.non))
+				navigator('/')
+			}
+		}
+	}, [])
 
 	return <main>
 		<section className={'auth'}>
@@ -43,27 +72,7 @@ export default function AuthPage() {
 						       onChange={(event) => setPassword(event.target.value)}
 						/>
 					</div>
-					<button className={'form--sign'} type={'button'}  onClick={() => {
-						if (login === "manager" && password === "manager") {
-							dispatch(signIn({
-								name: login,
-								password: password,
-								role: IUserRole.manager
-							}))
-							navigator('/application')
-						}
-						if (login === "admin" && password === "admin") {
-							dispatch(signIn({
-								name: login,
-								password: password,
-								role: IUserRole.admin
-							}))
-							navigator('/application')
-						}
-						else {
-							console.log(login, password)
-						}
-					}}>sign_in</button>
+					<button className={'form--sign'} type={'button'}  onClick={authHandler}>sign_in</button>
 				</motion.form>
 				<p className={'auth--container__omnia'}>BY OMNIA</p>
 			</div>
