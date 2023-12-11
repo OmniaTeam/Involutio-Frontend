@@ -12,9 +12,6 @@ import Sidebar from "../components/sidebar.tsx";
 import grad from "../assets/gradient.svg";
 
 export default function AppLayout() {
-/*
-	const USER = useAppSelector((state) => state.user)
-*/
 	const dispatch = useAppDispatch()
 	const getUser = useGetUserQuery('')
 
