@@ -3,16 +3,16 @@ import { useAppDispatch } from "../../hooks/redux.ts";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { useSignInMutation } from "../../services/authService.ts";
-import { setName, setRole } from "../../store/reducers/IUserSlice.ts";
+import {setLogin, setRole } from "../../store/reducers/IUserSlice.ts";
 import { EUserRole } from "../../models/IUser.ts";
 
 import grad from "../../assets/gradient.svg";
 
 export default function AuthPage() {
 	//@ts-ignore
-	const [login, setLogin] = useState<string>('')
+	const [userLogin, setUserLogin] = useState<string>('')
 	//@ts-ignore
-	const [password, setPassword] = useState<string>('')
+	const [userPassword, setUserPassword] = useState<string>('')
 	const [signIn, { isSuccess, data }] = useSignInMutation()
 
 	const dispatch = useAppDispatch()
@@ -21,14 +21,15 @@ export default function AuthPage() {
 
 	const authHandler = () => {
 		signIn({
-			login: login,
-			password: password,
+			login: userLogin,
+			password: userPassword,
 		})
 	}
 
 	useEffect(() => {
 		if (isSuccess) {
-			dispatch(setName(login))
+			dispatch(setLogin(userLogin))
+			console.log("yees", userLogin, userPassword)
 			console.log(data)
 			//@ts-ignore
 			if (data.role === EUserRole.manager) {
@@ -65,12 +66,12 @@ export default function AuthPage() {
 						<input className={'form--inputs__login'}
 						       type="text"
 						       placeholder={'login'}
-						       onChange={(event) => setLogin(event.target.value)}
+						       onChange={(event) => setUserLogin(event.target.value)}
 						/>
 						<input className={'form--inputs__password'}
 						       type="password"
 						       placeholder={'password'}
-						       onChange={(event) => setPassword(event.target.value)}
+						       onChange={(event) => setUserPassword(event.target.value)}
 						/>
 					</div>
 					<button className={'form--sign'} type={'button'}  onClick={authHandler}>sign_in</button>
