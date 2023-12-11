@@ -29,6 +29,7 @@ export default function AuthPage() {
 	useEffect(() => {
 		if (isSuccess) {
 			dispatch(setName(login))
+			console.log(data)
 			//@ts-ignore
 			if (data.role === EUserRole.manager) {
 				dispatch(setRole(EUserRole.manager))
