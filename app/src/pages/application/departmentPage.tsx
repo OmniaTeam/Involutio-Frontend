@@ -1,4 +1,6 @@
+import { useParams } from "react-router-dom";
 import { useEffect } from "react";
+import { useGetEmployeesQuery } from "../../services/dataService.ts";
 import { motion } from "framer-motion";
 import { useAppSelector } from "../../hooks/redux.ts";
 import { EUserRole } from "../../models/EUserRole.ts";
@@ -6,8 +8,9 @@ import { EUserRole } from "../../models/EUserRole.ts";
 import LineInformationCard from "../../components/lineInformationCard.tsx";
 
 export default function DepartmentPage() {
+	const managerId = useParams()
 	const USER = useAppSelector((state) => state.user)
-
+	const EMPLOYEES = useGetEmployeesQuery(Number(managerId))
 	useEffect(() => {
 		console.log(USER.role)
 		if (USER.role !== EUserRole.admin) {
@@ -55,26 +58,23 @@ export default function DepartmentPage() {
 					transition={{ delay: 0.1, duration: 0.5 }}
 				>Сотрудники отделеня</motion.p>
 				<div className={'department--cards'}>
-					<LineInformationCard
-						type={'employee'}
-						name={'Иван Иванов Иванович'}
-						secondColumn={'Отдел продаж'}
-						thirdColumn={'Менеджер'}
-						dismissalProbability={20}
-						id={1}
-						initialY={10}
-						link={'/application/employee/1'}
-					/>
-					<LineInformationCard
-						type={'employee'}
-						name={'Алексей Смирнов Викторович'}
-						secondColumn={'Отдел разработки'}
-						thirdColumn={'Старший программист'}
-						dismissalProbability={5}
-						id={2}
-						initialY={15}
-						link={'/application/employee/2'}
-					/>
+					{ EMPLOYEES.isSuccess
+						? <>{ EMPLOYEES.data.map((value, index) =>
+							<div key={index}>
+								<LineInformationCard
+									type={'employee'}
+									name={value.fio}
+									secondColumn={'Отдел'}
+									thirdColumn={'Должность'}
+									dismissalProbability={value.rating}
+									id={value.id}
+									initialY={10}
+									link={`/application/employee/${value.id}`}
+								/>
+							</div>
+						)}</>
+						: <>Не загрузило(</>
+					}
 				</div>
 			</div>
 		</div>

@@ -1,5 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import {IDepartment} from "../models/IDepartment.ts";
+import { IDepartment } from "../models/IDepartment.ts";
+import {IEmployee} from "../models/IEmployee.ts";
 
 export const DataService = createApi({
 	reducerPath : "data-service",
@@ -7,6 +8,17 @@ export const DataService = createApi({
 		baseUrl : "https://involutio.the-omnia.ru/api/v3"
 	}),
 	endpoints : (build) => ({
+		getManager : build.mutation<any, any>({
+			query : ( managerId ) => ({
+				url : "",
+				headers : {
+					"Content-Type": "application/json",
+				},
+				method : "POST",
+				redirect : "follow",
+				body : JSON.stringify(managerId)
+			})
+		}),
 		/*Получение всех отделов и короткой информации по ним*/
 		getDepartments : build.query<IDepartment[], any>({
 			query : () => ({
@@ -24,9 +36,13 @@ export const DataService = createApi({
 			})
 		}),
 		/*Получение всех сотрудников по отделу с короткой информацией*/
-		getEmployees : build.query<any, any>({
-			query : () => ({
-				url : ""
+		getEmployees : build.query<IEmployee[], number>({
+			query : (managerId) => ({
+				url : `/manager/${managerId}/workers`,
+				headers : {
+					"Content-Type": "application/json",
+				},
+				method : "GET"
 			})
 		}),
 		/*Получение подробной информации по сотруднику*/
@@ -57,5 +73,6 @@ export const DataService = createApi({
 })
 
 export const {
-	useGetDepartmentsQuery
+	useGetDepartmentsQuery,
+	useGetEmployeesQuery
 } = DataService
