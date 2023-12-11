@@ -4,11 +4,14 @@ import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { useGetUserQuery, useSignInMutation } from "../../services/authService.ts";
 import { setLogin, setName, setRole } from "../../store/reducers/IUserSlice.ts";
-import { EUserRole } from "../../models/IUser.ts";
+import { EUserRole } from "../../models/EUserRole.ts";
 
 import grad from "../../assets/gradient.svg";
 
 export default function AuthPage() {
+	const dispatch = useAppDispatch()
+	const navigator = useNavigate()
+
 	//@ts-ignore
 	const [userLogin, setUserLogin] = useState<string>('')
 	//@ts-ignore
@@ -22,9 +25,6 @@ export default function AuthPage() {
 			error
 		}] = useSignInMutation()
 	const getUser = useGetUserQuery('')
-	const dispatch = useAppDispatch()
-
-	const navigator = useNavigate()
 
 	const authHandler = () => {
 		signIn({
@@ -51,6 +51,8 @@ export default function AuthPage() {
 		console.log(data)
 		if (isSuccess) {
 			dispatch(setLogin(userLogin))
+			//@ts-ignore
+			dispatch(setName(data.fio))
 			console.log("Success!")
 			console.log(data)
 			//@ts-ignore

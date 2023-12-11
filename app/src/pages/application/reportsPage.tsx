@@ -1,8 +1,8 @@
 import { motion } from "framer-motion";
 import { useAppSelector } from "../../hooks/redux.ts";
+import { EUserRole } from "../../models/EUserRole.ts";
 
 import LineInformationCard from "../../components/lineInformationCard.tsx";
-import {EUserRole} from "../../models/IUser.ts";
 
 export default function ReportsPage() {
 	const USER = useAppSelector((state) => state.user)

@@ -28,6 +28,7 @@
         &__exit {
             background-color: rgba(0, 0, 0, 0);
             border: none;
+            cursor: pointer;
             svg {
                 path {
                     transition: 150ms ease-in;

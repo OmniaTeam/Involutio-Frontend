@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion"
 import { useAppSelector } from "../hooks/redux.ts";
-import { EUserRole } from "../models/IUser.ts";
+import { EUserRole } from "../models/EUserRole.ts";
 
 export default function Sidebar() {
 	const USER = useAppSelector((state) => state.user)

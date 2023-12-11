@@ -1,8 +1,9 @@
+import { useEffect } from "react";
 import { motion } from "framer-motion";
+import { useAppSelector } from "../../hooks/redux.ts";
+import { EUserRole } from "../../models/EUserRole.ts";
+
 import LineInformationCard from "../../components/lineInformationCard.tsx";
-import {useEffect} from "react";
-import {EUserRole} from "../../models/IUser.ts";
-import {useAppSelector} from "../../hooks/redux.ts";
 
 export default function DepartmentsPage() {
 	const USER = useAppSelector((state) => state.user)

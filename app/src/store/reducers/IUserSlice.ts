@@ -20,6 +20,9 @@ export const IUserSlice = createSlice({
 		},
 		setRole : (state, action : PayloadAction<EUserRole>) => {
 			state.role = action.payload
+		},
+		setId : (state, action : PayloadAction<number>) => {
+			state.id = action.payload
 		}
 	}
 })

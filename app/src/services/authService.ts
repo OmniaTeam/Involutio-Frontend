@@ -1,5 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { IUser, IUserRequest } from "../models/IUser.ts";
+import { IUser } from "../models/IUser.ts";
+import { IUserRequest } from "../models/IUserRequest.ts";
 
 export const AuthService = createApi({
 	reducerPath : "auth-service",

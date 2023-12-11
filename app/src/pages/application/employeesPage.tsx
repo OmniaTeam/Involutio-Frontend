@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { useAppSelector } from "../../hooks/redux.ts";
-import { EUserRole } from "../../models/IUser.ts";
+import { EUserRole } from "../../models/EUserRole.ts";
 
 import LineInformationCard from "../../components/lineInformationCard";
 

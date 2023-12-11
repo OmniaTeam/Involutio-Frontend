@@ -4,7 +4,7 @@ import { useAppDispatch } from "../hooks/redux.ts";
 import { motion } from "framer-motion";
 import { useGetUserQuery } from "../services/authService.ts";
 import { setName, setRole } from "../store/reducers/IUserSlice.ts";
-import { EUserRole } from "../models/IUser.ts";
+import { EUserRole } from "../models/EUserRole.ts";
 
 import Header from "../components/header";
 import Sidebar from "../components/sidebar.tsx";
