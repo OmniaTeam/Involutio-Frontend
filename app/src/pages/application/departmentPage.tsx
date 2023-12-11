@@ -9,6 +9,7 @@ import LineInformationCard from "../../components/lineInformationCard.tsx";
 
 export default function DepartmentPage() {
 	const managerId = useParams()
+	console.log(managerId, typeof managerId, typeof Number(managerId))
 	const USER = useAppSelector((state) => state.user)
 	const EMPLOYEES = useGetEmployeesQuery(Number(managerId))
 	useEffect(() => {
