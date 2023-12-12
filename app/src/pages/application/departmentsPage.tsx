@@ -34,8 +34,8 @@ export default function DepartmentsPage() {
 			    style={{width: "500px"}}
 			>
 				<p className={'attributes--path'}>1 - название отделния</p>
-				<p className={'attributes--path'}>2 - фио главы отеделения</p>
-				<p className={'attributes--path'}>3 - средний процент заинтерисованности</p>
+				<p className={'attributes--path'}>2 - фио куратора отделения</p>
+				<p className={'attributes--path'}>3 - средний процент заинтересованности</p>
 			</motion.div>
 			<div className={'departments--cards'}>
 				{ DEPARTMENTS.isSuccess

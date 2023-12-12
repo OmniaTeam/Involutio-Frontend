@@ -6,8 +6,10 @@ import { EUserRole } from "../../models/EUserRole.ts";
 import LineInformationCard from "../../components/lineInformationCard";
 
 export default function EmployeesPage() {
+
 	const USER = useAppSelector((state) => state.user)
 	const EMPLOYEES = useGetEmployeesQuery(USER.id)
+
 	/*TODO: для админа нужно сделать селектор по доступным подразделениям*/
 	return <div className={'employees'}>
 		<motion.h2 className={'employees--title'}

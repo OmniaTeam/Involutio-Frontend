@@ -9,9 +9,10 @@ import LineInformationCard from "../../components/lineInformationCard.tsx";
 
 export default function DepartmentPage() {
 	const managerId = useParams()
-	console.log(managerId, typeof managerId, typeof Number(managerId), managerId.id)
+
 	const USER = useAppSelector((state) => state.user)
 	const EMPLOYEES = useGetEmployeesQuery(Number(managerId.id))
+
 	useEffect(() => {
 		console.log(USER.role)
 		if (USER.role !== EUserRole.admin) {
@@ -34,13 +35,13 @@ export default function DepartmentPage() {
 					initial={{ opacity: 0 }}
 					animate={{ opacity: 1 }}
 					transition={{ delay: 0.1, duration: 0.5 }}
-				>Куратор отделеня</motion.p>
+				>Куратор отделения</motion.p>
 				<div className={'department--curator'}></div>
 				<motion.p className={'department--content__title'}
 					initial={{ opacity: 0 }}
 					animate={{ opacity: 1 }}
 					transition={{ delay: 0.1, duration: 0.5 }}
-				>Глава отделеня</motion.p>
+				>Глава отделения</motion.p>
 				<div className={'department--cards'}>
 					<LineInformationCard
 						type={'employee'}
@@ -57,7 +58,7 @@ export default function DepartmentPage() {
 					initial={{ opacity: 0 }}
 					animate={{ opacity: 1 }}
 					transition={{ delay: 0.1, duration: 0.5 }}
-				>Сотрудники отделеня</motion.p>
+				>Сотрудники отделения</motion.p>
 				<div className={'department--cards'}>
 					{ EMPLOYEES.isSuccess
 						? <>{ EMPLOYEES.data.map((value, index) =>

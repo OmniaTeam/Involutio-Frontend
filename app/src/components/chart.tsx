@@ -2,11 +2,7 @@ import { Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "rec
 import { motion } from "framer-motion";
 import { IStatistic } from "../models/IStatistic.ts";
 
-interface chartProps {
-	data : IStatistic[]
-}
-
-export default function Chart(props : chartProps) {
+export default function Chart(props : { data: IStatistic[] }) {
 
 	return (
 		<motion.div className={'employee-chart'}

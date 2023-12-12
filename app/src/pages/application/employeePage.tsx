@@ -24,8 +24,6 @@ export default function EmployeePage() {
 		end : "2021-12-31"
 	})
 
-	console.log(STAT.data)
-
 	return (<>
 		<div className={'employee'}>
 			{EMPLOYEE.isSuccess
@@ -53,7 +51,7 @@ export default function EmployeePage() {
 						? <motion.div className={'statistic--button'}
 						              initial={{opacity: 0, y: 10}}
 						              animate={{opacity: 1, y: 0}}
-							transition={{duration: 0.5}}
+						              transition={{duration: 0.5}}
 						>
 							<Link to={'/application/department/1'} style={{
 								color: "#FFFFFF",
@@ -93,6 +91,25 @@ export default function EmployeePage() {
 						            initial={{opacity: 0, y: 10}}
 						            animate={{opacity: 1, y: 0}}
 						            transition={{duration: 0.5}}
+						>Адрес электронной почты {EMPLOYEE.data.mail}%</motion.p>
+						: <>{EMPLOYEE.isLoading
+							? <motion.p className={'statistic--path'}
+							            initial={{opacity: 0, y: 10}}
+							            animate={{opacity: 1, y: 0}}
+							            transition={{duration: 0.5}}
+							>Загрузка</motion.p>
+							: <motion.p className={'statistic--path'}
+							            initial={{opacity: 0, y: 10}}
+							            animate={{opacity: 1, y: 0}}
+							            transition={{duration: 0.5}}
+							>Ошибка</motion.p>
+						}</>
+					}
+					{EMPLOYEE.isSuccess
+						? <motion.p className={'statistic--path'}
+						            initial={{opacity: 0, y: 10}}
+						            animate={{opacity: 1, y: 0}}
+						            transition={{duration: 0.5}}
 						>Вероятность увольнения на данный момент равна {EMPLOYEE.data.rating}%</motion.p>
 						: <>{EMPLOYEE.isLoading
 							? <motion.p className={'statistic--path'}
@@ -120,7 +137,7 @@ export default function EmployeePage() {
 				<div className={'employee--content__graph'}>
 					{STAT.isSuccess
 						? <Chart data={STAT.data}/>
-						: <>{ STAT.isLoading
+						: <>{STAT.isLoading
 							? <>Загрузка...</>
 							: <>Ошибка</>
 						}</>
