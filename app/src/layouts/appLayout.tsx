@@ -4,7 +4,18 @@ import { useAppDispatch } from "../hooks/redux.ts";
 import { motion } from "framer-motion";
 import { useGetUserQuery } from "../services/authService.ts";
 import { useGetManagerQuery } from "../services/dataService.ts";
-import { setId, setLogin, setName, setRole } from "../store/reducers/IUserSlice.ts";
+import {
+	setId,
+	setLogin,
+	setName,
+	setRole
+} from "../store/reducers/IUserSlice.ts";
+import {
+	setDepartmentName,
+	setManagerId,
+	setRating,
+	setUserId
+} from "../store/reducers/IDepartmentSlice.ts";
 import { EUserRole } from "../models/EUserRole.ts";
 
 import Header from "../components/header";
@@ -23,10 +34,7 @@ export default function AppLayout() {
 			dispatch(setId(getUser.data.id))
 			dispatch(setName(getUser.data.login))
 			dispatch(setLogin(getUser.data.fio))
-			if (getUser.data.role === 'MANAGER' && getManager.isSuccess) {
-				dispatch(setRole(EUserRole.manager))
-				dispatch(setId(getManager.data.id))
-			}
+			if (getUser.data.role === 'MANAGER') dispatch(setRole(EUserRole.manager))
 			if (getUser.data.role === 'ADMIN') dispatch(setRole(EUserRole.admin))
 		} else if (getUser) {
 			dispatch(setRole(EUserRole.non))
@@ -35,6 +43,22 @@ export default function AppLayout() {
 			window.location.href = '/auth'
 		}
 	}, [getUser])
+
+	useEffect(() => {
+		console.log(getManager)
+		if (getManager.isSuccess) {
+			dispatch(setManagerId(getManager.data.id))
+			dispatch(setUserId(getManager.data.userId))
+			dispatch(setDepartmentName(getManager.data.department))
+			dispatch(setRating(getManager.data.rating))
+		} else {
+			dispatch(setManagerId(-1))
+			dispatch(setUserId(-1))
+			dispatch(setDepartmentName("nothing"))
+			dispatch(setRating(-1))
+		}
+	}, [getManager]);
+
 	return <main className={'application'}>
 		<Header/>
 		<Sidebar/>
