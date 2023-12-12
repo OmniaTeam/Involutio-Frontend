@@ -21,6 +21,7 @@ export default function EmployeesPage() {
 	useEffect(() => {
 		if (DEPARTMENTS.isSuccess) {
 			DEPARTMENTS.data.map((value) => {
+				console.log(value)
 				options.push({value : value.department, label : value.department})
 			})
 		}
