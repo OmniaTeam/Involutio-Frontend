@@ -84,5 +84,6 @@ export const {
 	useGetDepartmentsQuery,
 	useGetEmployeesQuery,
 	useGetEmployeeInfoQuery,
-	useGetStatQuery
+	useGetStatQuery,
+	useGetReportsQuery
 } = DataService

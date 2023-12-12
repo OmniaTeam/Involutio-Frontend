@@ -21,7 +21,7 @@ export default function EmployeesPage() {
 	if (USER.role === EUserRole.manager) {
 		EMPLOYEES = useGetEmployeesQuery(USER.id);
 	} else {
-		EMPLOYEES = useGetEmployeesQuery(selectedId || 2); // Use selectedId if available, otherwise use default value
+		EMPLOYEES = useGetEmployeesQuery(selectedId || 2);
 	}
 
 	const options = DEPARTMENTS.data?.map((value) => ({
@@ -102,7 +102,7 @@ export default function EmployeesPage() {
 							))}
 						</>
 					) : (
-						<p>No employees found for the selected department.</p>
+						<></>
 					)}
 				</div>
 			</motion.div>
