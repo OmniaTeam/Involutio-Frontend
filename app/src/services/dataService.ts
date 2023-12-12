@@ -8,9 +8,9 @@ export const DataService = createApi({
 		baseUrl : "https://involutio.the-omnia.ru/api/v3"
 	}),
 	endpoints : (build) => ({
-		getManager : build.query<IDepartment, number>({
-			query : ( userId ) => ({
-				url : `/manager/${userId}`,
+		getManager : build.query<IDepartment, any>({
+			query : (  ) => ({
+				url : `/manager`,
 				headers : {
 					"Content-Type": "application/json",
 				},

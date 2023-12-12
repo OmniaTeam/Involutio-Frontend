@@ -17,7 +17,7 @@ export default function EmployeePage() {
 	const [endDate, setEndDate] = useState('');
 
 	const EMPLOYEE = useGetEmployeeInfoQuery(Number(employeeId.id))
-	const MANAGER = useGetManagerQuery(USER.id)
+	const MANAGER = useGetManagerQuery('')
 
 	return (<>
 		<div className={'employee'}>
