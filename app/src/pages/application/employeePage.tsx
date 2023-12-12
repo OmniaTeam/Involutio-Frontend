@@ -1,48 +1,73 @@
+import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import { useState } from "react";
+import { useAppDispatch, useAppSelector } from "../../hooks/redux";
 import { motion } from "framer-motion";
-import { useAppSelector } from "../../hooks/redux";
-import { useGetDepartmentInfoQuery, useGetEmployeeInfoQuery, useGetStatQuery } from "../../services/dataService";
+import {
+	useGetDepartmentInfoQuery,
+	useGetEmployeeInfoQuery,
+	useGetStatQuery
+} from "../../services/dataService";
+import {
+	setFio,
+	setId,
+	setMail,
+	setManagerId,
+	setRating,
+	setSpeciality
+} from "../../store/reducers/IEmployeeSlice.ts";
+
 import { EUserRole } from "../../models/EUserRole";
 
 import Modal from "../../components/modal";
 import Chart from "../../components/chart";
 
 export default function EmployeePage() {
-	const { id } = useParams();
-	const employeeId = Number(id);
+	const employeeId = useParams();
+	const dispatch = useAppDispatch()
+
 	const USER = useAppSelector((state) => state.user);
+	const EMPLOYEE = useAppSelector((state) => state.employee)
 
 	const [isModalOpen, setIsModalOpen] = useState(false);
 	const [startDate, setStartDate] = useState("");
 	const [endDate, setEndDate] = useState("");
 
-	const EMPLOYEE = useGetEmployeeInfoQuery(employeeId);
-	//@ts-ignore
-	const MANAGER = useGetDepartmentInfoQuery(USER.role === EUserRole.manager ? USER.id : EMPLOYEE?.data.id);
+	const employeeQuery = useGetEmployeeInfoQuery(Number(employeeId.id));
 
-	/*if (USER.role === EUserRole.manager) {
-		MANAGER = useGetDepartmentInfoQuery(USER.id);
-	} else {
-		if (USER.role === EUserRole.admin && EMPLOYEE.isSuccess)
-			MANAGER = useGetDepartmentInfoQuery(EMPLOYEE.data.managerId || -1);
-	}*/
+	useEffect(() => {
+		if (employeeQuery.isSuccess) {
+			dispatch(setId(employeeQuery.data.id))
+			dispatch(setFio(employeeQuery.data.fio))
+			dispatch(setMail(employeeQuery.data.mail))
+			dispatch(setManagerId(employeeQuery.data.managerId))
+			dispatch(setRating(employeeQuery.data.rating))
+			dispatch(setSpeciality(employeeQuery.data.speciality))
+		} else {
+			dispatch(setId(-1))
+			dispatch(setFio("nothing"))
+			dispatch(setMail("nothing"))
+			dispatch(setManagerId(-1))
+			dispatch(setRating(-1))
+			dispatch(setSpeciality("nothing"))
+		}
+	}, [employeeQuery])
 
+	const MANAGER = useGetDepartmentInfoQuery(USER.role === EUserRole.manager ? USER.id : EMPLOYEE.managerId);
 	const STAT = useGetStatQuery({
-		workerId: employeeId,
+		workerId: Number(employeeId.id),
 		start: "2021-12-24",
 		end: "2021-12-31",
 	});
 
 	return (<>
 		<div className={'employee'}>
-			{EMPLOYEE.isSuccess
+			{employeeQuery.isSuccess
 				? <motion.h2 className={'employee--title'}
 				             initial={{opacity: 0}}
 				             animate={{opacity: 1}}
 				             transition={{delay: 0.1, duration: 0.5}}
-				>{EMPLOYEE.data.fio}</motion.h2>
-				: <>{EMPLOYEE.isLoading
+				>{EMPLOYEE.fio}</motion.h2>
+				: <>{employeeQuery.isLoading
 					? <motion.h2 className={'employee--title'}
 					             initial={{opacity: 0}}
 					             animate={{opacity: 1}}
@@ -97,13 +122,13 @@ export default function EmployeePage() {
 							}</>
 						}</>
 					}
-					{EMPLOYEE.isSuccess
+					{employeeQuery.isSuccess
 						? <motion.p className={'statistic--path'}
 						            initial={{opacity: 0, y: 10}}
 						            animate={{opacity: 1, y: 0}}
 						            transition={{duration: 0.5}}
-						>{EMPLOYEE.data.speciality}</motion.p>
-						: <>{EMPLOYEE.isLoading
+						>{EMPLOYEE.speciality}</motion.p>
+						: <>{employeeQuery.isLoading
 							? <motion.p className={'statistic--path'}
 							            initial={{opacity: 0, y: 10}}
 							            animate={{opacity: 1, y: 0}}
@@ -116,13 +141,13 @@ export default function EmployeePage() {
 							>Ошибка</motion.p>
 						}</>
 					}
-					{EMPLOYEE.isSuccess
+					{employeeQuery.isSuccess
 						? <motion.p className={'statistic--path'}
 						            initial={{opacity: 0, y: 10}}
 						            animate={{opacity: 1, y: 0}}
 						            transition={{duration: 0.5}}
-						>Адрес электронной почты {EMPLOYEE.data.mail}</motion.p>
-						: <>{EMPLOYEE.isLoading
+						>Адрес электронной почты {EMPLOYEE.mail}</motion.p>
+						: <>{employeeQuery.isLoading
 							? <motion.p className={'statistic--path'}
 							            initial={{opacity: 0, y: 10}}
 							            animate={{opacity: 1, y: 0}}
@@ -135,13 +160,13 @@ export default function EmployeePage() {
 							>Ошибка</motion.p>
 						}</>
 					}
-					{EMPLOYEE.isSuccess
+					{employeeQuery.isSuccess
 						? <motion.p className={'statistic--path'}
 						            initial={{opacity: 0, y: 10}}
 						            animate={{opacity: 1, y: 0}}
 						            transition={{duration: 0.5}}
-						>Вероятность увольнения на данный момент равна {EMPLOYEE.data.rating}%</motion.p>
-						: <>{EMPLOYEE.isLoading
+						>Вероятность увольнения на данный момент равна {EMPLOYEE.rating}%</motion.p>
+						: <>{employeeQuery.isLoading
 							? <motion.p className={'statistic--path'}
 							            initial={{opacity: 0, y: 10}}
 							            animate={{opacity: 1, y: 0}}
