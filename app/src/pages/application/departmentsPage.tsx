@@ -14,6 +14,13 @@ export default function DepartmentsPage() {
 		if (USER.role !== EUserRole.admin) window.location.href = '/'
 	}, [])
 
+	const getName = async (userId : number) => await fetch(`https://involutio.the-omnia.ru/api/v3/user/${userId}`, {
+		headers : {
+			"Content-Type": "application/json",
+		},
+		method : "GET"
+	}).then((result : any) => result.fio)
+
 	return (<>
 		<div className={'departments'}>
 			<motion.h2 className={'departments--title'}
@@ -41,7 +48,7 @@ export default function DepartmentsPage() {
 								<LineInformationCard
 									type={'department'}
 									name={value.department}
-									secondColumn={value.userId.toString()}
+									secondColumn={String(getName(value.id))}
 									thirdColumn={`Средняя вероятность ${value.rating}%`}
 									id={1}
 									initialY={10 + (index * 5)}
