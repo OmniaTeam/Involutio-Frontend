@@ -88,7 +88,7 @@ export default function EmployeesPage() {
 										type={"employee"}
 										name={value.fio}
 										secondColumn={"Отдел"}
-										thirdColumn={"Должность"}
+										thirdColumn={value.speciality}
 										dismissalProbability={value.rating}
 										id={value.id}
 										initialY={10 + index * 5}

@@ -67,7 +67,7 @@ export default function DepartmentPage() {
 									type={'employee'}
 									name={value.fio}
 									secondColumn={'Отдел'}
-									thirdColumn={'Должность'}
+									thirdColumn={value.speciality}
 									dismissalProbability={value.rating}
 									id={value.id}
 									initialY={10}

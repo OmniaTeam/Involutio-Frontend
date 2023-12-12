@@ -6,7 +6,8 @@ const initialState : IEmployee = {
 	fio: "nothing",
 	mail: "nothing",
 	managerId: 0,
-	rating: 0
+	rating: 0,
+	speciality: "nothing"
 }
 
 export const IEmployeeSlice = createSlice({
@@ -27,6 +28,9 @@ export const IEmployeeSlice = createSlice({
 		},
 		setRating : (state, action : PayloadAction<number>) => {
 			state.rating = action.payload
+		},
+		setSpeciality : (state, action : PayloadAction<string>) => {
+			state.speciality = action.payload
 		}
 	}
 })
@@ -36,5 +40,6 @@ export const {
 	setFio,
 	setMail,
 	setManagerId,
-	setRating
+	setRating,
+	setSpeciality
 } = IEmployeeSlice.actions

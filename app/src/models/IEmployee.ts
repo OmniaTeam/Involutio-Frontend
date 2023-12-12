@@ -4,4 +4,5 @@ export interface IEmployee {
 	fio: string
 	mail: string,
 	rating: number,
+	speciality: string
 }
