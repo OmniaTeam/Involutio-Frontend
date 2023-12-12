@@ -14,8 +14,7 @@ export const DataService = createApi({
 				headers : {
 					"Content-Type": "application/json",
 				},
-				method : "POST",
-				redirect : "follow",
+				method : "GET"
 			})
 		}),
 		/*Получение всех отделов и короткой информации по ним*/
