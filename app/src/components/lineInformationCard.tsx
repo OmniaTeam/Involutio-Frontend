@@ -17,8 +17,7 @@ export default function LineInformationCard(props : LineInformationCardProps) {
 		animate={{ y: 0, opacity: 1}}
 		transition={{ duration: 0.5 }}
 	>
-		<div className={"line-card--info"}
-		     style={props.type === "employee" ? {gridTemplateColumns: "repeat(4, 1fr)"} : {}}>
+		<div className={"line-card--info"}>
 			<p className={"line-card--info__name"}>{props.name}</p>
 			<p className={"line-card--info__third-column"}>{props.secondColumn}</p>
 			<p className={"line-card--info__probability"}>{props.thirdColumn}</p>
