@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom";
 import { useEffect } from "react";
-import { useGetEmployeesQuery } from "../../services/dataService.ts";
+import { useGetDepartmentInfoQuery, useGetEmployeesQuery } from "../../services/dataService.ts";
 import { motion } from "framer-motion";
 import { useAppSelector } from "../../hooks/redux.ts";
 import { EUserRole } from "../../models/EUserRole.ts";
@@ -12,6 +12,7 @@ export default function DepartmentPage() {
 
 	const USER = useAppSelector((state) => state.user)
 	const EMPLOYEES = useGetEmployeesQuery(Number(managerId.id))
+	const DEPARTMENT = useGetDepartmentInfoQuery(Number(managerId.id))
 
 	useEffect(() => {
 		console.log(USER.role)
@@ -25,16 +26,30 @@ export default function DepartmentPage() {
 
 	return (<>
 		<div className={'department'}>
-			<motion.h2 className={'department--title'}
-				initial={{ opacity: 0 }}
-				animate={{ opacity: 1 }}
-				transition={{ delay: 0.1, duration: 0.5 }}
-			>Отдел такой-то такой</motion.h2>
+			{DEPARTMENT.isSuccess
+				? <motion.h2 className={'department--title'}
+				             initial={{opacity: 0}}
+				             animate={{opacity: 1}}
+				             transition={{delay: 0.1, duration: 0.5}}
+				>{DEPARTMENT.data.department}</motion.h2>
+				: <>{DEPARTMENT.isLoading
+					? <motion.h2 className={'department--title'}
+					             initial={{opacity: 0}}
+					             animate={{opacity: 1}}
+					             transition={{delay: 0.1, duration: 0.5}}
+					>Загрузка...</motion.h2>
+					: <motion.h2 className={'department--title'}
+					             initial={{opacity: 0}}
+					             animate={{opacity: 1}}
+					             transition={{delay: 0.1, duration: 0.5}}
+					>Не удалось загрузить</motion.h2>
+				}</>
+			}
 			<div className={'department--content'}>
 				<motion.p className={'department--content__title'}
-					initial={{ opacity: 0 }}
-					animate={{ opacity: 1 }}
-					transition={{ delay: 0.1, duration: 0.5 }}
+				          initial={{opacity: 0}}
+				          animate={{opacity: 1}}
+				          transition={{delay: 0.1, duration: 0.5 }}
 				>Куратор отделения</motion.p>
 				<div className={'department--curator'}></div>
 				<motion.p className={'department--content__title'}

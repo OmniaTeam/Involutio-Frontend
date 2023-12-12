@@ -10,7 +10,7 @@ export const DataService = createApi({
 	}),
 	endpoints : (build) => ({
 		getManager : build.query<IDepartment, any>({
-			query : (  ) => ({
+			query : () => ({
 				url : `/manager`,
 				headers : {
 					"Content-Type": "application/json",
@@ -29,9 +29,13 @@ export const DataService = createApi({
 			})
 		}),
 		/*Получение подробной информации по отделу?*/
-		getDepartmentInfo : build.query<any, any>({
-			query : () => ({
-				url : ""
+		getDepartmentInfo : build.query<IDepartment, number>({
+			query : ( managerId ) => ({
+				url : `/manager/${managerId}`,
+				headers : {
+					"Content-Type": "application/json",
+				},
+				method : "GET"
 			})
 		}),
 		/*Получение всех сотрудников по отделу с короткой информацией*/
@@ -85,5 +89,6 @@ export const {
 	useGetEmployeesQuery,
 	useGetEmployeeInfoQuery,
 	useGetStatQuery,
-	useGetReportsQuery
+	useGetReportsQuery,
+	useGetDepartmentInfoQuery
 } = DataService

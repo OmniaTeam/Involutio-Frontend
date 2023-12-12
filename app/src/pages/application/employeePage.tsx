@@ -2,7 +2,12 @@ import { Link, useParams } from "react-router-dom";
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { useAppSelector } from "../../hooks/redux.ts";
-import { useGetEmployeeInfoQuery, useGetManagerQuery, useGetStatQuery } from "../../services/dataService.ts";
+import {
+	useGetDepartmentInfoQuery,
+	useGetEmployeeInfoQuery,
+	useGetManagerQuery,
+	useGetStatQuery
+} from "../../services/dataService.ts";
 import { EUserRole } from "../../models/EUserRole.ts";
 
 import Modal from "../../components/modal";
@@ -17,7 +22,14 @@ export default function EmployeePage() {
 	const [endDate, setEndDate] = useState('');
 
 	const EMPLOYEE = useGetEmployeeInfoQuery(Number(employeeId.id))
-	const MANAGER = useGetManagerQuery('')
+
+	let MANAGER;
+	if (USER.role === EUserRole.manager) {
+		MANAGER = useGetManagerQuery('')
+	} else {
+		if (EMPLOYEE.isSuccess) MANAGER = useGetDepartmentInfoQuery(EMPLOYEE.data.managerId)
+	}
+
 	const STAT = useGetStatQuery({
 		workerId : Number(employeeId.id),
 		start : "2021-12-24",
@@ -53,21 +65,27 @@ export default function EmployeePage() {
 						              animate={{opacity: 1, y: 0}}
 						              transition={{duration: 0.5}}
 						>
-							<Link to={'/application/department/1'} style={{
-								color: "#FFFFFF",
-								fontWeight: "400",
-								textUnderlineOffset: "5px"
-							}}>
-								Отдел того-то сего-то
-							</Link>
+							{MANAGER?.isSuccess
+								? <Link to={`/application/department/${MANAGER.data.id}`} style={{
+									color: "#FFFFFF",
+									fontWeight: "400",
+									textUnderlineOffset: "5px"
+								}}>
+									{MANAGER.data.department}
+								</Link>
+								: <>{ MANAGER?.isLoading
+									? <>Загрузка...</>
+									: <>Не удалось загрузить</>
+								}</>
+							}
 						</motion.div>
-						: <>{MANAGER.isSuccess
+						: <>{MANAGER?.isSuccess
 							? <motion.p className={'statistic--path'}
 							            initial={{opacity: 0, y: 10}}
 							            animate={{opacity: 1, y: 0}}
 							            transition={{duration: 0.5}}
 							>{MANAGER.data.department}</motion.p>
-							: <>{MANAGER.isLoading
+							: <>{MANAGER?.isLoading
 								? <motion.p className={'statistic--path'}
 								            initial={{opacity: 0, y: 10}}
 								            animate={{opacity: 1, y: 0}}
