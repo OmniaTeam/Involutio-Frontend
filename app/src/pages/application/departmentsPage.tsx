@@ -27,30 +27,32 @@ export default function DepartmentsPage() {
 				animate={{ opacity: 1 }}
 				transition={{ delay: 0.1, duration: 0.5 }}
 			>Отделения</motion.h2>
-			<motion.div className={'attributes'}
-	            initial={{ opacity: 0 }}
-	            animate={{ opacity: 1 }}
-	            transition={{ duration: 0.5 }}
-			    style={{width: "500px"}}
-			>
-				<p className={'attributes--path'}>1 - название отделния</p>
-				<p className={'attributes--path'}>2 - фио куратора отделения</p>
-				<p className={'attributes--path'}>3 - средний процент заинтересованности</p>
-			</motion.div>
+			<div className={'heading-wrapper'}>
+				<motion.div className={'attributes'}
+				            initial={{opacity: 0}}
+				            animate={{opacity: 1}}
+				            transition={{duration: 0.5}}
+				            style={{width: "500px"}}
+				>
+					<p className={'attributes--path'}>1 - название отделния</p>
+					<p className={'attributes--path'}>2 - фио куратора отделения</p>
+					<p className={'attributes--path'}>3 - средний процент заинтересованности</p>
+				</motion.div>
+			</div>
 			<div className={'departments--cards'}>
-				{ DEPARTMENTS.isSuccess
+				{DEPARTMENTS.isSuccess
 					? <>{
-					//@ts-ignore
-					DEPARTMENTS.data.map((value, index) =>
-						<div key={index}>
-							<LineInformationCard
-								type={'department'}
-								name={value.department}
-								secondColumn={value.userId.toString()}
-								thirdColumn={`Средняя вероятность ${value.rating}%`}
-								id={1}
-								initialY={10 + (index * 5)}
-								link={`/application/department/${value.id}`}
+						//@ts-ignore
+						DEPARTMENTS.data.map((value, index) =>
+							<div key={index}>
+								<LineInformationCard
+									type={'department'}
+									name={value.department}
+									secondColumn={value.userId.toString()}
+									thirdColumn={`Средняя вероятность ${value.rating}%`}
+									id={1}
+									initialY={10 + (index * 5)}
+									link={`/application/department/${value.id}`}
 							/>
 						</div>
 					)}</>
