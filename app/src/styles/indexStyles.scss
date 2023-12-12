@@ -201,9 +201,14 @@
     }
 }
 
+.heading-wrapper {
+    display: flex;
+    margin: 20px 0;
+    gap: 20px
+}
+
 .attributes {
     width: 350px;
-    margin: 20px 0;
     padding: 10px;
     display: flex;
     flex-direction: column;

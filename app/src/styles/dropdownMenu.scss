@@ -3,13 +3,13 @@
 .dropdown {
     position: relative;
     display: inline-block;
-    width: calc(100% - 20px);
+    height: 100%;
     &--heading {
         display: flex;
         align-items: center;
         justify-content: space-between;
         width: 100%;
-        padding: 10px;
+        padding: 20px;
         font-size: 18px;
         letter-spacing: 1px;
         font-weight: 600;
@@ -38,7 +38,7 @@
     }
     &--list {
         position: absolute;
-        top: 100%;
+        top: calc(100% + 5px);
         left: 0;
         padding: 8px 0;
         margin-top: 1px;
@@ -49,8 +49,8 @@
         background: rgba(217, 217, 217, 0.20);
         backdrop-filter: blur(27.5px);
         &__item {
-            padding: 8px 10px;
-            font-size: 16px;
+            padding: 10px;
+            font-size: 18px;
             color: $white-primary;
             cursor: pointer;
             transition: 150ms ease-in;
