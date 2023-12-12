@@ -4,11 +4,25 @@ import { useGetEmployeesQuery } from "../../services/dataService.ts";
 import { EUserRole } from "../../models/EUserRole.ts";
 
 import LineInformationCard from "../../components/lineInformationCard";
+import DropdownMenu from "../../components/dropdownMenu.tsx";
 
 export default function EmployeesPage() {
 
 	const USER = useAppSelector((state) => state.user)
 	const EMPLOYEES = useGetEmployeesQuery(USER.id)
+
+	// @ts-ignore
+	const [selectedOption, setSelectedOption] = useState<string>('');
+
+	const options = [
+		{ value: 'Синьор', label: 'Синьор' },
+		{ value: 'Миддл', label: 'Миддл' },
+		{ value: 'Джуниор', label: 'Джуниор' },
+	];
+
+	const handleOptionSelect = (selectedValue: string) => {
+		setSelectedOption(selectedValue);
+	};
 
 	/*TODO: для админа нужно сделать селектор по доступным подразделениям*/
 	return <div className={'employees'}>
@@ -22,19 +36,25 @@ export default function EmployeesPage() {
 	        animate={{ opacity: 1 }}
 	        transition={{ duration: 0.5 }}
 		>
-			<motion.div className={'attributes'}
-	            initial={{ opacity: 0 }}
-	            animate={{ opacity: 1 }}
-	            transition={{ duration: 0.5 }}
-			>
-				<p className={'attributes--path'}>1 - фио сотрудника</p>
-				<p className={'attributes--path'}>2 - отдел</p>
-				<p className={'attributes--path'}>3 - должность</p>
-				<p className={'attributes--path'}>4 - вероятность увольнения</p>
-			</motion.div>
+			<div className={'heading-wrapper'}>
+				<motion.div className={'attributes'}
+				            initial={{opacity: 0}}
+				            animate={{opacity: 1}}
+				            transition={{duration: 0.5}}
+				>
+					<p className={'attributes--path'}>1 - фио сотрудника</p>
+					<p className={'attributes--path'}>2 - отдел</p>
+					<p className={'attributes--path'}>3 - должность</p>
+					<p className={'attributes--path'}>4 - вероятность увольнения</p>
+				</motion.div>
+				{ USER.role !== EUserRole.admin
+					? <></>
+					: <DropdownMenu defaultSelected={"Выберите отдел"} options={options} onSelectOption={handleOptionSelect}/>
+				}
+			</div>
 			<div className={'employees--cards'}>
-				{ EMPLOYEES.isSuccess
-					? <>{ EMPLOYEES.data.map((value, index) =>
+				{EMPLOYEES.isSuccess
+					? <>{EMPLOYEES.data.map((value, index) =>
 						<div key={index}>
 							<LineInformationCard
 								type={'employee'}

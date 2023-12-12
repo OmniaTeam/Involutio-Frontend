@@ -1,7 +1,7 @@
-import { useState } from "react";
-import { motion } from "framer-motion";
-import { useAppSelector } from "../../hooks/redux.ts";
-import { EUserRole } from "../../models/EUserRole.ts";
+import {useState} from "react";
+import {motion} from "framer-motion";
+import {useAppSelector} from "../../hooks/redux.ts";
+import {EUserRole} from "../../models/EUserRole.ts";
 
 import LineInformationCard from "../../components/lineInformationCard.tsx";
 import DropdownMenu from "../../components/dropdownMenu.tsx";
@@ -40,7 +40,10 @@ export default function ReportsPage() {
 					<p className={'attributes--path'}>2 - дата создания отчёта</p>
 					<p className={'attributes--path'}>3 - временной период</p>
 				</motion.div>
-				<DropdownMenu defaultSelected={"Выберите отдел"} options={options} onSelectOption={handleOptionSelect}/>
+				{ USER.role !== EUserRole.admin
+					? <></>
+					: <DropdownMenu defaultSelected={"Выберите отдел"} options={options} onSelectOption={handleOptionSelect}/>
+				}
 			</div>
 			<div className={'reports--cards'}>
 				<LineInformationCard
