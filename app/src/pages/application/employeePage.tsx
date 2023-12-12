@@ -20,7 +20,7 @@ export default function EmployeePage() {
 	const MANAGER = useGetManagerQuery('')
 	const STAT = useGetStatQuery({
 		workerId : Number(employeeId.id),
-		start : "2021-01-04",
+		start : "2021-12-24",
 		end : "2021-12-31"
 	})
 
