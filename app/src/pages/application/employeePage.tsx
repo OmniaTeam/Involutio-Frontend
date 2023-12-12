@@ -18,6 +18,7 @@ export default function EmployeePage() {
 	const [endDate, setEndDate] = useState("");
 
 	const EMPLOYEE = useGetEmployeeInfoQuery(employeeId);
+	//@ts-ignore
 	const MANAGER = useGetDepartmentInfoQuery(USER.role === EUserRole.manager ? USER.id : EMPLOYEE?.data.id);
 
 	/*if (USER.role === EUserRole.manager) {
