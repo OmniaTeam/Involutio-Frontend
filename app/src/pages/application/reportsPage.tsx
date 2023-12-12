@@ -40,10 +40,6 @@ export default function EmployeesPage() {
 		}
 	};
 
-	const filteredReports = REPORTS.data?.filter(
-		(report) => report.id === selectedId
-	);
-
 	return (
 		<div className={"reports"}>
 			<motion.h2
@@ -83,9 +79,9 @@ export default function EmployeesPage() {
 					)}
 				</div>
 				<div className={"reports--cards"}>
-					{filteredReports && filteredReports.length > 0 ? (
+					{REPORTS.isSuccess && REPORTS.data.length > 0 ? (
 						<>
-							{filteredReports.map((value, index) => (
+							{REPORTS.data.map((value, index) => (
 								<div key={index}>
 									<LineInformationCard
 										type={'report'}
