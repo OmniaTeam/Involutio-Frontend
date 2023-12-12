@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { useAppDispatch } from "../hooks/redux.ts";
 import { motion } from "framer-motion";
 import { useGetUserQuery } from "../services/authService.ts";
+import { useGetManagerQuery } from "../services/dataService.ts";
 import { setId, setLogin, setName, setRole } from "../store/reducers/IUserSlice.ts";
 import { EUserRole } from "../models/EUserRole.ts";
 
@@ -14,6 +15,7 @@ import grad from "../assets/gradient.svg";
 export default function AppLayout() {
 	const dispatch = useAppDispatch()
 	const getUser = useGetUserQuery('')
+	const getManager = useGetManagerQuery('')
 
 	useEffect(() => {
 		console.log(getUser)
@@ -21,7 +23,10 @@ export default function AppLayout() {
 			dispatch(setId(getUser.data.id))
 			dispatch(setName(getUser.data.login))
 			dispatch(setLogin(getUser.data.fio))
-			if (getUser.data.role === 'MANAGER') dispatch(setRole(EUserRole.manager))
+			if (getUser.data.role === 'MANAGER' && getManager.isSuccess) {
+				dispatch(setRole(EUserRole.manager))
+				dispatch(setId(getManager.data.id))
+			}
 			if (getUser.data.role === 'ADMIN') dispatch(setRole(EUserRole.admin))
 		} else if (getUser) {
 			dispatch(setRole(EUserRole.non))
