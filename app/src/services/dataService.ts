@@ -8,7 +8,7 @@ export const DataService = createApi({
 		baseUrl : "https://involutio.the-omnia.ru/api/v3"
 	}),
 	endpoints : (build) => ({
-		getManager : build.mutation<any, any>({
+		getManager : build.query<IDepartment, number>({
 			query : ( userId ) => ({
 				url : `/manager/${userId}`,
 				headers : {
@@ -45,9 +45,13 @@ export const DataService = createApi({
 			})
 		}),
 		/*Получение подробной информации по сотруднику*/
-		getEmployeeInfo : build.query<any, any>({
-			query : () => ({
-				url : ""
+		getEmployeeInfo : build.query<IEmployee, number>({
+			query : (workerId) => ({
+				url : `/worker/${workerId}`,
+				headers : {
+					"Content-Type": "application/json",
+				},
+				method : "GET"
 			})
 		}),
 		/*Получение статистики сотрудника для графика и составления отчёта*/
@@ -72,6 +76,8 @@ export const DataService = createApi({
 })
 
 export const {
+	useGetManagerQuery,
 	useGetDepartmentsQuery,
-	useGetEmployeesQuery
+	useGetEmployeesQuery,
+	useGetEmployeeInfoQuery
 } = DataService
