@@ -8,6 +8,13 @@ import LineInformationCard from "../../components/lineInformationCard";
 export default function EmployeesPage() {
 	const USER = useAppSelector((state) => state.user)
 	const EMPLOYEES = useGetEmployeesQuery(USER.id)
+	const handle = async () => await fetch("https://involutio.the-omnia.ru/api/v3/worker/1", {
+		headers : {
+			"Content-Type": "application/json",
+		},
+		method : "GET"
+	})
+	console.log(handle)
 	/*TODO: для админа нужно сделать селектор по доступным подразделениям*/
 	return <div className={'employees'}>
 		<motion.h2 className={'employees--title'}
