@@ -13,16 +13,14 @@ import DropdownMenu from "../../components/dropdownMenu.tsx";
 export default function EmployeesPage() {
 	const USER = useAppSelector((state) => state.user);
 	const DEPARTMENTS = useGetDepartmentsQuery("");
+
 	//@ts-ignore
 	const [selectedOption, setSelectedOption] = useState<string>("");
 	const [selectedId, setSelectedId] = useState<number>(0);
 
 	let EMPLOYEES;
-	if (USER.role === EUserRole.manager) {
-		EMPLOYEES = useGetEmployeesQuery(USER.id);
-	} else {
-		EMPLOYEES = useGetEmployeesQuery(selectedId || -1);
-	}
+	if (USER.role === EUserRole.manager) EMPLOYEES = useGetEmployeesQuery(USER.id);
+	else EMPLOYEES = useGetEmployeesQuery(selectedId || -1);
 
 	const options = DEPARTMENTS.data?.map((value) => ({
 		value: value.department,

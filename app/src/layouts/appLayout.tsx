@@ -29,7 +29,6 @@ export default function AppLayout() {
 	const getManager = useGetManagerQuery('')
 
 	useEffect(() => {
-		console.log(getUser)
 		if (getUser.isSuccess) {
 			dispatch(setId(getUser.data.id))
 			dispatch(setName(getUser.data.login))
@@ -45,7 +44,6 @@ export default function AppLayout() {
 	}, [getUser])
 
 	useEffect(() => {
-		console.log(getManager)
 		if (getManager.isSuccess) {
 			dispatch(setId(getManager.data.id))
 			dispatch(setManagerId(getManager.data.id))

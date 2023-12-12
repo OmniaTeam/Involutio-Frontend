@@ -11,13 +11,7 @@ export default function DepartmentsPage() {
 	const DEPARTMENTS = useGetDepartmentsQuery('')
 
 	useEffect(() => {
-		console.log(USER.role)
-		if (USER.role !== EUserRole.admin) {
-			window.location.href = '/'
-		}
-		else {
-			console.log(USER.role)
-		}
+		if (USER.role !== EUserRole.admin) window.location.href = '/'
 	}, [])
 
 	return (<>
@@ -55,7 +49,7 @@ export default function DepartmentsPage() {
 							/>
 						</div>
 					)}</>
-					: <>Не загрузил(</>
+					: <></>
 				}
 			</div>
 		</div>

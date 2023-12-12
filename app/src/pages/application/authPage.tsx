@@ -3,7 +3,7 @@ import { useAppDispatch } from "../../hooks/redux.ts";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { useGetUserQuery, useSignInMutation } from "../../services/authService.ts";
-import {setId, setLogin, setName, setRole} from "../../store/reducers/IUserSlice.ts";
+import { setId, setLogin, setName, setRole } from "../../store/reducers/IUserSlice.ts";
 import { EUserRole } from "../../models/EUserRole.ts";
 
 import grad from "../../assets/gradient.svg";
@@ -48,30 +48,24 @@ export default function AuthPage() {
 	}, [getUser]);
 
 	useEffect(() => {
-		console.log(data)
 		if (isSuccess) {
 			dispatch(setLogin(userLogin))
 			//@ts-ignore
 			dispatch(setName(data.fio))
 			//@ts-ignore
 			dispatch(setId(data.id))
-			console.log("Success!")
-			console.log(data)
 			//@ts-ignore
 			if (data.role === EUserRole.manager) {
 				dispatch(setRole(EUserRole.manager))
-				console.log("manager")
 				navigator('/application')
 			}
 			//@ts-ignore
 			if (data.role === EUserRole.admin) {
 				dispatch(setRole(EUserRole.admin))
-				console.log("admin")
 				navigator('/application')
 			}
 			else {
 				dispatch(setRole(EUserRole.non))
-				console.log("nothing")
 			}
 		}
 		else if (isLoading) {

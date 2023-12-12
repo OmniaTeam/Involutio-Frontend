@@ -15,13 +15,7 @@ export default function DepartmentPage() {
 	const DEPARTMENT = useGetDepartmentInfoQuery(Number(managerId.id))
 
 	useEffect(() => {
-		console.log(USER.role)
-		if (USER.role !== EUserRole.admin) {
-			window.location.href = '/'
-		}
-		else {
-			console.log(USER.role)
-		}
+		if (USER.role !== EUserRole.admin) window.location.href = '/'
 	}, [])
 
 	return (<>

@@ -1,10 +1,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { useAppSelector } from "../../hooks/redux.ts";
-import {
-	useGetDepartmentsQuery,
-	useGetEmployeesQuery,
-} from "../../services/dataService.ts";
+import { useGetDepartmentsQuery, useGetEmployeesQuery } from "../../services/dataService.ts";
 import { EUserRole } from "../../models/EUserRole.ts";
 
 import LineInformationCard from "../../components/lineInformationCard";
@@ -13,6 +10,7 @@ import DropdownMenu from "../../components/dropdownMenu.tsx";
 export default function EmployeesPage() {
 	const USER = useAppSelector((state) => state.user);
 	const DEPARTMENTS = useGetDepartmentsQuery("");
+
 	//@ts-ignore
 	const [selectedOption, setSelectedOption] = useState<string>("");
 	const [selectedId, setSelectedId] = useState<number>(0);
