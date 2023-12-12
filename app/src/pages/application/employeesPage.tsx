@@ -21,7 +21,7 @@ export default function EmployeesPage() {
 	if (USER.role === EUserRole.manager) {
 		EMPLOYEES = useGetEmployeesQuery(USER.id);
 	} else {
-		EMPLOYEES = useGetEmployeesQuery(selectedId || 2);
+		EMPLOYEES = useGetEmployeesQuery(selectedId || -1);
 	}
 
 	const options = DEPARTMENTS.data?.map((value) => ({
