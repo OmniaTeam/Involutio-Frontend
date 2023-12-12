@@ -2,11 +2,7 @@ import { Link, useParams } from "react-router-dom";
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { useAppSelector } from "../../hooks/redux";
-import {
-	useGetDepartmentInfoQuery,
-	useGetEmployeeInfoQuery,
-	useGetStatQuery,
-} from "../../services/dataService";
+import { useGetDepartmentInfoQuery, useGetEmployeeInfoQuery, useGetStatQuery } from "../../services/dataService";
 import { EUserRole } from "../../models/EUserRole";
 
 import Modal from "../../components/modal";
@@ -22,14 +18,14 @@ export default function EmployeePage() {
 	const [endDate, setEndDate] = useState("");
 
 	const EMPLOYEE = useGetEmployeeInfoQuery(employeeId);
+	const MANAGER = useGetDepartmentInfoQuery(USER.role === EUserRole.manager ? USER.id : EMPLOYEE?.data.id);
 
-	let MANAGER;
-	if (USER.role === EUserRole.manager) {
+	/*if (USER.role === EUserRole.manager) {
 		MANAGER = useGetDepartmentInfoQuery(USER.id);
 	} else {
 		if (USER.role === EUserRole.admin && EMPLOYEE.isSuccess)
 			MANAGER = useGetDepartmentInfoQuery(EMPLOYEE.data.managerId || -1);
-	}
+	}*/
 
 	const STAT = useGetStatQuery({
 		workerId: employeeId,
