@@ -1,40 +1,41 @@
 import { Link, useParams } from "react-router-dom";
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { useAppSelector } from "../../hooks/redux.ts";
+import { useAppSelector } from "../../hooks/redux";
 import {
 	useGetDepartmentInfoQuery,
 	useGetEmployeeInfoQuery,
 	useGetManagerQuery,
-	useGetStatQuery
-} from "../../services/dataService.ts";
-import { EUserRole } from "../../models/EUserRole.ts";
+	useGetStatQuery,
+} from "../../services/dataService";
+import { EUserRole } from "../../models/EUserRole";
 
 import Modal from "../../components/modal";
-import Chart from "../../components/chart.tsx";
+import Chart from "../../components/chart";
 
 export default function EmployeePage() {
-	const employeeId = useParams()
-	const USER = useAppSelector((state) => state.user)
+	const { id } = useParams();
+	const employeeId = Number(id);
+	const USER = useAppSelector((state) => state.user);
 
-	const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-	const [startDate, setStartDate] = useState('');
-	const [endDate, setEndDate] = useState('');
+	const [isModalOpen, setIsModalOpen] = useState(false);
+	const [startDate, setStartDate] = useState("");
+	const [endDate, setEndDate] = useState("");
 
-	const EMPLOYEE = useGetEmployeeInfoQuery(Number(employeeId.id))
+	const EMPLOYEE = useGetEmployeeInfoQuery(employeeId);
 
 	let MANAGER;
 	if (USER.role === EUserRole.manager) {
-		MANAGER = useGetManagerQuery('')
-	} else {
-		if (EMPLOYEE.isSuccess) MANAGER = useGetDepartmentInfoQuery(EMPLOYEE.data.managerId || -1)
+		MANAGER = useGetManagerQuery("");
+	} else if (USER.role === EUserRole.admin && EMPLOYEE.isSuccess) {
+		MANAGER = useGetDepartmentInfoQuery(EMPLOYEE.data.managerId || -1);
 	}
 
 	const STAT = useGetStatQuery({
-		workerId : Number(employeeId.id),
-		start : "2021-12-24",
-		end : "2021-12-31"
-	})
+		workerId: employeeId,
+		start: "2021-12-24",
+		end: "2021-12-31",
+	});
 
 	return (<>
 		<div className={'employee'}>
