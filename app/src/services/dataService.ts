@@ -55,9 +55,9 @@ export const DataService = createApi({
 			})
 		}),
 		/*Получение статистики сотрудника для графика и составления отчёта*/
-		getStat : build.query<IStatistic[], { start : string, end : string }>({
-			query : (date) => ({
-				url : `stat?start=${date.start}&end=${date.end}`,
+		getStat : build.query<IStatistic[], { workerId : number, start : string, end : string }>({
+			query : (args) => ({
+				url : `/worker/${args.workerId}/stat?start=${args.start}&end=${args.end}`,
 				headers : {
 					"Content-Type": "application/json",
 				},
