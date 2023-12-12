@@ -19,7 +19,9 @@ export default function DepartmentsPage() {
 			"Content-Type": "application/json",
 		},
 		method : "GET"
-	}).then((result : any) => result.fio)
+	}).then((result : any) => {
+		console.log(result)
+	})
 
 	return (<>
 		<div className={'departments'}>
