@@ -1,7 +1,10 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { useAppSelector } from "../../hooks/redux.ts";
-import { useGetDepartmentsQuery, useGetEmployeesQuery } from "../../services/dataService.ts";
+import {
+	useGetDepartmentsQuery,
+	useGetEmployeesQuery,
+} from "../../services/dataService.ts";
 import { EUserRole } from "../../models/EUserRole.ts";
 
 import LineInformationCard from "../../components/lineInformationCard";
@@ -9,22 +12,38 @@ import DropdownMenu from "../../components/dropdownMenu.tsx";
 
 export default function EmployeesPage() {
 	const USER = useAppSelector((state) => state.user);
-	const EMPLOYEES = useGetEmployeesQuery(USER.id);
 	const DEPARTMENTS = useGetDepartmentsQuery("");
-
 	//@ts-ignore
 	const [selectedOption, setSelectedOption] = useState<string>("");
+	const [selectedId, setSelectedId] = useState<number>(0);
+
+	let EMPLOYEES;
+	if (USER.role === EUserRole.manager) {
+		EMPLOYEES = useGetEmployeesQuery(USER.id);
+	} else {
+		EMPLOYEES = useGetEmployeesQuery(selectedId || 2); // Use selectedId if available, otherwise use default value
+	}
 
 	const options = DEPARTMENTS.data?.map((value) => ({
 		value: value.department,
 		label: value.department,
+		id: value.id,
 	})) || [];
 
 	const handleOptionSelect = (selectedValue: string) => {
-		setSelectedOption(selectedValue);
+		const selectedDepartment = options.find(
+			(option) => option.value === selectedValue
+		);
+		if (selectedDepartment) {
+			setSelectedOption(selectedValue);
+			setSelectedId(selectedDepartment.id);
+		}
 	};
 
-	/*TODO: для админа нужно сделать селектор по доступным подразделениям*/
+	const filteredEmployees = EMPLOYEES.data?.filter(
+		(employee) => employee.id === selectedId
+	);
+
 	return (
 		<div className={"employees"}>
 			<motion.h2
@@ -65,9 +84,9 @@ export default function EmployeesPage() {
 					)}
 				</div>
 				<div className={"employees--cards"}>
-					{EMPLOYEES.isSuccess ? (
+					{filteredEmployees && filteredEmployees.length > 0 ? (
 						<>
-							{EMPLOYEES.data.map((value, index) => (
+							{filteredEmployees.map((value, index) => (
 								<div key={index}>
 									<LineInformationCard
 										type={"employee"}
@@ -83,7 +102,7 @@ export default function EmployeesPage() {
 							))}
 						</>
 					) : (
-						<>Не загрузило(</>
+						<p>No employees found for the selected department.</p>
 					)}
 				</div>
 			</motion.div>

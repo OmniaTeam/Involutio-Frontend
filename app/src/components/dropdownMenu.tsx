@@ -26,7 +26,7 @@ export default function DropdownMenu(props : DropdownMenuProps) {
 		transition={{duration: 0.5}}
 	>
 		<div className={'dropdown--heading'} onClick={toggleMenu}>
-			{selectedOption || 'выберите грейд'}
+			{selectedOption || 'Выберите отдел'}
 			{isOpen ? <div className={'dropdown--heading__up'}/> : <div className={'dropdown--heading__down'}/>}
 		</div>
 		{isOpen && (
