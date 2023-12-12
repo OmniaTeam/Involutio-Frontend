@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { IDepartment } from "../models/IDepartment.ts";
-import {IEmployee} from "../models/IEmployee.ts";
+import { IEmployee } from "../models/IEmployee.ts";
 
 export const DataService = createApi({
 	reducerPath : "data-service",
@@ -9,14 +9,13 @@ export const DataService = createApi({
 	}),
 	endpoints : (build) => ({
 		getManager : build.mutation<any, any>({
-			query : ( managerId ) => ({
-				url : "",
+			query : ( userId ) => ({
+				url : `/manager/${userId}`,
 				headers : {
 					"Content-Type": "application/json",
 				},
 				method : "POST",
 				redirect : "follow",
-				body : JSON.stringify(managerId)
 			})
 		}),
 		/*Получение всех отделов и короткой информации по ним*/

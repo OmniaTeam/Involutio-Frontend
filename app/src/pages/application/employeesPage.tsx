@@ -1,11 +1,13 @@
 import { motion } from "framer-motion";
 import { useAppSelector } from "../../hooks/redux.ts";
+import { useGetEmployeesQuery } from "../../services/dataService.ts";
 import { EUserRole } from "../../models/EUserRole.ts";
 
 import LineInformationCard from "../../components/lineInformationCard";
 
 export default function EmployeesPage() {
 	const USER = useAppSelector((state) => state.user)
+	const EMPLOYEES = useGetEmployeesQuery(USER.id)
 	/*TODO: для админа нужно сделать селектор по доступным подразделениям*/
 	return <div className={'employees'}>
 		<motion.h2 className={'employees--title'}
@@ -29,26 +31,23 @@ export default function EmployeesPage() {
 				<p className={'attributes--path'}>4 - вероятность увольнения</p>
 			</motion.div>
 			<div className={'employees--cards'}>
-				<LineInformationCard
-					type={'employee'}
-					name={'Иван Иванов Иванович'}
-					secondColumn={'Отдел продаж'}
-					thirdColumn={'Менеджер'}
-					dismissalProbability={20}
-					id={1}
-					initialY={10}
-					link={'/application/employee/1'}
-				/>
-				<LineInformationCard
-					type={'employee'}
-					name={'Алексей Смирнов Викторович'}
-					secondColumn={'Отдел разработки'}
-					thirdColumn={'Старший программист'}
-					dismissalProbability={5}
-					id={2}
-					initialY={15}
-					link={'/application/employee/2'}
-				/>
+				{ EMPLOYEES.isSuccess
+					? <>{ EMPLOYEES.data.map((value, index) =>
+						<div key={index}>
+							<LineInformationCard
+								type={'employee'}
+								name={value.fio}
+								secondColumn={'Отдел'}
+								thirdColumn={'Должность'}
+								dismissalProbability={value.rating}
+								id={value.id}
+								initialY={10}
+								link={`/application/employee/${value.id}`}
+							/>
+						</div>
+					)}</>
+					: <>Не загрузило(</>
+				}
 			</div>
 		</motion.div>
 	</div>
