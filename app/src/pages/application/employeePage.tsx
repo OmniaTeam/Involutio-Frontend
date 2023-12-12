@@ -2,7 +2,7 @@ import { Link, useParams } from "react-router-dom";
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { useAppSelector } from "../../hooks/redux.ts";
-import { useGetEmployeeInfoQuery, useGetManagerQuery } from "../../services/dataService.ts";
+import { useGetEmployeeInfoQuery, useGetManagerQuery, useGetStatQuery } from "../../services/dataService.ts";
 import { EUserRole } from "../../models/EUserRole.ts";
 
 import Modal from "../../components/modal";
@@ -18,15 +18,12 @@ export default function EmployeePage() {
 
 	const EMPLOYEE = useGetEmployeeInfoQuery(Number(employeeId.id))
 	const MANAGER = useGetManagerQuery('')
-
-	const handle = async () => await fetch("https://involutio.the-omnia.ru/api/v3", {
-		headers : {
-			"Content-Type": "application/json",
-		},
-		method: "GET"
+	const STAT = useGetStatQuery({
+		start : "2021-01-04",
+		end : "2021-12-31"
 	})
 
-	console.log(handle())
+	console.log(STAT.data)
 
 	return (<>
 		<div className={'employee'}>
@@ -120,7 +117,13 @@ export default function EmployeePage() {
 					}
 				</div>
 				<div className={'employee--content__graph'}>
-					<Chart/>
+					{STAT.isSuccess
+						? <Chart data={STAT.data}/>
+						: <>{ STAT.isLoading
+							? <>Загрузка...</>
+							: <>Ошибка</>
+						}</>
+					}
 				</div>
 			</div>
 		</div>

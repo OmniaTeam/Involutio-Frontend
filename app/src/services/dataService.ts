@@ -1,6 +1,7 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { IDepartment } from "../models/IDepartment.ts";
 import { IEmployee } from "../models/IEmployee.ts";
+import {IStatistic} from "../models/IStatistic.ts";
 
 export const DataService = createApi({
 	reducerPath : "data-service",
@@ -54,9 +55,13 @@ export const DataService = createApi({
 			})
 		}),
 		/*Получение статистики сотрудника для графика и составления отчёта*/
-		getStat : build.query<any, any>({
-			query : () => ({
-				url : ""
+		getStat : build.query<IStatistic[], { start : string, end : string }>({
+			query : (date) => ({
+				url : `stat?start=${date.start}&end=${date.end}`,
+				headers : {
+					"Content-Type": "application/json",
+				},
+				method: "GET"
 			})
 		}),
 		/*Получение ссылок на все отчёты по отделу*/
@@ -78,5 +83,6 @@ export const {
 	useGetManagerQuery,
 	useGetDepartmentsQuery,
 	useGetEmployeesQuery,
-	useGetEmployeeInfoQuery
+	useGetEmployeeInfoQuery,
+	useGetStatQuery
 } = DataService
