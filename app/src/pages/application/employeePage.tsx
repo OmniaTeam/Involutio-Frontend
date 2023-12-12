@@ -19,6 +19,15 @@ export default function EmployeePage() {
 	const EMPLOYEE = useGetEmployeeInfoQuery(Number(employeeId.id))
 	const MANAGER = useGetManagerQuery('')
 
+	const handle = async () => await fetch("https://involutio.the-omnia.ru/api/v3", {
+		headers : {
+			"Content-Type": "application/json",
+		},
+		method: "GET"
+	})
+
+	console.log(handle())
+
 	return (<>
 		<div className={'employee'}>
 			{EMPLOYEE.isSuccess
