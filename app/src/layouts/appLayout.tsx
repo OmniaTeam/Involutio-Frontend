@@ -47,6 +47,7 @@ export default function AppLayout() {
 	useEffect(() => {
 		console.log(getManager)
 		if (getManager.isSuccess) {
+			dispatch(setId(getManager.data.id))
 			dispatch(setManagerId(getManager.data.id))
 			dispatch(setUserId(getManager.data.userId))
 			dispatch(setDepartmentName(getManager.data.department))
