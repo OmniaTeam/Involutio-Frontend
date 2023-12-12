@@ -8,6 +8,7 @@ import './styles/sidebarStyles.scss'
 import './styles/cardsStyles.scss'
 import './styles/modalStyles.scss'
 import './styles/chartsStyles.scss'
+import './styles/dropdownMenu.scss'
 
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Provider } from "react-redux";

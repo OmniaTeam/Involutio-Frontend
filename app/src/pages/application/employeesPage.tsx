@@ -43,7 +43,7 @@ export default function EmployeesPage() {
 								thirdColumn={'Должность'}
 								dismissalProbability={value.rating}
 								id={value.id}
-								initialY={10}
+								initialY={10 + (index * 5)}
 								link={`/application/employee/${value.id}`}
 							/>
 						</div>

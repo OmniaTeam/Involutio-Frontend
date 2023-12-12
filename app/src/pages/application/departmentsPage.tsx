@@ -49,7 +49,7 @@ export default function DepartmentsPage() {
 								secondColumn={value.userId.toString()}
 								thirdColumn={`Средняя вероятность ${value.rating}%`}
 								id={1}
-								initialY={10}
+								initialY={10 + (index * 5)}
 								link={`/application/department/${value.id}`}
 							/>
 						</div>
