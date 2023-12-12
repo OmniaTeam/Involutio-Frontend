@@ -5,7 +5,6 @@ import { useAppSelector } from "../../hooks/redux";
 import {
 	useGetDepartmentInfoQuery,
 	useGetEmployeeInfoQuery,
-	useGetManagerQuery,
 	useGetStatQuery,
 } from "../../services/dataService";
 import { EUserRole } from "../../models/EUserRole";
@@ -26,9 +25,10 @@ export default function EmployeePage() {
 
 	let MANAGER;
 	if (USER.role === EUserRole.manager) {
-		MANAGER = useGetManagerQuery("");
-	} else if (USER.role === EUserRole.admin && EMPLOYEE.isSuccess) {
-		MANAGER = useGetDepartmentInfoQuery(EMPLOYEE.data.managerId || -1);
+		MANAGER = useGetDepartmentInfoQuery(USER.id);
+	} else {
+		if (USER.role === EUserRole.admin && EMPLOYEE.isSuccess)
+			MANAGER = useGetDepartmentInfoQuery(EMPLOYEE.data.managerId || -1);
 	}
 
 	const STAT = useGetStatQuery({
