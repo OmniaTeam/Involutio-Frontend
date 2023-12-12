@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { motion } from "framer-motion";
 
 interface DropdownMenuProps {
 	options?: { value: string; label: string }[];
@@ -19,7 +20,11 @@ export default function DropdownMenu(props : DropdownMenuProps) {
 		props.onSelectOption(option.value);
 		setIsOpen(false);
 	};
-	return <div className={'dropdown'}>
+	return <motion.div className={'dropdown'}
+		initial={{opacity: 0}}
+		animate={{opacity: 1}}
+		transition={{duration: 0.5}}
+	>
 		<div className={'dropdown--heading'} onClick={toggleMenu}>
 			{selectedOption || 'выберите грейд'}
 			{isOpen ? <div className={'dropdown--heading__up'}/> : <div className={'dropdown--heading__down'}/>}
@@ -33,5 +38,5 @@ export default function DropdownMenu(props : DropdownMenuProps) {
 				))}
 			</ul>
 		)}
-	</div>
+	</motion.div>
 }

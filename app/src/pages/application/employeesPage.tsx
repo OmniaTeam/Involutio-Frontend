@@ -1,7 +1,7 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { useAppSelector } from "../../hooks/redux.ts";
-import { useGetEmployeesQuery } from "../../services/dataService.ts";
+import { useGetDepartmentsQuery, useGetEmployeesQuery } from "../../services/dataService.ts";
 import { EUserRole } from "../../models/EUserRole.ts";
 
 import LineInformationCard from "../../components/lineInformationCard";
@@ -11,15 +11,20 @@ export default function EmployeesPage() {
 
 	const USER = useAppSelector((state) => state.user)
 	const EMPLOYEES = useGetEmployeesQuery(USER.id)
+	const DEPARTMENTS = useGetDepartmentsQuery('')
 
 	// @ts-ignore
 	const [selectedOption, setSelectedOption] = useState<string>('');
 
-	const options = [
-		{ value: 'Синьор', label: 'Синьор' },
-		{ value: 'Миддл', label: 'Миддл' },
-		{ value: 'Джуниор', label: 'Джуниор' },
-	];
+	const options: [{value : string, label : string}] = [{value : "", label : ""}];
+
+	useEffect(() => {
+		if (DEPARTMENTS.isSuccess) {
+			DEPARTMENTS.data.map((value) => {
+				options.push({value : value.department, label : value.department})
+			})
+		}
+	}, [DEPARTMENTS])
 
 	const handleOptionSelect = (selectedValue: string) => {
 		setSelectedOption(selectedValue);
