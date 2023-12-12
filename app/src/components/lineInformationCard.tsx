@@ -21,10 +21,7 @@ export default function LineInformationCard(props : LineInformationCardProps) {
 		     style={props.type === "employee" ? {gridTemplateColumns: "repeat(4, 1fr)"} : {}}>
 			<p className={"line-card--info__name"}>{props.name}</p>
 			<p className={"line-card--info__third-column"}>{props.secondColumn}</p>
-			{props.type === "employee"
-				? <p className={"line-card--info__probability"}>{props.thirdColumn}</p>
-				: <></>
-			}
+			<p className={"line-card--info__probability"}>{props.thirdColumn}</p>
 		</div>
 		<Link to={`${props.link}`} className={"line-card__details"}>{props.type === "report" ? "посмотреть" : "подробнее"}</Link>
 	</motion.div>
