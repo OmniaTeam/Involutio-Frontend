@@ -65,9 +65,8 @@ export default function EmployeesPage() {
 						transition={{ duration: 0.5 }}
 					>
 						<p className={"attributes--path"}>1 - фио сотрудника</p>
-						<p className={"attributes--path"}>2 - отдел</p>
-						<p className={"attributes--path"}>3 - должность</p>
-						<p className={"attributes--path"}>4 - вероятность увольнения</p>
+						<p className={"attributes--path"}>2. - должность</p>
+						<p className={"attributes--path"}>3. - вероятность увольнения</p>
 					</motion.div>
 					{USER.role !== EUserRole.admin ? (
 						<></>
@@ -87,9 +86,8 @@ export default function EmployeesPage() {
 									<LineInformationCard
 										type={"employee"}
 										name={value.fio}
-										secondColumn={"Отдел"}
-										thirdColumn={value.speciality}
-										dismissalProbability={value.rating}
+										secondColumn={value.speciality}
+										thirdColumn={`Вероятность ${value.rating}%`}
 										id={value.id}
 										initialY={10 + index * 5}
 										link={`/application/employee/${value.id}`}

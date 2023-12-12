@@ -46,9 +46,8 @@ export default function DepartmentPage() {
 					<LineInformationCard
 						type={'employee'}
 						name={'Иван Иванов Иванович'}
-						secondColumn={'Отдел продаж'}
-						thirdColumn={'Менеджер'}
-						dismissalProbability={20}
+						secondColumn={'Менеджер'}
+						thirdColumn={"Вероятность 20%"}
 						id={1}
 						initialY={10}
 						link={'/application/employee/1'}
@@ -66,9 +65,8 @@ export default function DepartmentPage() {
 								<LineInformationCard
 									type={'employee'}
 									name={value.fio}
-									secondColumn={'Отдел'}
-									thirdColumn={value.speciality}
-									dismissalProbability={value.rating}
+									secondColumn={value.speciality}
+									thirdColumn={`Вероятность ${value.rating}%`}
 									id={value.id}
 									initialY={10}
 									link={`/application/employee/${value.id}`}
