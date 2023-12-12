@@ -27,7 +27,7 @@ export default function EmployeePage() {
 	if (USER.role === EUserRole.manager) {
 		MANAGER = useGetManagerQuery('')
 	} else {
-		if (EMPLOYEE.isSuccess) MANAGER = useGetDepartmentInfoQuery(EMPLOYEE.data.managerId)
+		if (EMPLOYEE.isSuccess) MANAGER = useGetDepartmentInfoQuery(EMPLOYEE.data.managerId || -1)
 	}
 
 	const STAT = useGetStatQuery({
