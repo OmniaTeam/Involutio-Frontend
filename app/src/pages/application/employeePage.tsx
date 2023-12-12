@@ -81,17 +81,31 @@ export default function EmployeePage() {
 							}</>
 						}</>
 					}
-					<motion.p className={'statistic--path'}
-					          initial={{opacity: 0, y: 10}}
-					          animate={{opacity: 1, y: 0}}
-					          transition={{duration: 0.5}}
-					>Должность</motion.p>
 					{EMPLOYEE.isSuccess
 						? <motion.p className={'statistic--path'}
 						            initial={{opacity: 0, y: 10}}
 						            animate={{opacity: 1, y: 0}}
 						            transition={{duration: 0.5}}
-						>Адрес электронной почты {EMPLOYEE.data.mail}%</motion.p>
+						>{EMPLOYEE.data.speciality}</motion.p>
+						: <>{EMPLOYEE.isLoading
+							? <motion.p className={'statistic--path'}
+							            initial={{opacity: 0, y: 10}}
+							            animate={{opacity: 1, y: 0}}
+							            transition={{duration: 0.5}}
+							>Загрузка</motion.p>
+							: <motion.p className={'statistic--path'}
+							            initial={{opacity: 0, y: 10}}
+							            animate={{opacity: 1, y: 0}}
+							            transition={{duration: 0.5}}
+							>Ошибка</motion.p>
+						}</>
+					}
+					{EMPLOYEE.isSuccess
+						? <motion.p className={'statistic--path'}
+						            initial={{opacity: 0, y: 10}}
+						            animate={{opacity: 1, y: 0}}
+						            transition={{duration: 0.5}}
+						>Адрес электронной почты {EMPLOYEE.data.mail}</motion.p>
 						: <>{EMPLOYEE.isLoading
 							? <motion.p className={'statistic--path'}
 							            initial={{opacity: 0, y: 10}}

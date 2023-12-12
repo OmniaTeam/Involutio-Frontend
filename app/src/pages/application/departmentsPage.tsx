@@ -42,7 +42,6 @@ export default function DepartmentsPage() {
 			<div className={'departments--cards'}>
 				{DEPARTMENTS.isSuccess
 					? <>{
-						//@ts-ignore
 						DEPARTMENTS.data.map((value, index) =>
 							<div key={index}>
 								<LineInformationCard
