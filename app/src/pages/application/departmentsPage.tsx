@@ -18,11 +18,14 @@ export default function DepartmentsPage() {
 			method: "GET"
 		}).then((result) => {
 			if (result.ok) {
-				result.json().then((data) => data.fio)
+				result.json().then((data) => {
+					console.log(data.fio)
+					return data.fio
+				})
 			}
 		})
 
-	console.log(getUser(1))
+	console.log(getUser(1).then((r) => console.log("r", r)))
 
 	useEffect(() => {
 		if (USER.role !== EUserRole.admin) window.location.href = "/";
