@@ -38,6 +38,8 @@ export default function EmployeesPage() {
 		}
 	};
 
+	//TODO: Написать сортировку по разным атрибутам
+
 	return (
 		<div className={"employees"}>
 			<motion.h2
@@ -63,8 +65,8 @@ export default function EmployeesPage() {
 						transition={{ duration: 0.5 }}
 					>
 						<p className={"attributes--path"}>1 - фио сотрудника</p>
-						<p className={"attributes--path"}>2. - должность</p>
-						<p className={"attributes--path"}>3. - вероятность увольнения</p>
+						<p className={"attributes--path"}>2 - должность</p>
+						<p className={"attributes--path"}>3 - вероятность увольнения</p>
 					</motion.div>
 					{USER.role !== EUserRole.admin ? (
 						<></>

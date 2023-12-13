@@ -146,7 +146,7 @@ export default function EmployeePage() {
 						            initial={{opacity: 0, y: 10}}
 						            animate={{opacity: 1, y: 0}}
 						            transition={{duration: 0.5}}
-						>Адрес электронной почты {EMPLOYEE.mail}</motion.p>
+						>Адрес электронной почты: <strong>{EMPLOYEE.mail}</strong></motion.p>
 						: <>{employeeQuery.isLoading
 							? <motion.p className={'statistic--path'}
 							            initial={{opacity: 0, y: 10}}

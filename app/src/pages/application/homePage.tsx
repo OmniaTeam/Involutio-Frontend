@@ -4,6 +4,8 @@ import { EUserRole } from "../../models/EUserRole.ts";
 
 export default function HomePage() {
 	const USER = useAppSelector((state) => state.user)
+
+	//TODO: написать что-то привественное для админа и менеджера
 	return <div className={'home'}>
 		<motion.h2 className={'home--title'}
            initial={{ opacity: 0 }}
