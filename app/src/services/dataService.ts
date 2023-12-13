@@ -1,7 +1,8 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { IDepartment } from "../models/IDepartment.ts";
 import { IEmployee } from "../models/IEmployee.ts";
-import {IStatistic} from "../models/IStatistic.ts";
+import { IStatistic } from "../models/IStatistic.ts";
+import { IUser } from "../models/IUser.ts";
 
 export const DataService = createApi({
 	reducerPath : "data-service",
@@ -9,7 +10,7 @@ export const DataService = createApi({
 		baseUrl : "https://involutio.the-omnia.ru/api/v3"
 	}),
 	endpoints : (build) => ({
-		getUserInfo : build.query<any, number>({
+		getUserInfo : build.query<IUser, number>({
 			query : (userId) => ({
 				url : `/user/${userId}`,
 				headers : {

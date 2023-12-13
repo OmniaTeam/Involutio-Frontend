@@ -5,10 +5,13 @@ import { useGetDepartmentsQuery } from "../../services/dataService.ts";
 import { EUserRole } from "../../models/EUserRole.ts";
 
 import LineInformationCard from "../../components/lineInformationCard.tsx";
+import {useGetUserQuery} from "../../services/authService.ts";
+import { IUser } from "../../models/IUser.ts";
 
 export default function DepartmentsPage() {
 	const USER = useAppSelector((state) => state.user);
 	const DEPARTMENTS = useGetDepartmentsQuery("");
+
 	const getUser = async ( userId : number ) => {
 		await fetch(`https://involutio.the-omnia.ru/api/v3/user/${userId}`, {
 			headers: {
@@ -24,7 +27,23 @@ export default function DepartmentsPage() {
 		})
 	}
 
+	let getUserQuery;
+	let arr: IUser[] = []
+	useEffect(() => {
+		if (DEPARTMENTS.isSuccess) {
+			DEPARTMENTS.data.map((value) => {
+				getUserQuery = useGetUserQuery(value.userId)
+				if (getUserQuery.isSuccess) {
+					arr.push(getUserQuery.data)
+				}
+			})
+			console.log(arr)
+		}
+	}, []);
+
+/*
 	console.log(getUser(1).then((r) => console.log(r)))
+*/
 
 	useEffect(() => {
 		if (USER.role !== EUserRole.admin) window.location.href = "/";
