@@ -14,14 +14,20 @@ export default function DepartmentsPage() {
 		if (USER.role !== EUserRole.admin) window.location.href = '/'
 	}, [])
 
-	const getName = async (userId : number) => await fetch(`https://involutio.the-omnia.ru/api/v3/user/${userId}`, {
-		headers : {
-			"Content-Type": "application/json",
-		},
-		method : "GET"
-	}).then((result : any) => {
-		console.log(result)
-	})
+	const getName = async (userId : number) =>  async () => {
+		try {
+			const response = await fetch(
+				`https://involutio.the-omnia.ru/api/v3/user/${userId}`
+			);
+			if (response.ok) {
+				return response.json();
+			} else {
+				console.error("Error fetching user");
+			}
+		} catch (error) {
+			console.error("Error fetching user:", error);
+		}
+	};
 
 	return (<>
 		<div className={'departments'}>
