@@ -33,9 +33,12 @@ export default function DepartmentsPage() {
 
 	useEffect(() => {
 		if (DEPARTMENTS.isSuccess) {
-			DEPARTMENTS.data.map((value) => userIds.push(value.userId))
+			DEPARTMENTS.data.map((value) => {
+				console.log(value.userId)
+				userIds.push(Number(value.userId))
+			})
 		}
-		console.log(userIds)
+		console.log('arr:', userIds)
 	}, [DEPARTMENTS]);
 
 	return (
