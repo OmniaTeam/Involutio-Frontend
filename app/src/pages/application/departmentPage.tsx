@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom";
 import { useEffect } from "react";
-import { useGetDepartmentInfoQuery, useGetEmployeesQuery } from "../../services/dataService.ts";
+import {useGetDepartmentInfoQuery, useGetEmployeesQuery, useGetUserInfoQuery} from "../../services/dataService.ts";
 import { motion } from "framer-motion";
 import { useAppSelector } from "../../hooks/redux.ts";
 import { EUserRole } from "../../models/EUserRole.ts";
@@ -14,7 +14,7 @@ export default function DepartmentPage() {
 	const USER = useAppSelector((state) => state.user)
 	const EMPLOYEES = useGetEmployeesQuery(Number(managerId.id))
 	const DEPARTMENT = useGetDepartmentInfoQuery(Number(managerId.id))
-	const CURATOR = useGetUserQuery(Number(managerId.id))
+	const CURATOR = useGetUserInfoQuery(Number(managerId.id))
 
 	useEffect(() => {
 		if (USER.role !== EUserRole.admin) window.location.href = '/'
