@@ -45,12 +45,20 @@ export default function DepartmentPage() {
 						initial={{opacity: 0}}
 						animate={{opacity: 1}}
 						transition={{delay: 0.1, duration: 0.5 }}
+				        style={{
+							width: "100px",
+					        textAlign: "center"
+				        }}
 				>Куратор отделения</motion.p>
 				{CURATOR.isSuccess
 					? <motion.p className={'statistic--path'}
 						initial={{opacity: 0}}
 						animate={{opacity: 1}}
 						transition={{delay: 0.1, duration: 0.5 }}
+				        style={{
+					        width: "100px",
+					        textAlign: "center"
+				        }}
 					>
 						{CURATOR.data.fio}
 					</motion.p>
@@ -59,6 +67,10 @@ export default function DepartmentPage() {
 				            initial={{opacity: 0}}
 				            animate={{opacity: 1}}
 				            transition={{delay: 0.1, duration: 0.5}}
+		                    style={{
+			                    width: "100px",
+			                    textAlign: "center"
+		                    }}
 						>
 							Загрузка...
 						</motion.p>

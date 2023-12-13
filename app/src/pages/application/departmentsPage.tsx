@@ -25,7 +25,11 @@ export default function DepartmentsPage() {
 			);
 			if (response.ok) {
 				const data = await response.json();
-				setUserNames((prevUserNames) => [...prevUserNames, data.fio]);
+				setUserNames((prevUserNames) => {
+					const updatedUserNames = [...prevUserNames];
+					updatedUserNames[userId - 1] = data.fio;
+					return updatedUserNames;
+				});
 			}
 		} catch (error) {
 			console.log(error);
