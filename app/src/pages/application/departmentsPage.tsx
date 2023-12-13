@@ -22,6 +22,8 @@ export default function DepartmentsPage() {
 			}
 		})
 
+	console.log(getUser(1))
+
 	useEffect(() => {
 		if (USER.role !== EUserRole.admin) window.location.href = "/";
 	}, []);
