@@ -35,7 +35,7 @@ export default function DepartmentsPage() {
 		if (DEPARTMENTS.isSuccess) {
 			DEPARTMENTS.data.map((value) => {
 				console.log(value.userId)
-				userIds.push(Number(value.userId))
+				userIds.concat(Number(value.userId))
 			})
 		}
 		console.log('arr:', userIds)
