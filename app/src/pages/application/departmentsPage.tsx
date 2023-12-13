@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { motion } from "framer-motion";
 import { useAppSelector } from "../../hooks/redux.ts";
 import { useGetDepartmentsQuery } from "../../services/dataService.ts";
@@ -10,28 +10,17 @@ export default function DepartmentsPage() {
 	const USER = useAppSelector((state) => state.user);
 	const DEPARTMENTS = useGetDepartmentsQuery("");
 
-	//@ts-ignore
-	const [userName, setUserName] = useState("");
-
-	const getUser = async (userId : number) => {
-		try {
-			const response = await fetch(`https://involutio.the-omnia.ru/api/v3/user/${userId}`, {
-				headers: {
-					"Content-Type": "application/json",
-				},
-				method: "GET",
-			});
-
-			if (response.ok) {
-				const data = await response.json();
-				console.log(data)
-				setUserName(data.fio);
-				return data.fio
+	const getUser = async ( userId : number ) =>
+		await fetch(`https://involutio.the-omnia.ru/api/v3/user/${userId}`, {
+			headers : {
+				"Content-Type": "application/json",
+			},
+			method: "GET"
+		}).then((result) => {
+			if (result.ok) {
+				console.log(result.json())
 			}
-		} catch (error) {
-			console.error("Error", error)
-		}
-	};
+		})
 
 	useEffect(() => {
 		if (USER.role !== EUserRole.admin) window.location.href = "/";
