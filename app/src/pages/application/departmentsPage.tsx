@@ -20,7 +20,11 @@ export default function DepartmentsPage() {
 				"Content-Type": "application/json",
 			},
 			method: "GET"
-		}).then((result) => console.log(result.json()))
+		}).then((result : any) => {
+			if (result.ok) {
+				console.log(result.json(), result.json().fio)
+			}
+		})
 
 	return (<>
 		<div className={'departments'}>
