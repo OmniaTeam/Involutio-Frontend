@@ -25,8 +25,6 @@ export default function DepartmentsPage() {
 			}
 		})
 
-	console.log(getUser(1).then((r) => console.log("r", r)))
-
 	useEffect(() => {
 		if (USER.role !== EUserRole.admin) window.location.href = "/";
 	}, []);
@@ -65,7 +63,7 @@ export default function DepartmentsPage() {
 									<LineInformationCard
 										type={"department"}
 										name={value.department}
-										secondColumn={String(getUser(value.id))}
+										secondColumn={String(getUser(value.userId))}
 										thirdColumn={`Средняя вероятность ${value.rating}%`}
 										id={1}
 										initialY={10 + index * 5}
