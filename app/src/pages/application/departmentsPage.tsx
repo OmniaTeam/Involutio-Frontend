@@ -10,7 +10,6 @@ export default function DepartmentsPage() {
 	const USER = useAppSelector((state) => state.user);
 	const DEPARTMENTS = useGetDepartmentsQuery("");
 	const getUser = async ( userId : number ) => {
-		let name : string = '';
 		await fetch(`https://involutio.the-omnia.ru/api/v3/user/${userId}`, {
 			headers: {
 				"Content-Type": "application/json",
@@ -19,16 +18,13 @@ export default function DepartmentsPage() {
 		}).then((result) => {
 			if (result.ok) {
 				result.json().then((data) => {
-					console.log(data.fio)
-					name = data.fio
 					return data.fio
 				})
 			}
 		})
-		return name
 	}
 
-	console.log(getUser(1))
+	console.log(getUser(1).then((r) => console.log(r)))
 
 	useEffect(() => {
 		if (USER.role !== EUserRole.admin) window.location.href = "/";
