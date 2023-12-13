@@ -11,8 +11,9 @@ export default function DepartmentsPage() {
 	const DEPARTMENTS = useGetDepartmentsQuery("");
 
 	let userIds: number[] = []
+	let userNames: string[] = []
 
-	/*const getUser = async ( userId : number ) => {
+	const getUser = async ( userId : number ) => {
 		await fetch(`https://involutio.the-omnia.ru/api/v3/user/${userId}`, {
 			headers: {
 				"Content-Type": "application/json",
@@ -21,11 +22,11 @@ export default function DepartmentsPage() {
 		}).then((result) => {
 			if (result.ok) {
 				result.json().then((data) => {
-					return data.fio
+					userNames.push(data.fio)
 				})
 			}
 		})
-	}*/
+	}
 
 	useEffect(() => {
 		if (USER.role !== EUserRole.admin) window.location.href = "/";
@@ -34,12 +35,14 @@ export default function DepartmentsPage() {
 	useEffect(() => {
 		if (DEPARTMENTS.isSuccess) {
 			DEPARTMENTS.data.map((value) => {
-				console.log(value.userId)
 				userIds.push(Number(value.userId))
 			})
 		}
-		console.log('arr:', userIds)
 	}, [DEPARTMENTS]);
+
+	useEffect(() => {
+		userIds.map((value) => getUser(value))
+	}, [userIds]);
 
 	return (
 		<>
@@ -75,7 +78,7 @@ export default function DepartmentsPage() {
 									<LineInformationCard
 										type={"department"}
 										name={value.department}
-										secondColumn={''}
+										secondColumn={userNames[index]}
 										thirdColumn={`Средняя вероятность ${value.rating}%`}
 										id={1}
 										initialY={10 + index * 5}
