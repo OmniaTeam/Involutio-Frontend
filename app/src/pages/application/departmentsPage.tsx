@@ -10,7 +10,7 @@ export default function DepartmentsPage() {
 	const USER = useAppSelector((state) => state.user);
 	const DEPARTMENTS = useGetDepartmentsQuery("");
 
-	let userIds: number[]
+	let userIds: number[] = []
 
 	/*const getUser = async ( userId : number ) => {
 		await fetch(`https://involutio.the-omnia.ru/api/v3/user/${userId}`, {
@@ -35,7 +35,7 @@ export default function DepartmentsPage() {
 		if (DEPARTMENTS.isSuccess) {
 			DEPARTMENTS.data.map((value) => {
 				console.log(value.userId)
-				userIds.concat(Number(value.userId))
+				userIds.push(Number(value.userId))
 			})
 		}
 		console.log('arr:', userIds)
