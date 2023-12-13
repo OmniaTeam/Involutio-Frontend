@@ -1,4 +1,4 @@
-import {useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { useAppSelector } from "../../hooks/redux.ts";
 import { useGetDepartmentsQuery } from "../../services/dataService.ts";
@@ -10,40 +10,42 @@ export default function DepartmentsPage() {
 	const USER = useAppSelector((state) => state.user);
 	const DEPARTMENTS = useGetDepartmentsQuery("");
 
-	let userIds: number[] = []
-	const [userNames, setUserNames] = useState<string[]>([])
+	const [userNames, setUserNames] = useState<string[]>([]);
 
-	const getUser = async ( userId : number ) => {
-		await fetch(`https://involutio.the-omnia.ru/api/v3/user/${userId}`, {
-			headers: {
-				"Content-Type": "application/json",
-			},
-			method: "GET"
-		}).then((result) => {
-			if (result.ok) {
-				result.json().then((data) => {
-					setUserNames([...data.fio])
-					console.log(userNames)
-				})
+	const getUser = async (userId: number) => {
+		try {
+			const response = await fetch(
+				`https://involutio.the-omnia.ru/api/v3/user/${userId}`,
+				{
+					headers: {
+						"Content-Type": "application/json",
+					},
+					method: "GET",
+				}
+			);
+			if (response.ok) {
+				const data = await response.json();
+				setUserNames((prevUserNames) => [...prevUserNames, data.fio]);
 			}
-		})
-	}
+		} catch (error) {
+			console.log(error);
+		}
+	};
 
 	useEffect(() => {
-		if (USER.role !== EUserRole.admin) window.location.href = "/";
+		if (USER.role !== EUserRole.admin) {
+			window.location.href = "/";
+		}
 	}, [USER.role]);
 
 	useEffect(() => {
 		if (DEPARTMENTS.isSuccess) {
-			DEPARTMENTS.data.map((value) => {
-				userIds.push(Number(value.userId))
-			})
+			const userIds: number[] = DEPARTMENTS.data.map(
+				(value) => Number(value.userId)
+			);
+			userIds.forEach((userId) => getUser(userId));
 		}
 	}, [DEPARTMENTS]);
-
-	useEffect(() => {
-		userIds.map((value) => getUser(value))
-	}, [userIds]);
 
 	return (
 		<>
@@ -72,25 +74,20 @@ export default function DepartmentsPage() {
 					</motion.div>
 				</div>
 				<div className={"departments--cards"}>
-					{DEPARTMENTS.isSuccess ? (
-						<>
-							{DEPARTMENTS.data.map((value, index) => (
-								<div key={index}>
-									<LineInformationCard
-										type={"department"}
-										name={value.department}
-										secondColumn={userNames[index]}
-										thirdColumn={`Средняя вероятность ${value.rating}%`}
-										id={1}
-										initialY={10 + index * 5}
-										link={`/application/department/${value.id}`}
-									/>
-								</div>
-							))}
-						</>
-					) : (
-						<></>
-					)}
+					{DEPARTMENTS.isSuccess &&
+						DEPARTMENTS.data.map((value, index) => (
+							<div key={index}>
+								<LineInformationCard
+									type={"department"}
+									name={value.department}
+									secondColumn={userNames[index] || ""}
+									thirdColumn={`Средняя вероятность ${value.rating}%`}
+									id={1}
+									initialY={10 + index * 5}
+									link={`/application/department/${value.id}`}
+								/>
+							</div>
+						))}
 				</div>
 			</div>
 		</>
