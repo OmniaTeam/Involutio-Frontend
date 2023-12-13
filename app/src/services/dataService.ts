@@ -69,9 +69,19 @@ export const DataService = createApi({
 			})
 		}),
 		/*Получение статистики сотрудника для графика и составления отчёта*/
-		getStat : build.query<IStatistic[], { workerId : number, start : string, end : string }>({
+		getEmployeeStat : build.query<IStatistic[], { workerId : number, start : string, end : string }>({
 			query : (args) => ({
 				url : `/worker/${args.workerId}/stat?start=${args.start}&end=${args.end}`,
+				headers : {
+					"Content-Type": "application/json",
+				},
+				method: "GET"
+			})
+		}),
+		/*Получение статистики отдела для графика и составления отчёта*/
+		getDepartmentStat : build.query<IStatistic[], { departmentId : number, start : string, end : string }>({
+			query : (args) => ({
+				url : `/manager/${args.departmentId}/stat?start=${args.start}&end=${args.end}`,
 				headers : {
 					"Content-Type": "application/json",
 				},
@@ -98,7 +108,8 @@ export const {
 	useGetDepartmentsQuery,
 	useGetEmployeesQuery,
 	useGetEmployeeInfoQuery,
-	useGetStatQuery,
+	useGetEmployeeStatQuery,
+	useGetDepartmentStatQuery,
 	useGetReportsQuery,
 	useGetDepartmentInfoQuery,
 	useGetUserInfoQuery

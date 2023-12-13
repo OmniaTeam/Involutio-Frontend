@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 import {
 	useGetDepartmentInfoQuery,
 	useGetEmployeeInfoQuery,
-	useGetStatQuery
+	useGetEmployeeStatQuery
 } from "../../services/dataService";
 import {
 	setFio,
@@ -53,7 +53,7 @@ export default function EmployeePage() {
 	}, [employeeQuery])
 
 	const MANAGER = useGetDepartmentInfoQuery(USER.role === EUserRole.manager ? USER.id : EMPLOYEE.managerId);
-	const STAT = useGetStatQuery({
+	const STAT = useGetEmployeeStatQuery({
 		workerId: Number(employeeId.id),
 		start: "2021-12-24",
 		end: "2021-12-31",
