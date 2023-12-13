@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import {useEffect, useState} from "react";
 import { motion } from "framer-motion";
 import { useAppSelector } from "../../hooks/redux.ts";
 import { useGetDepartmentsQuery } from "../../services/dataService.ts";
@@ -11,7 +11,7 @@ export default function DepartmentsPage() {
 	const DEPARTMENTS = useGetDepartmentsQuery("");
 
 	let userIds: number[] = []
-	let userNames: string[] = []
+	const [userNames, setUserNames] = useState<string[]>([])
 
 	const getUser = async ( userId : number ) => {
 		await fetch(`https://involutio.the-omnia.ru/api/v3/user/${userId}`, {
@@ -22,7 +22,8 @@ export default function DepartmentsPage() {
 		}).then((result) => {
 			if (result.ok) {
 				result.json().then((data) => {
-					userNames.push(data.fio)
+					setUserNames([...data.fio])
+					console.log(userNames)
 				})
 			}
 		})
