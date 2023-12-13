@@ -2,17 +2,17 @@ import { useEffect } from "react";
 import { motion } from "framer-motion";
 import { useAppSelector } from "../../hooks/redux.ts";
 import { useGetDepartmentsQuery } from "../../services/dataService.ts";
+import { useGetUserQuery } from "../../services/authService.ts";
+import { IUser } from "../../models/IUser.ts";
 import { EUserRole } from "../../models/EUserRole.ts";
 
 import LineInformationCard from "../../components/lineInformationCard.tsx";
-import {useGetUserQuery} from "../../services/authService.ts";
-import { IUser } from "../../models/IUser.ts";
 
 export default function DepartmentsPage() {
 	const USER = useAppSelector((state) => state.user);
 	const DEPARTMENTS = useGetDepartmentsQuery("");
 
-	const getUser = async ( userId : number ) => {
+	/*const getUser = async ( userId : number ) => {
 		await fetch(`https://involutio.the-omnia.ru/api/v3/user/${userId}`, {
 			headers: {
 				"Content-Type": "application/json",
@@ -25,7 +25,7 @@ export default function DepartmentsPage() {
 				})
 			}
 		})
-	}
+	}*/
 
 	let getUserQuery;
 	let arr: IUser[] = []
@@ -39,11 +39,7 @@ export default function DepartmentsPage() {
 			})
 			console.log(arr)
 		}
-	}, []);
-
-/*
-	console.log(getUser(1).then((r) => console.log(r)))
-*/
+	}, [DEPARTMENTS]);
 
 	useEffect(() => {
 		if (USER.role !== EUserRole.admin) window.location.href = "/";
@@ -83,7 +79,7 @@ export default function DepartmentsPage() {
 									<LineInformationCard
 										type={"department"}
 										name={value.department}
-										secondColumn={String(getUser(value.userId))}
+										secondColumn={''}
 										thirdColumn={`Средняя вероятность ${value.rating}%`}
 										id={1}
 										initialY={10 + index * 5}
