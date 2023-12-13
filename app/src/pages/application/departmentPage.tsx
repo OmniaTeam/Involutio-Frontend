@@ -6,6 +6,7 @@ import { useAppSelector } from "../../hooks/redux.ts";
 import { EUserRole } from "../../models/EUserRole.ts";
 
 import LineInformationCard from "../../components/lineInformationCard.tsx";
+import {useGetUserQuery} from "../../services/authService.ts";
 
 export default function DepartmentPage() {
 	const managerId = useParams()
@@ -13,6 +14,7 @@ export default function DepartmentPage() {
 	const USER = useAppSelector((state) => state.user)
 	const EMPLOYEES = useGetEmployeesQuery(Number(managerId.id))
 	const DEPARTMENT = useGetDepartmentInfoQuery(Number(managerId.id))
+	const CURATOR = useGetUserQuery(Number(managerId.id))
 
 	useEffect(() => {
 		if (USER.role !== EUserRole.admin) window.location.href = '/'
@@ -22,34 +24,52 @@ export default function DepartmentPage() {
 		<div className={'department'}>
 			{DEPARTMENT.isSuccess
 				? <motion.h2 className={'department--title'}
-				             initial={{opacity: 0}}
-				             animate={{opacity: 1}}
-				             transition={{delay: 0.1, duration: 0.5}}
+						initial={{opacity: 0}}
+						animate={{opacity: 1}}
+						transition={{delay: 0.1, duration: 0.5}}
 				>{DEPARTMENT.data.department}</motion.h2>
 				: <>{DEPARTMENT.isLoading
 					? <motion.h2 className={'department--title'}
-					             initial={{opacity: 0}}
-					             animate={{opacity: 1}}
-					             transition={{delay: 0.1, duration: 0.5}}
+						initial={{opacity: 0}}
+						animate={{opacity: 1}}
+						transition={{delay: 0.1, duration: 0.5}}
 					>Загрузка...</motion.h2>
 					: <motion.h2 className={'department--title'}
-					             initial={{opacity: 0}}
-					             animate={{opacity: 1}}
-					             transition={{delay: 0.1, duration: 0.5}}
+						initial={{opacity: 0}}
+						animate={{opacity: 1}}
+						transition={{delay: 0.1, duration: 0.5}}
 					>Не удалось загрузить</motion.h2>
 				}</>
 			}
 			<div className={'department--content'}>
 				<motion.p className={'department--content__title'}
+						initial={{opacity: 0}}
+						animate={{opacity: 1}}
+						transition={{delay: 0.1, duration: 0.5 }}
+				>Куратор отделения</motion.p>
+				{CURATOR.isSuccess
+					? <motion.p className={'statistic--path'}
+						initial={{opacity: 0}}
+						animate={{opacity: 1}}
+						transition={{delay: 0.1, duration: 0.5 }}
+					>
+						{CURATOR.data.fio}
+					</motion.p>
+					: <>{CURATOR.isLoading
+						? <motion.p className={'statistic--path'}
+				            initial={{opacity: 0}}
+				            animate={{opacity: 1}}
+				            transition={{delay: 0.1, duration: 0.5}}
+						>
+							Загрузка...
+						</motion.p>
+						: <></>
+					}</>
+				}
+				<motion.p className={'department--content__title'}
 				          initial={{opacity: 0}}
 				          animate={{opacity: 1}}
-				          transition={{delay: 0.1, duration: 0.5 }}
-				>Куратор отделения</motion.p>
-				<div className={'department--curator'}></div>
-				<motion.p className={'department--content__title'}
-					initial={{ opacity: 0 }}
-					animate={{ opacity: 1 }}
-					transition={{ delay: 0.1, duration: 0.5 }}
+				          transition={{delay: 0.1, duration: 0.5}}
 				>Глава отделения</motion.p>
 				<div className={'department--cards'}>
 					<LineInformationCard
