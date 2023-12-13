@@ -12,6 +12,8 @@ export default function DepartmentsPage() {
 
 	const [userNames, setUserNames] = useState<string[]>([]);
 
+	//TODO: привязать fio к Department
+
 	const getUser = async (userId: number) => {
 		try {
 			const response = await fetch(
@@ -25,11 +27,7 @@ export default function DepartmentsPage() {
 			);
 			if (response.ok) {
 				const data = await response.json();
-				setUserNames((prevUserNames) => {
-					const updatedUserNames = [...prevUserNames];
-					updatedUserNames[userId - 1] = data.fio;
-					return updatedUserNames;
-				});
+				setUserNames((prevUserNames) => [...prevUserNames, data.fio]);
 			}
 		} catch (error) {
 			console.log(error);
