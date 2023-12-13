@@ -58,7 +58,7 @@ export default function DepartmentsPage() {
 					animate={{ opacity: 1 }}
 					transition={{ delay: 0.1, duration: 0.5 }}
 				>
-					Отделения
+					Подразделения
 				</motion.h2>
 				<div className={"heading-wrapper"}>
 					<motion.div

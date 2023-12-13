@@ -38,6 +38,8 @@ export default function EmployeesPage() {
 		}
 	};
 
+	//TODO: написать ролевое разделение. Менеджер видит отчёты всех своих сотрудников, а админ отчёты всех отедлов
+
 	return (
 		<div className={"reports"}>
 			<motion.h2
