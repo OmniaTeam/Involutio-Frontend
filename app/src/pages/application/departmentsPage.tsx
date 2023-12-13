@@ -18,7 +18,7 @@ export default function DepartmentsPage() {
 			method: "GET"
 		}).then((result) => {
 			if (result.ok) {
-				result.json().then((data) => console.log(data))
+				result.json().then((data) => data.fio)
 			}
 		})
 
