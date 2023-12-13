@@ -9,10 +9,10 @@ import LineInformationCard from "../../components/lineInformationCard.tsx";
 export default function DepartmentsPage() {
 	const USER = useAppSelector((state) => state.user);
 	const DEPARTMENTS = useGetDepartmentsQuery("");
-
-	const getUser = async ( userId : number ) =>
+	const getUser = async ( userId : number ) => {
+		let name : string = '';
 		await fetch(`https://involutio.the-omnia.ru/api/v3/user/${userId}`, {
-			headers : {
+			headers: {
 				"Content-Type": "application/json",
 			},
 			method: "GET"
@@ -20,10 +20,15 @@ export default function DepartmentsPage() {
 			if (result.ok) {
 				result.json().then((data) => {
 					console.log(data.fio)
+					name = data.fio
 					return data.fio
 				})
 			}
 		})
+		return name
+	}
+
+	console.log(getUser(1))
 
 	useEffect(() => {
 		if (USER.role !== EUserRole.admin) window.location.href = "/";
