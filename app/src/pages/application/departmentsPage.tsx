@@ -11,6 +11,13 @@ export default function DepartmentsPage() {
 	const DEPARTMENTS = useGetDepartmentsQuery("");
 
 	const [userNames, setUserNames] = useState<string[]>([]);
+	const [deps, setDeps] = useState<{
+		id: number,
+		userId: number,
+		department: string,
+		rating: number,
+		fio: string
+	}[]>([])
 
 	//TODO: привязать fio к Department
 
@@ -46,8 +53,17 @@ export default function DepartmentsPage() {
 				(value) => Number(value.userId)
 			);
 			userIds.forEach((userId) => getUser(userId));
+			setDeps(
+				DEPARTMENTS.data.map((value, index) => ({
+					id: value.id,
+					userId: value.userId,
+					department: value.department,
+					rating: value.rating,
+					fio: userNames[index] || "",
+				}))
+			);
 		}
-	}, [DEPARTMENTS]);
+	}, [DEPARTMENTS, userNames]);
 
 	return (
 		<>
@@ -68,8 +84,8 @@ export default function DepartmentsPage() {
 						transition={{ duration: 0.5 }}
 						style={{ width: "500px" }}
 					>
-						<p className={"attributes--path"}>1 - название отделния</p>
-						<p className={"attributes--path"}>2 - фио куратора отделения</p>
+						<p className={"attributes--path"}>1 - название отдела</p>
+						<p className={"attributes--path"}>2 - фио куратора отдела</p>
 						<p className={"attributes--path"}>
 							3 - средний процент заинтересованности
 						</p>
@@ -77,12 +93,12 @@ export default function DepartmentsPage() {
 				</div>
 				<div className={"departments--cards"}>
 					{DEPARTMENTS.isSuccess &&
-						DEPARTMENTS.data.map((value, index) => (
+						deps.map((value, index) => (
 							<div key={index}>
 								<LineInformationCard
 									type={"department"}
 									name={value.department}
-									secondColumn={userNames[index] || ""}
+									secondColumn={value.fio}
 									thirdColumn={`Средняя вероятность ${value.rating}%`}
 									id={1}
 									initialY={10 + index * 5}
