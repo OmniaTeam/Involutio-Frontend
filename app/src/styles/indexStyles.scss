@@ -186,6 +186,13 @@
     &--title {
         @include applicationTitle
     }
+    &--content {
+        margin-top: 20px;
+        &__title {
+            @include applicationTitle;
+            margin-bottom: 20px;
+        }
+    }
 }
 
 .employees,
