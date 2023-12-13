@@ -1,12 +1,11 @@
 import { useParams } from "react-router-dom";
 import { useEffect } from "react";
-import {useGetDepartmentInfoQuery, useGetEmployeesQuery, useGetUserInfoQuery} from "../../services/dataService.ts";
+import { useGetDepartmentInfoQuery, useGetEmployeesQuery, useGetUserInfoQuery } from "../../services/dataService.ts";
 import { motion } from "framer-motion";
 import { useAppSelector } from "../../hooks/redux.ts";
 import { EUserRole } from "../../models/EUserRole.ts";
 
 import LineInformationCard from "../../components/lineInformationCard.tsx";
-import {useGetUserQuery} from "../../services/authService.ts";
 
 export default function DepartmentPage() {
 	const managerId = useParams()
