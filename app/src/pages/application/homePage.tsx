@@ -27,7 +27,7 @@ export default function HomePage() {
 						marginBottom: "0"
 					}}>
 						<motion.div
-							className={'statistic--path'}
+							className={'statistic--button'}
 							initial={{ opacity: 0 }}
 							animate={{ opacity: 1 }}
 							transition={{ delay: 0.1, duration: 0.5 }}
@@ -35,7 +35,7 @@ export default function HomePage() {
 							<Link to={'/application/employees'} style={{color: "#FFFFFF"}}>Посмотреть своих сотрудников</Link>
 						</motion.div>
 						<motion.div
-							className={'statistic--path'}
+							className={'statistic--button'}
 							initial={{ opacity: 0 }}
 							animate={{ opacity: 1 }}
 							transition={{ delay: 0.1, duration: 0.5 }}

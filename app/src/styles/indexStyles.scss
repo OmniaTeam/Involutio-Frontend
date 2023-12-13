@@ -189,7 +189,11 @@
     &--content {
         margin-top: 20px;
         &__title {
-            @include applicationTitle;
+            font-size: 30px;
+            font-family: Roboto, sans-serif;
+            font-weight: 400;
+            letter-spacing: 3.6px;
+            line-height: 30px;
             margin-bottom: 20px;
         }
     }
