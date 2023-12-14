@@ -81,10 +81,13 @@ export default function EmployeesPage() {
 					)}
 				</div>
 				<motion.div className={'sort-buttons'}
-		            initial={{ opacity: 0 }}
-		            animate={{ opacity: 1 }}
+		            initial={{ opacity: 0, display: "none" }}
+		            animate={{
+			            opacity: sortButtonsDisplay ? 1 : 0,
+			            display: sortButtonsDisplay ? "block" : "none",
+		            }}
+		            exit={{ opacity: 0, display: "none" }}
 		            transition={{ duration: 0.5 }}
-				    style={sortButtonsDisplay ? {} : {display: "none"}}
 				>
 					<motion.button className={'sort-buttons--button'}
 					               initial={{ opacity: 0 }}
