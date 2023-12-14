@@ -1,18 +1,18 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+import { useAppDispatch, useAppSelector } from "../../hooks/redux.ts";
 import { motion } from "framer-motion";
-import { useAppSelector } from "../../hooks/redux.ts";
 import { useGetDepartmentsQuery } from "../../services/dataService.ts";
+import { setData } from "../../store/reducers/IFullDepartmentsSlice.ts";
 import { EUserRole } from "../../models/EUserRole.ts";
 
 import LineInformationCard from "../../components/lineInformationCard.tsx";
 
 export default function DepartmentsPage() {
+	const dispatch = useAppDispatch();
+
 	const USER = useAppSelector((state) => state.user);
 	const DEPARTMENTS = useGetDepartmentsQuery("");
-
-	const [userNames, setUserNames] = useState<string[]>([]);
-
-	//TODO: привязать fio к Department
+	const deps = useAppSelector((state) => state.fullDepartments);
 
 	const getUser = async (userId: number) => {
 		try {
@@ -27,7 +27,7 @@ export default function DepartmentsPage() {
 			);
 			if (response.ok) {
 				const data = await response.json();
-				setUserNames((prevUserNames) => [...prevUserNames, data.fio]);
+				return data.fio;
 			}
 		} catch (error) {
 			console.log(error);
@@ -42,10 +42,28 @@ export default function DepartmentsPage() {
 
 	useEffect(() => {
 		if (DEPARTMENTS.isSuccess) {
-			const userIds: number[] = DEPARTMENTS.data.map(
-				(value) => Number(value.userId)
+			const userIds: number[] = DEPARTMENTS.data.map((value) =>
+				Number(value.userId)
 			);
-			userIds.forEach((userId) => getUser(userId));
+
+			const fetchUserNames = async () => {
+				const userNames = await Promise.all(
+					userIds.map((userId) => getUser(userId))
+				);
+
+				DEPARTMENTS.data.forEach((value, index) => {
+					dispatch(
+						setData({
+							department: value.department,
+							fio: userNames[index],
+							id: value.id,
+							rating: value.rating,
+							userId: value.userId,
+						})
+					);
+				});
+			};
+			fetchUserNames();
 		}
 	}, [DEPARTMENTS]);
 
@@ -76,20 +94,19 @@ export default function DepartmentsPage() {
 					</motion.div>
 				</div>
 				<div className={"departments--cards"}>
-					{DEPARTMENTS.isSuccess &&
-						DEPARTMENTS.data.map((value, index) => (
-							<div key={index}>
-								<LineInformationCard
-									type={"department"}
-									name={value.department}
-									secondColumn={userNames[index] || ""}
-									thirdColumn={`Средняя вероятность ${value.rating}%`}
-									id={1}
-									initialY={10 + index * 5}
-									link={`/application/department/${value.id}`}
-								/>
-							</div>
-						))}
+					{deps.value.map((value, index) => (
+						<div key={index}>
+							<LineInformationCard
+								type={"department"}
+								name={value.department}
+								secondColumn={value.fio}
+								thirdColumn={`Средняя вероятность ${value.rating}%`}
+								id={1}
+								initialY={10 + index * 5}
+								link={`/application/department/${value.id}`}
+							/>
+						</div>
+					))}
 				</div>
 			</div>
 		</>

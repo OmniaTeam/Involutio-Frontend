@@ -4,13 +4,17 @@ import { AuthService } from "../services/authService";
 import { DataService } from "../services/dataService.ts";
 import { IDepartmentSlice } from "./reducers/IDepartmentSlice.ts";
 import { IEmployeeSlice } from "./reducers/IEmployeeSlice.ts";
+import { IFullDepartmentSlice } from "./reducers/IFullDepartmentSlice.ts";
+import { IFullDepartmentsSlice } from "./reducers/IFullDepartmentsSlice.ts";
 
 const rootReducer = combineReducers({
 	[AuthService.reducerPath] : AuthService.reducer,
 	user : IUserSlice.reducer,
 	[DataService.reducerPath] : DataService.reducer,
 	department : IDepartmentSlice.reducer,
-	employee : IEmployeeSlice.reducer
+	employee : IEmployeeSlice.reducer,
+	fullDepartment : IFullDepartmentSlice.reducer,
+	fullDepartments : IFullDepartmentsSlice.reducer
 })
 
 export const setupStore = () => configureStore({
