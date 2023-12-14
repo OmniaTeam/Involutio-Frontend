@@ -17,9 +17,7 @@ export default function EmployeesPage() {
 	//@ts-ignore
 	const [selectedOption, setSelectedOption] = useState<string>("");
 	const [selectedId, setSelectedId] = useState<number>(0);
-/*
-	const [sortType, setSortType] = useState<string>('ФИО')
-*/
+	const [sortButtonsDisplay, setSortButtonsDisplay] = useState<boolean>(false)
 
 	let EMPLOYEES;
 	if (USER.role === EUserRole.manager) EMPLOYEES = useGetEmployeesQuery(USER.id);
@@ -36,6 +34,7 @@ export default function EmployeesPage() {
 			(option) => option.value === selectedValue
 		);
 		if (selectedDepartment) {
+			setSortButtonsDisplay(true)
 			setSelectedOption(selectedValue);
 			setSelectedId(selectedDepartment.id);
 		}
@@ -81,17 +80,34 @@ export default function EmployeesPage() {
 						/>
 					)}
 				</div>
-				<div className={'sort-buttons'}>
-					<button className={'sort-buttons--button'}>
+				<motion.div className={'sort-buttons'}
+		            initial={{ opacity: 0 }}
+		            animate={{ opacity: 1 }}
+		            transition={{ duration: 0.5 }}
+				    style={sortButtonsDisplay ? {} : {display: "none"}}
+				>
+					<motion.button className={'sort-buttons--button'}
+					               initial={{ opacity: 0 }}
+					               animate={{ opacity: 1 }}
+					               transition={{ duration: 0.5 }}
+					>
 						Сортировка по ФИО
-					</button>
-					<button className={'sort-buttons--button'}>
+					</motion.button>
+					<motion.button className={'sort-buttons--button'}
+					               initial={{ opacity: 0 }}
+					               animate={{ opacity: 1 }}
+					               transition={{ duration: 0.5 }}
+					>
 						Сортировка по Специальности
-					</button>
-					<button className={'sort-buttons--button'}>
+					</motion.button>
+					<motion.button className={'sort-buttons--button'}
+					               initial={{ opacity: 0 }}
+					               animate={{ opacity: 1 }}
+					               transition={{ duration: 0.5 }}
+					>
 						Сортировка по Вероятности увольнения
-					</button>
-				</div>
+					</motion.button>
+				</motion.div>
 				<div className={"employees--cards"}>
 					{EMPLOYEES.isSuccess && EMPLOYEES.data.length > 0 ? (
 						<>
