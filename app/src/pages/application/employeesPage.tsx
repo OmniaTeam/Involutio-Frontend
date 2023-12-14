@@ -24,6 +24,9 @@ export default function EmployeesPage() {
 		= useState<boolean>(false)
 	const [sortedEmployees, setSortedEmployees]
 		= useState<readonly IEmployee[]>([]);
+	const [selectedSort, setSelectedSort]
+		= useState('');
+
 
 	//@ts-ignore
 	let EMPLOYEES;
@@ -52,6 +55,7 @@ export default function EmployeesPage() {
 		const sorted = [...EMPLOYEES?.data].sort((a, b) =>
 			a.fio.localeCompare(b.fio)
 		);
+		setSelectedSort('ФИО')
 		setSortedEmployees(sorted);
 	};
 
@@ -60,12 +64,14 @@ export default function EmployeesPage() {
 		const sorted = [...EMPLOYEES.data].sort((a, b) =>
 			a.speciality.localeCompare(b.speciality)
 		);
+		setSelectedSort('Специальности')
 		setSortedEmployees(sorted);
 	};
 
 	const sortEmployeesByRating = () => {
 		//@ts-ignore
 		const sorted = [...EMPLOYEES.data].sort((a, b) => b.rating - a.rating);
+		setSelectedSort('Вероятности увольнения');
 		setSortedEmployees(sorted);
 	};
 
@@ -110,37 +116,46 @@ export default function EmployeesPage() {
 					)}
 				</div>
 				<motion.div className={'sort-buttons'}
-		            initial={{ opacity: 0, display: "none" }}
-		            animate={{
-			            opacity: sortButtonsDisplay ? 1 : 0,
-			            display: sortButtonsDisplay ? "flex" : "none",
-		            }}
-		            exit={{ opacity: 0, display: "none" }}
-		            transition={{ duration: 0.5 }}
+				            initial={{opacity: 0, display: "none"}}
+				            animate={{
+					            opacity: sortButtonsDisplay ? 1 : 0,
+					            display: sortButtonsDisplay ? "flex" : "none",
+				            }}
+				            exit={{opacity: 0, display: "none"}}
+				            transition={{duration: 0.5}}
 				>
-					<motion.button className={'sort-buttons--button'}
-					               initial={{ opacity: 0 }}
-					               animate={{ opacity: 1 }}
-					               transition={{ duration: 0.5 }}
-					               onClick={sortEmployeesByName}
+					<motion.button
+						className={`sort-buttons--button ${
+							selectedSort === 'ФИО' ? 'sort-buttons--button__selected' : ''
+						}`}
+						initial={{opacity: 0}}
+						animate={{opacity: 1}}
+						transition={{duration: 0.5}}
+						onClick={sortEmployeesByName}
 					>
-						Сортировка по ФИО
+						Сортировка по <strong>ФИО</strong>
 					</motion.button>
-					<motion.button className={'sort-buttons--button'}
-					               initial={{ opacity: 0 }}
-					               animate={{ opacity: 1 }}
-					               transition={{ duration: 0.5 }}
-					               onClick={sortEmployeesBySpeciality}
+					<motion.button
+						className={`sort-buttons--button ${
+							selectedSort === 'Специальности' ? 'sort-buttons--button__selected' : ''
+						}`}
+						initial={{opacity: 0}}
+						animate={{opacity: 1}}
+						transition={{duration: 0.5}}
+						onClick={sortEmployeesBySpeciality}
 					>
-						Сортировка по Специальности
+						Сортировка по <strong>Специальности</strong>
 					</motion.button>
-					<motion.button className={'sort-buttons--button'}
-					               initial={{ opacity: 0 }}
-					               animate={{ opacity: 1 }}
-					               transition={{ duration: 0.5 }}
-					               onClick={sortEmployeesByRating}
+					<motion.button
+						className={`sort-buttons--button ${
+							selectedSort === 'Вероятности увольнения' ? 'sort-buttons--button__selected' : ''
+						}`}
+						initial={{opacity: 0}}
+						animate={{opacity: 1}}
+						transition={{duration: 0.5}}
+						onClick={sortEmployeesByRating}
 					>
-						Сортировка по Вероятности увольнения
+						Сортировка по <strong>Вероятности увольнения</strong>
 					</motion.button>
 				</motion.div>
 				<div className={"employees--cards"}>

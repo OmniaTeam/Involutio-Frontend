@@ -338,5 +338,8 @@
         &:hover {
             box-shadow: 0 0 10px 0 $white-primary;
         }
+        &__selected {
+            box-shadow: 0 0 10px 0 $white-primary;
+        }
     }
 }
