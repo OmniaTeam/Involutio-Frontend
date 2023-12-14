@@ -1,12 +1,9 @@
-import { useState } from "react";
-import { motion } from "framer-motion";
-import { useAppSelector } from "../../hooks/redux.ts";
-import {
-	useGetDepartmentsQuery,
-	useGetEmployeesQuery,
-} from "../../services/dataService.ts";
-import { EUserRole } from "../../models/EUserRole.ts";
-import { IEmployee } from "../../models/IEmployee.ts";
+import {useState} from "react";
+import {motion} from "framer-motion";
+import {useAppSelector} from "../../hooks/redux.ts";
+import {useGetDepartmentsQuery, useGetEmployeesQuery,} from "../../services/dataService.ts";
+import {EUserRole} from "../../models/EUserRole.ts";
+import {IEmployee} from "../../models/IEmployee.ts";
 
 import LineInformationCard from "../../components/lineInformationCard";
 import DropdownMenu from "../../components/dropdownMenu.tsx";
@@ -21,7 +18,7 @@ export default function EmployeesPage() {
 	const [selectedId, setSelectedId]
 		= useState<number>(0);
 	const [sortButtonsDisplay, setSortButtonsDisplay]
-		= useState<boolean>(false)
+		= useState<boolean>(USER.role !== EUserRole.admin)
 	const [sortedEmployees, setSortedEmployees]
 		= useState<readonly IEmployee[]>([]);
 	const [selectedSort, setSelectedSort]
