@@ -84,7 +84,7 @@ export default function EmployeesPage() {
 		            initial={{ opacity: 0, display: "none" }}
 		            animate={{
 			            opacity: sortButtonsDisplay ? 1 : 0,
-			            display: sortButtonsDisplay ? "block" : "none",
+			            display: sortButtonsDisplay ? "flex" : "none",
 		            }}
 		            exit={{ opacity: 0, display: "none" }}
 		            transition={{ duration: 0.5 }}
