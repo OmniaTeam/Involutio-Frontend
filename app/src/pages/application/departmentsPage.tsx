@@ -50,9 +50,8 @@ export default function DepartmentsPage() {
 				const userNames = await Promise.all(
 					userIds.map((userId) => getUser(userId))
 				);
-
+				dispatch(clearData([]))
 				DEPARTMENTS.data.forEach((value, index) => {
-					dispatch(clearData([]))
 					dispatch(
 						setData({
 							department: value.department,
