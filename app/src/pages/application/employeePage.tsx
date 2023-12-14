@@ -55,8 +55,8 @@ export default function EmployeePage() {
 	const MANAGER = useGetDepartmentInfoQuery(USER.role === EUserRole.manager ? USER.id : EMPLOYEE.managerId);
 	const STAT = useGetEmployeeStatQuery({
 		workerId: Number(employeeId.id),
-		start: "2021-12-24",
-		end: "2021-12-31",
+		start: "2023-11-23",
+		end: "2023-11-30",
 	});
 
 	return (<>

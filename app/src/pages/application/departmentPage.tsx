@@ -27,8 +27,8 @@ export default function DepartmentPage() {
 	const CURATOR = useGetUserInfoQuery(Number(managerId.id))
 	const STATISTIC = useGetDepartmentStatQuery({
 		departmentId: Number(managerId.id),
-		start: "2021-12-24",
-		end: "2021-12-31",
+		start: "2023-11-23",
+		end: "2023-11-30",
 	});
 
 	useEffect(() => {
