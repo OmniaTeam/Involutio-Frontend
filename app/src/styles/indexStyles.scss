@@ -323,6 +323,7 @@
     align-items: center;
     flex-wrap: wrap;
     gap: 20px;
+    margin-bottom: 20px;
     &--button {
         padding: 20px;
         font-size: 18px;
@@ -332,6 +333,7 @@
         background: rgba(217, 217, 217, 0.20);
         backdrop-filter: blur(27.5px);
         color: $white-primary;
+        cursor: pointer;
         transition: 250ms ease;
         &:hover {
             box-shadow: 0 0 10px 0 $white-primary;
