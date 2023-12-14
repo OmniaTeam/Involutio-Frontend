@@ -1,9 +1,9 @@
-import {useState} from "react";
-import {motion} from "framer-motion";
-import {useAppSelector} from "../../hooks/redux.ts";
-import {useGetDepartmentsQuery, useGetEmployeesQuery,} from "../../services/dataService.ts";
-import {EUserRole} from "../../models/EUserRole.ts";
-import {IEmployee} from "../../models/IEmployee.ts";
+import { useState } from "react";
+import { motion } from "framer-motion";
+import { useAppSelector } from "../../hooks/redux.ts";
+import { useGetDepartmentsQuery, useGetEmployeesQuery } from "../../services/dataService.ts";
+import { EUserRole } from "../../models/EUserRole.ts";
+import { IEmployee } from "../../models/IEmployee.ts";
 
 import LineInformationCard from "../../components/lineInformationCard";
 import DropdownMenu from "../../components/dropdownMenu.tsx";
