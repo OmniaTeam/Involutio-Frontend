@@ -6,6 +6,7 @@ import {
 	useGetEmployeesQuery,
 } from "../../services/dataService.ts";
 import { EUserRole } from "../../models/EUserRole.ts";
+import { IEmployee } from "../../models/IEmployee.ts";
 
 import LineInformationCard from "../../components/lineInformationCard";
 import DropdownMenu from "../../components/dropdownMenu.tsx";
@@ -15,10 +16,16 @@ export default function EmployeesPage() {
 	const DEPARTMENTS = useGetDepartmentsQuery("");
 
 	//@ts-ignore
-	const [selectedOption, setSelectedOption] = useState<string>("");
-	const [selectedId, setSelectedId] = useState<number>(0);
-	const [sortButtonsDisplay, setSortButtonsDisplay] = useState<boolean>(false)
+	const [selectedOption, setSelectedOption]
+		= useState<string>("");
+	const [selectedId, setSelectedId]
+		= useState<number>(0);
+	const [sortButtonsDisplay, setSortButtonsDisplay]
+		= useState<boolean>(false)
+	const [sortedEmployees, setSortedEmployees]
+		= useState<readonly IEmployee[]>([]);
 
+	//@ts-ignore
 	let EMPLOYEES;
 	if (USER.role === EUserRole.manager) EMPLOYEES = useGetEmployeesQuery(USER.id);
 	else EMPLOYEES = useGetEmployeesQuery(selectedId || -1);
@@ -38,6 +45,28 @@ export default function EmployeesPage() {
 			setSelectedOption(selectedValue);
 			setSelectedId(selectedDepartment.id);
 		}
+	};
+
+	const sortEmployeesByName = () => {
+		//@ts-ignore
+		const sorted = [...EMPLOYEES?.data].sort((a, b) =>
+			a.fio.localeCompare(b.fio)
+		);
+		setSortedEmployees(sorted);
+	};
+
+	const sortEmployeesBySpeciality = () => {
+		//@ts-ignore
+		const sorted = [...EMPLOYEES.data].sort((a, b) =>
+			a.speciality.localeCompare(b.speciality)
+		);
+		setSortedEmployees(sorted);
+	};
+
+	const sortEmployeesByRating = () => {
+		//@ts-ignore
+		const sorted = [...EMPLOYEES.data].sort((a, b) => b.rating - a.rating);
+		setSortedEmployees(sorted);
 	};
 
 	//TODO: Написать сортировку по разным атрибутам
@@ -93,6 +122,7 @@ export default function EmployeesPage() {
 					               initial={{ opacity: 0 }}
 					               animate={{ opacity: 1 }}
 					               transition={{ duration: 0.5 }}
+					               onClick={sortEmployeesByName}
 					>
 						Сортировка по ФИО
 					</motion.button>
@@ -100,6 +130,7 @@ export default function EmployeesPage() {
 					               initial={{ opacity: 0 }}
 					               animate={{ opacity: 1 }}
 					               transition={{ duration: 0.5 }}
+					               onClick={sortEmployeesBySpeciality}
 					>
 						Сортировка по Специальности
 					</motion.button>
@@ -107,6 +138,7 @@ export default function EmployeesPage() {
 					               initial={{ opacity: 0 }}
 					               animate={{ opacity: 1 }}
 					               transition={{ duration: 0.5 }}
+					               onClick={sortEmployeesByRating}
 					>
 						Сортировка по Вероятности увольнения
 					</motion.button>
@@ -114,10 +146,10 @@ export default function EmployeesPage() {
 				<div className={"employees--cards"}>
 					{EMPLOYEES.isSuccess && EMPLOYEES.data.length > 0 ? (
 						<>
-							{EMPLOYEES.data.map((value, index) => (
+							{(sortedEmployees.length > 0 ? sortedEmployees : EMPLOYEES.data).map((value, index) => (
 								<div key={index}>
 									<LineInformationCard
-										type={"employee"}
+										type="employee"
 										name={value.fio}
 										secondColumn={value.speciality}
 										thirdColumn={`Вероятность ${value.rating}%`}
