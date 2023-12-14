@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux.ts";
 import { motion } from "framer-motion";
 import { useGetDepartmentsQuery } from "../../services/dataService.ts";
-import { setData } from "../../store/reducers/IFullDepartmentsSlice.ts";
+import { clearData, setData } from "../../store/reducers/IFullDepartmentsSlice.ts";
 import { EUserRole } from "../../models/EUserRole.ts";
 
 import LineInformationCard from "../../components/lineInformationCard.tsx";
@@ -52,6 +52,7 @@ export default function DepartmentsPage() {
 				);
 
 				DEPARTMENTS.data.forEach((value, index) => {
+					dispatch(clearData([]))
 					dispatch(
 						setData({
 							department: value.department,

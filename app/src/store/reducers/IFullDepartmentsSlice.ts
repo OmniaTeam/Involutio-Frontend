@@ -11,10 +11,14 @@ export const IFullDepartmentsSlice = createSlice({
 	reducers : {
 		setData : (state, action : PayloadAction<IFullDepartment>) => {
 			state.value.push(action.payload)
+		},
+		clearData : (state, action : PayloadAction<[]>) => {
+			state.value = action.payload
 		}
 	}
 })
 
 export const {
-	setData
+	setData,
+	clearData
 } = IFullDepartmentsSlice.actions
