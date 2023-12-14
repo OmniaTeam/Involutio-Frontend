@@ -67,6 +67,12 @@ export default function DepartmentPage() {
 					initial={{opacity: 0}}
 					animate={{opacity: 1}}
 					transition={{delay: 0.1, duration: 0.5}}
+					style={{
+						display: "flex",
+						gap: "20px",
+						flexWrap: "wrap",
+						alignItems: "flex-start"
+					}}
 				>
 					{STATISTIC.isSuccess
 						? <>
