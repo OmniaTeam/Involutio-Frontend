@@ -317,3 +317,24 @@
         gap: 10px
     }
 }
+
+.sort-buttons {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+    &--button {
+        padding: 20px;
+        font-size: 18px;
+        letter-spacing: 1px;
+        border-radius: 20px;
+        border: 2px solid #EFEFEF;
+        background: rgba(217, 217, 217, 0.20);
+        backdrop-filter: blur(27.5px);
+        color: $white-primary;
+        transition: 250ms ease;
+        &:hover {
+            box-shadow: 0 0 10px 0 $white-primary;
+        }
+    }
+}

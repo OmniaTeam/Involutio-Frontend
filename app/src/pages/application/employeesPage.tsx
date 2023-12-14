@@ -17,6 +17,9 @@ export default function EmployeesPage() {
 	//@ts-ignore
 	const [selectedOption, setSelectedOption] = useState<string>("");
 	const [selectedId, setSelectedId] = useState<number>(0);
+/*
+	const [sortType, setSortType] = useState<string>('ФИО')
+*/
 
 	let EMPLOYEES;
 	if (USER.role === EUserRole.manager) EMPLOYEES = useGetEmployeesQuery(USER.id);
@@ -77,6 +80,17 @@ export default function EmployeesPage() {
 							onSelectOption={handleOptionSelect}
 						/>
 					)}
+				</div>
+				<div className={'sort-buttons'}>
+					<button className={'sort-buttons--button'}>
+						Сортировка по ФИО
+					</button>
+					<button className={'sort-buttons--button'}>
+						Сортировка по Специальности
+					</button>
+					<button className={'sort-buttons--button'}>
+						Сортировка по Вероятности увольнения
+					</button>
 				</div>
 				<div className={"employees--cards"}>
 					{EMPLOYEES.isSuccess && EMPLOYEES.data.length > 0 ? (
