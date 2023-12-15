@@ -6,7 +6,6 @@ import './styles/indexStyles.scss'
 import './styles/headerStyles.scss'
 import './styles/sidebarStyles.scss'
 import './styles/cardsStyles.scss'
-import './styles/modalStyles.scss'
 import './styles/chartsStyles.scss'
 import './styles/dropdownMenu.scss'
 

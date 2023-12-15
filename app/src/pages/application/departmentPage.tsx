@@ -119,15 +119,25 @@ export default function DepartmentPage() {
 				>Глава отдела
 				</motion.p>
 				<div className={'department--cards'}>
-					<LineInformationCard
-						type={'employee'}
-						name={'Иван Иванов Иванович'}
-						secondColumn={'Менеджер'}
-						thirdColumn={"Вероятность 20%"}
-						id={1}
-						initialY={10}
-						link={'/application/employee/1'}
-					/>
+					{EMPLOYEES.isSuccess
+						? <>{EMPLOYEES.data.map((value) => <>{
+							value.speciality === "Lead"
+								? <LineInformationCard
+									type={'employee'}
+									name={value.fio}
+									secondColumn={value.speciality}
+									thirdColumn={`Вероятность ${value.rating}%`}
+									id={value.id}
+									initialY={10}
+									link={`/application/employee/${value.id}`}
+								/>
+								: <></>
+						}</>)}</>
+						: <>{EMPLOYEES.isLoading
+							? <>Загрузка</>
+							: <>Ошибка загрузки</>
+						}</>
+					}
 				</div>
 				<motion.p className={'department--content__title'}
 				          initial={{opacity: 0}}
