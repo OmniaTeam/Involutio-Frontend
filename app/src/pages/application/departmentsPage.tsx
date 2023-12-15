@@ -128,7 +128,7 @@ export default function DepartmentsPage() {
 				>
 					<motion.button
 						className={`sort-buttons--button ${
-							selectedSort === 'ФИО' ? 'sort-buttons--button__selected' : ''
+							selectedSort === 'Куратор' ? 'sort-buttons--button__selected' : ''
 						}`}
 						initial={{opacity: 0}}
 						animate={{opacity: 1}}
@@ -139,7 +139,7 @@ export default function DepartmentsPage() {
 					</motion.button>
 					<motion.button
 						className={`sort-buttons--button ${
-							selectedSort === 'Специальности' ? 'sort-buttons--button__selected' : ''
+							selectedSort === 'Название' ? 'sort-buttons--button__selected' : ''
 						}`}
 						initial={{opacity: 0}}
 						animate={{opacity: 1}}
@@ -150,7 +150,7 @@ export default function DepartmentsPage() {
 					</motion.button>
 					<motion.button
 						className={`sort-buttons--button ${
-							selectedSort === 'Вероятности увольнения' ? 'sort-buttons--button__selected' : ''
+							selectedSort === 'Средняя вероятность' ? 'sort-buttons--button__selected' : ''
 						}`}
 						initial={{opacity: 0}}
 						animate={{opacity: 1}}
