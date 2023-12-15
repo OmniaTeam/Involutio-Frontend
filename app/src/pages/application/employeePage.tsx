@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux";
 import { motion } from "framer-motion";
@@ -18,7 +18,6 @@ import {
 
 import { EUserRole } from "../../models/EUserRole";
 
-import Modal from "../../components/modal";
 import Chart from "../../components/chart";
 
 export default function EmployeePage() {
@@ -27,10 +26,6 @@ export default function EmployeePage() {
 
 	const USER = useAppSelector((state) => state.user);
 	const EMPLOYEE = useAppSelector((state) => state.employee)
-
-	const [isModalOpen, setIsModalOpen] = useState(false);
-	const [startDate, setStartDate] = useState("");
-	const [endDate, setEndDate] = useState("");
 
 	const employeeQuery = useGetEmployeeInfoQuery(Number(employeeId.id));
 
@@ -179,15 +174,6 @@ export default function EmployeePage() {
 							>Ошибка</motion.p>
 						}</>
 					}
-					{USER.role === EUserRole.manager
-						? <motion.button className={'statistic--button'} type={'button'}
-						                 onClick={() => setIsModalOpen(true)}
-						                 initial={{opacity: 0}}
-						                 animate={{opacity: 1}}
-						                 transition={{delay: 0.2, duration: 0.5}}
-						>Составить отчёт</motion.button>
-						: <></>
-					}
 				</div>
 				<div className={'employee--content__graph'}>
 					{STAT.isSuccess
@@ -200,35 +186,5 @@ export default function EmployeePage() {
 				</div>
 			</div>
 		</div>
-		{isModalOpen && (
-			<Modal onClose={() => setIsModalOpen(false)}>
-				<h2 className={'modal--title'}>Составить отчёт</h2>
-				<div className={'date-range'}>
-					<div className={'date-range--start'}>
-						<p className={'date-range--label'}>Начальная дата</p>
-						<input
-							type="date"
-							value={startDate}
-							className={'date-range--input'}
-							onChange={(e) => {
-								setStartDate(e.target.value);
-							}}
-						/>
-					</div>
-					<div className={'date-range--end'}>
-						<p className={'date-range--label'}>Конечная дата</p>
-						<input
-							type="date"
-							value={endDate}
-							className={'date-range--input'}
-							onChange={(e) => {
-								setEndDate(e.target.value);
-							}}
-						/>
-					</div>
-				</div>
-				<button className={'modal--button'} type={'button'}>сгенерировать</button>
-			</Modal>
-		)}
 	</>)
 }
