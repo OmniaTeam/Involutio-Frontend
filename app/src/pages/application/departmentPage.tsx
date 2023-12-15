@@ -149,15 +149,18 @@ export default function DepartmentPage() {
 					{EMPLOYEES.isSuccess
 						? <>{EMPLOYEES.data.map((value, index) =>
 							<div key={index}>
-								<LineInformationCard
-									type={'employee'}
-									name={value.fio}
-									secondColumn={value.speciality}
-									thirdColumn={`Вероятность ${value.rating}%`}
-									id={value.id}
-									initialY={10}
-									link={`/application/employee/${value.id}`}
-								/>
+								{value.speciality === "Lead"
+									? <></>
+									: <LineInformationCard
+										type={'employee'}
+										name={value.fio}
+										secondColumn={value.speciality}
+										thirdColumn={`Вероятность ${value.rating}%`}
+										id={value.id}
+										initialY={10}
+										link={`/application/employee/${value.id}`}
+									/>
+								}
 							</div>
 						)}</>
 						: <>Не загрузило(</>
