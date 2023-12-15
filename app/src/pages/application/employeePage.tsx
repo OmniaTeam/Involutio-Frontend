@@ -50,8 +50,10 @@ export default function EmployeePage() {
 	const MANAGER = useGetDepartmentInfoQuery(USER.role === EUserRole.manager ? USER.id : EMPLOYEE.managerId);
 	const STAT = useGetEmployeeStatQuery({
 		workerId: Number(employeeId.id),
-		start: "2023-11-23",
-		end: "2023-11-30",
+		start: // Update the start date to 7 days ago
+			new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString().split("T")[0],
+		end: // Update the end date to today
+			new Date().toISOString().split("T")[0],
 	});
 
 	return (<>
