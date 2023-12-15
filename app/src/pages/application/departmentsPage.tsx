@@ -122,11 +122,8 @@ export default function DepartmentsPage() {
 					</motion.div>
 				</div>
 				<motion.div className={'sort-buttons'}
-				            initial={{opacity: 0, display: "none"}}
-				            animate={{
-					            opacity: 1
-				            }}
-				            exit={{opacity: 0, display: "none"}}
+				            initial={{ opacity: 0 }}
+				            animate={{ opacity: 1 }}
 				            transition={{duration: 0.5}}
 				>
 					<motion.button
