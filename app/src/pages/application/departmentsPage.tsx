@@ -1,14 +1,20 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux.ts";
 import { motion } from "framer-motion";
 import { useGetDepartmentsQuery } from "../../services/dataService.ts";
 import { clearData, setData } from "../../store/reducers/IFullDepartmentsSlice.ts";
 import { EUserRole } from "../../models/EUserRole.ts";
+import { IFullDepartment } from "../../models/IFullDepartment.ts";
 
 import LineInformationCard from "../../components/lineInformationCard.tsx";
 
 export default function DepartmentsPage() {
 	const dispatch = useAppDispatch();
+
+	const [sortedDepartments, setSortedDepartments]
+		= useState<readonly IFullDepartment[]>([]);
+	const [selectedSort, setSelectedSort]
+		= useState('');
 
 	const USER = useAppSelector((state) => state.user);
 	const DEPARTMENTS = useGetDepartmentsQuery("");
@@ -67,24 +73,46 @@ export default function DepartmentsPage() {
 		}
 	}, [DEPARTMENTS]);
 
+	const sortDepartmentsByName = () => {
+		const sorted = [...deps.value].sort((a, b) =>
+			a.department.localeCompare(b.department)
+		);
+		setSelectedSort('Название')
+		setSortedDepartments(sorted);
+	};
+
+	const sortDepartmentsByCuratorName = () => {
+		const sorted = [...deps.value].sort((a, b) =>
+			a.fio.localeCompare(b.fio)
+		);
+		setSelectedSort('Куратор')
+		setSortedDepartments(sorted);
+	};
+
+	const sortDepartmentsByRating = () => {
+		const sorted = [...deps.value].sort((a, b) => b.rating - a.rating);
+		setSelectedSort('Средняя вероятность');
+		setSortedDepartments(sorted);
+	};
+
 	return (
 		<>
 			<div className={"departments"}>
 				<motion.h2
 					className={"departments--title"}
-					initial={{ opacity: 0 }}
-					animate={{ opacity: 1 }}
-					transition={{ delay: 0.1, duration: 0.5 }}
+					initial={{opacity: 0}}
+					animate={{opacity: 1}}
+					transition={{delay: 0.1, duration: 0.5}}
 				>
 					Подразделения
 				</motion.h2>
 				<div className={"heading-wrapper"}>
 					<motion.div
 						className={"attributes"}
-						initial={{ opacity: 0 }}
-						animate={{ opacity: 1 }}
-						transition={{ duration: 0.5 }}
-						style={{ width: "500px" }}
+						initial={{opacity: 0}}
+						animate={{opacity: 1}}
+						transition={{duration: 0.5}}
+						style={{width: "500px"}}
 					>
 						<p className={"attributes--path"}>1 - название отдела</p>
 						<p className={"attributes--path"}>2 - фио куратора отдела</p>
@@ -93,8 +121,50 @@ export default function DepartmentsPage() {
 						</p>
 					</motion.div>
 				</div>
+				<motion.div className={'sort-buttons'}
+				            initial={{opacity: 0, display: "none"}}
+				            animate={{
+					            opacity: 1
+				            }}
+				            exit={{opacity: 0, display: "none"}}
+				            transition={{duration: 0.5}}
+				>
+					<motion.button
+						className={`sort-buttons--button ${
+							selectedSort === 'ФИО' ? 'sort-buttons--button__selected' : ''
+						}`}
+						initial={{opacity: 0}}
+						animate={{opacity: 1}}
+						transition={{duration: 0.5}}
+						onClick={sortDepartmentsByName}
+					>
+						Сортировка по <strong>Названию</strong>
+					</motion.button>
+					<motion.button
+						className={`sort-buttons--button ${
+							selectedSort === 'Специальности' ? 'sort-buttons--button__selected' : ''
+						}`}
+						initial={{opacity: 0}}
+						animate={{opacity: 1}}
+						transition={{duration: 0.5}}
+						onClick={sortDepartmentsByCuratorName}
+					>
+						Сортировка по <strong>ФИО Куратора</strong>
+					</motion.button>
+					<motion.button
+						className={`sort-buttons--button ${
+							selectedSort === 'Вероятности увольнения' ? 'sort-buttons--button__selected' : ''
+						}`}
+						initial={{opacity: 0}}
+						animate={{opacity: 1}}
+						transition={{duration: 0.5}}
+						onClick={sortDepartmentsByRating}
+					>
+						Сортировка по <strong>Средней вероятности</strong>
+					</motion.button>
+				</motion.div>
 				<div className={"departments--cards"}>
-					{deps.value.map((value, index) => (
+					{(sortedDepartments.length > 0 ? sortedDepartments : deps.value).map((value, index) => (
 						<div key={index}>
 							<LineInformationCard
 								type={"department"}
