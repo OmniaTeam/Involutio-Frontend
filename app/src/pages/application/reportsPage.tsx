@@ -19,7 +19,6 @@ export default function EmployeesPage() {
 
 	//@ts-ignore
 	const [selectedOption, setSelectedOption] = useState<string>("");
-	//@ts-ignore
 	const [selectedId, setSelectedId] = useState<number>(0);
 
 
@@ -70,18 +69,20 @@ export default function EmployeesPage() {
 	useEffect(() => {
 		if (reportsQuery.isSuccess) {
 			reportsQuery.data.map(async (value) => {
-				const workerFio = await getWorkerFio(Number(parseValueFromFileName(value.name)));
-				dispatch(
-					setData({
-						date: value.date,
-						id: value.id,
-						manager_id: value.manager_id,
-						name: value.name,
-						processed: value.processed,
-						type: value.type,
-						worker_fio: String(workerFio)
-					})
-				);
+				if (value.manager_id === selectedId) {
+					const workerFio = await getWorkerFio(Number(parseValueFromFileName(value.name)));
+					dispatch(
+						setData({
+							date: value.date,
+							id: value.id,
+							manager_id: value.manager_id,
+							name: value.name,
+							processed: value.processed,
+							type: value.type,
+							worker_fio: String(workerFio)
+						})
+					);
+				}
 			});
 		}
 	}, [reportsQuery]);
