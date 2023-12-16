@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux.ts";
 import { motion } from "framer-motion";
 import { useGetDepartmentsQuery, useGetReportsQuery } from "../../services/dataService.ts";
-import {clearData, setData } from "../../store/reducers/IReportsSlice.ts";
+import { clearData, setData } from "../../store/reducers/IReportsSlice.ts";
 import { EUserRole } from "../../models/EUserRole.ts";
 
 import LineInformationCard from "../../components/lineInformationCard";
@@ -62,9 +62,7 @@ export default function EmployeesPage() {
 		);
 		if (selectedDepartment) {
 			if (selectedDepartment.id !== selectedId) {
-				dispatch(clearData([]))
-				setSelectedOption(selectedValue);
-				setSelectedId(selectedDepartment.id);
+				dispatch(clearData([]));
 			}
 			setSelectedOption(selectedValue);
 			setSelectedId(selectedDepartment.id);
@@ -72,10 +70,18 @@ export default function EmployeesPage() {
 	};
 
 	useEffect(() => {
+		if (USER.role === EUserRole.admin) {
+			if (selectedId === 0) {
+				dispatch(clearData([]));
+			}
+		}
+	}, [selectedId, USER.role]);
+
+	useEffect(() => {
 		if (reportsQuery.isSuccess) {
 			reportsQuery.data.map(async (value) => {
 				if (USER.role === EUserRole.admin) {
-					if (value.manager_id === selectedId) {
+					if (selectedId !== 0 && value.manager_id === selectedId) {
 						const workerFio = await getWorkerFio(Number(parseValueFromFileName(value.name)));
 						dispatch(
 							setData({
