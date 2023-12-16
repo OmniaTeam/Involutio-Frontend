@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux.ts";
 import { motion } from "framer-motion";
 import { useGetDepartmentsQuery, useGetReportsQuery } from "../../services/dataService.ts";
-import { setData } from "../../store/reducers/IReportsSlice.ts";
+import {clearData, setData } from "../../store/reducers/IReportsSlice.ts";
 import { EUserRole } from "../../models/EUserRole.ts";
 
 import LineInformationCard from "../../components/lineInformationCard";
@@ -61,6 +61,11 @@ export default function EmployeesPage() {
 			(option) => option.value === selectedValue
 		);
 		if (selectedDepartment) {
+			if (selectedDepartment.id !== selectedId) {
+				dispatch(clearData([]))
+				setSelectedOption(selectedValue);
+				setSelectedId(selectedDepartment.id);
+			}
 			setSelectedOption(selectedValue);
 			setSelectedId(selectedDepartment.id);
 		}
