@@ -1,28 +1,54 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useAppDispatch, useAppSelector } from "../../hooks/redux.ts";
 import { motion } from "framer-motion";
-import { useAppSelector } from "../../hooks/redux.ts";
-import {useGetDepartmentsQuery, useGetReportsQuery} from "../../services/dataService.ts";
+import { useGetDepartmentsQuery, useGetReportsQuery } from "../../services/dataService.ts";
+import { setData } from "../../store/reducers/IReportsSlice.ts";
 import { EUserRole } from "../../models/EUserRole.ts";
 
 import LineInformationCard from "../../components/lineInformationCard";
 import DropdownMenu from "../../components/dropdownMenu.tsx";
 
 export default function EmployeesPage() {
+	const dispatch = useAppDispatch()
+
 	const USER = useAppSelector((state) => state.user);
-	const DEPARTMENTS = useGetDepartmentsQuery("");
+	const REPORTS = useAppSelector((state) => state.reports)
+
+	const departmentsQuery = useGetDepartmentsQuery("");
+	const reportsQuery = useGetReportsQuery('')
 
 	//@ts-ignore
 	const [selectedOption, setSelectedOption] = useState<string>("");
 	//@ts-ignore
 	const [selectedId, setSelectedId] = useState<number>(0);
 
-	const REPORTS = useGetReportsQuery('')
 
-	const options = DEPARTMENTS.data?.map((value) => ({
+	const options = departmentsQuery.data?.map((value) => ({
 		value: value.department,
 		label: value.department,
 		id: value.id,
 	})) || [];
+
+	const getWorkerFio = async (workerId: number) => {
+		try {
+			const response = await fetch(
+				`https://involutio.the-omnia.ru/api/v3/worker/${workerId}`,
+				{
+					headers: {
+						"Content-Type": "application/json",
+					},
+					method: "GET",
+				}
+			);
+			if (response.ok) {
+				const data = await response.json();
+				console.log(data.fio)
+				return data.fio;
+			}
+		} catch (error) {
+			console.log(error);
+		}
+	};
 
 	const handleOptionSelect = (selectedValue: string) => {
 		const selectedDepartment = options.find(
@@ -33,6 +59,22 @@ export default function EmployeesPage() {
 			setSelectedId(selectedDepartment.id);
 		}
 	};
+
+	useEffect(() => {
+		if (reportsQuery.isSuccess) {
+			reportsQuery.data.map((value) => {
+				dispatch(setData({
+					date: value.date,
+					id: value.id,
+					manager_id: value.manager_id,
+					name: value.name,
+					processed: value.processed,
+					type: value.type,
+					worker_fio: String(Promise.resolve(getWorkerFio(value.id)))
+				}))
+			})
+		}
+	}, []);
 
 	//TODO: написать ролевое разделение. Менеджер видит отчёты всех своих сотрудников, а админ отчёты всех отедлов
 
@@ -75,16 +117,18 @@ export default function EmployeesPage() {
 					)}
 				</div>
 				<div className={"reports--cards"}>
-					{REPORTS.isSuccess ? (
+					{reportsQuery.isSuccess ? (
 						<>
-							{REPORTS.data.map((value, index) => (
+							{REPORTS.value.map((value, index) => (
 								<div key={index}>
 									<LineInformationCard
 										type={'report'}
 										name={'Иван Иванов Иванович'}
 										secondColumn={value.date}
-										thirdColumn={'от 1.12.2023 до 8.12.2023'}
-										id={1}
+										thirdColumn={
+										`от ${new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString().split("T")[0]} 
+										до ${new Date().toISOString().split("T")[0]}`}
+										id={value.id}
 										initialY={10 + (index * 5)}
 										link={`https://involutio.the-omnia.ru/api/v3/files/download?fileId=${value.id}`}
 									/>
