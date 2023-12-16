@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { Link, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux";
 import { motion } from "framer-motion";
 import {
@@ -22,7 +22,8 @@ import Chart from "../../components/chart";
 
 export default function EmployeePage() {
 	const employeeId = useParams();
-	const dispatch = useAppDispatch()
+	const dispatch = useAppDispatch();
+	const navigator = useNavigate()
 
 	const USER = useAppSelector((state) => state.user);
 	const EMPLOYEE = useAppSelector((state) => state.employee)
@@ -80,25 +81,23 @@ export default function EmployeePage() {
 			<div className={'employee--content'}>
 				<div className={'statistic'}>
 					{USER.role === EUserRole.admin
-						? <motion.div className={'statistic--button'}
-						              initial={{opacity: 0, y: 10}}
-						              animate={{opacity: 1, y: 0}}
-						              transition={{duration: 0.5}}
+						? <motion.p className={'statistic--button'}
+							initial={{opacity: 0, y: 10}}
+							animate={{opacity: 1, y: 0}}
+							transition={{duration: 0.5}}
+						    onClick={() => {MANAGER.isSuccess
+							    ? navigator(`/application/department/${MANAGER.data.id}`)
+							    : {}
+						    }}
 						>
 							{MANAGER?.isSuccess
-								? <Link to={`/application/department/${MANAGER.data.id}`} style={{
-									color: "#FFFFFF",
-									fontWeight: "400",
-									textUnderlineOffset: "5px"
-								}}>
-									{MANAGER.data.department}
-								</Link>
+								? <>{MANAGER.data.department}</>
 								: <>{ MANAGER?.isLoading
 									? <>Загрузка...</>
 									: <>Не удалось загрузить</>
 								}</>
 							}
-						</motion.div>
+						</motion.p>
 						: <>{MANAGER?.isSuccess
 							? <motion.p className={'statistic--path'}
 							            initial={{opacity: 0, y: 10}}

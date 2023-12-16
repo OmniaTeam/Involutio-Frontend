@@ -1,30 +1,28 @@
-const CACHE_NAME = 'involution-cache';
-
-const urlsToCache = [
-    "/",
-    "../public/robots.txt",
-    "../public/fonts/Oswald/Oswald-VariableFont_wght.ttf",
-    "../src/assets/home.svg",
-    "../src/assets/logout.svg",
-    "../src/assets/report.svg",
-    "../src/assets/users.svg",
-    "../src/assets/gradient.svg",
-    "../index.html",
-    "../src/global.scss",
-    "../src/styles/indexStyles.scss",
-    "../src/styles/sidebarStyles.scss",
-    "../src/styles/headerStyles.scss",
-    "../src/styles/cardsStyles.scss",
-    "../src/styles/chartsStyles.scss",
-    "../src/styles/dropdownMenu.scss"
-]
+const CACHE_NAME = 'involutio-cache';
 
 // Установка Service Worker
 self.addEventListener("install", (event) => {
     event.waitUntil(
         caches.open(CACHE_NAME)
             .then((cache) => {
-                return cache.addAll(urlsToCache);
+                return cache.addAll([
+                    "/",
+                    "../public/robots.txt",
+                    "../public/fonts/Oswald/Oswald-VariableFont_wght.ttf",
+                    "../src/assets/home.svg",
+                    "../src/assets/logout.svg",
+                    "../src/assets/report.svg",
+                    "../src/assets/users.svg",
+                    "../src/assets/gradient.svg",
+                    "../index.html",
+                    "../src/global.scss",
+                    "../src/styles/indexStyles.scss",
+                    "../src/styles/sidebarStyles.scss",
+                    "../src/styles/headerStyles.scss",
+                    "../src/styles/cardsStyles.scss",
+                    "../src/styles/chartsStyles.scss",
+                    "../src/styles/dropdownMenu.scss"
+                ]);
             })
     );
 });
