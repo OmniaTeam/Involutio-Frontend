@@ -17,14 +17,14 @@
   ],
   "orientation": "any",
   "display": "standalone",
-  "lang": "en-En",
+  "lang": "ru",
   "name": "Involutio",
-  "start_url": "/",
+  "start_url": "https://involutio.the-omnia.ru/",
   "short_name": "Involutio",
-  "description": "Involutio control system",
+  "description": "Система контроля за сотрудниками - Involutio",
   "web_apps": [
     {
-      "manifest": "/app/app.webmanifest",
+      "manifest": "/manifest.json",
       "details": {
           "paths": [ "/*" ]
       }
