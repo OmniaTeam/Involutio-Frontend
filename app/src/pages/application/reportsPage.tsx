@@ -69,7 +69,22 @@ export default function EmployeesPage() {
 	useEffect(() => {
 		if (reportsQuery.isSuccess) {
 			reportsQuery.data.map(async (value) => {
-				if (value.manager_id === selectedId) {
+				if (USER.role === EUserRole.admin) {
+					if (value.manager_id === selectedId) {
+						const workerFio = await getWorkerFio(Number(parseValueFromFileName(value.name)));
+						dispatch(
+							setData({
+								date: value.date,
+								id: value.id,
+								manager_id: value.manager_id,
+								name: value.name,
+								processed: value.processed,
+								type: value.type,
+								worker_fio: String(workerFio),
+							})
+						);
+					}
+				} else {
 					const workerFio = await getWorkerFio(Number(parseValueFromFileName(value.name)));
 					dispatch(
 						setData({
@@ -79,13 +94,13 @@ export default function EmployeesPage() {
 							name: value.name,
 							processed: value.processed,
 							type: value.type,
-							worker_fio: String(workerFio)
+							worker_fio: String(workerFio),
 						})
 					);
 				}
 			});
 		}
-	}, [reportsQuery]);
+	}, [reportsQuery, selectedId, USER.role]);
 
 	return (
 		<div className={"reports"}>
