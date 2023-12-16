@@ -10,7 +10,7 @@ import DropdownMenu from "../../components/dropdownMenu.tsx";
 
 export default function EmployeesPage() {
 	const USER = useAppSelector((state) => state.user);
-	const DEPARTMENTS = useGetDepartmentsQuery("");
+	const departmentsQuery = useGetDepartmentsQuery("");
 
 	//@ts-ignore
 	const [selectedOption, setSelectedOption]
@@ -26,11 +26,11 @@ export default function EmployeesPage() {
 
 
 	//@ts-ignore
-	let EMPLOYEES;
-	if (USER.role === EUserRole.manager) EMPLOYEES = useGetEmployeesQuery(USER.id);
-	else EMPLOYEES = useGetEmployeesQuery(selectedId || -1);
+	let employeesQuery;
+	if (USER.role === EUserRole.manager) employeesQuery = useGetEmployeesQuery(USER.id);
+	else employeesQuery = useGetEmployeesQuery(selectedId || -1);
 
-	const options = DEPARTMENTS.data?.map((value) => ({
+	const options = departmentsQuery.data?.map((value) => ({
 		value: value.department,
 		label: value.department,
 		id: value.id,
@@ -49,7 +49,7 @@ export default function EmployeesPage() {
 
 	const sortEmployeesByName = () => {
 		//@ts-ignore
-		const sorted = [...EMPLOYEES?.data].sort((a, b) =>
+		const sorted = [...employeesQuery?.data].sort((a, b) =>
 			a.fio.localeCompare(b.fio)
 		);
 		setSelectedSort('ФИО')
@@ -58,7 +58,7 @@ export default function EmployeesPage() {
 
 	const sortEmployeesBySpeciality = () => {
 		//@ts-ignore
-		const sorted = [...EMPLOYEES.data].sort((a, b) =>
+		const sorted = [...employeesQuery.data].sort((a, b) =>
 			a.speciality.localeCompare(b.speciality)
 		);
 		setSelectedSort('Специальности')
@@ -67,7 +67,7 @@ export default function EmployeesPage() {
 
 	const sortEmployeesByRating = () => {
 		//@ts-ignore
-		const sorted = [...EMPLOYEES.data].sort((a, b) => b.rating - a.rating);
+		const sorted = [...employeesQuery.data].sort((a, b) => b.rating - a.rating);
 		setSelectedSort('Вероятности увольнения');
 		setSortedEmployees(sorted);
 	};
@@ -156,9 +156,9 @@ export default function EmployeesPage() {
 					</motion.button>
 				</motion.div>
 				<div className={"employees--cards"}>
-					{EMPLOYEES.isSuccess && EMPLOYEES.data.length > 0 ? (
+					{employeesQuery.isSuccess && employeesQuery.data.length > 0 ? (
 						<>
-							{(sortedEmployees.length > 0 ? sortedEmployees : EMPLOYEES.data).map((value, index) => (
+							{(sortedEmployees.length > 0 ? sortedEmployees : employeesQuery.data).map((value, index) => (
 								<div key={index}>
 									<LineInformationCard
 										type="employee"

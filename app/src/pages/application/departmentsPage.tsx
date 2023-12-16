@@ -11,14 +11,15 @@ import LineInformationCard from "../../components/lineInformationCard.tsx";
 export default function DepartmentsPage() {
 	const dispatch = useAppDispatch();
 
+	const USER = useAppSelector((state) => state.user);
+	const DEPARTMENTS = useAppSelector((state) => state.fullDepartments);
+
+	const departmentsQuery = useGetDepartmentsQuery("");
+
 	const [sortedDepartments, setSortedDepartments]
 		= useState<readonly IFullDepartment[]>([]);
 	const [selectedSort, setSelectedSort]
 		= useState('');
-
-	const USER = useAppSelector((state) => state.user);
-	const DEPARTMENTS = useGetDepartmentsQuery("");
-	const deps = useAppSelector((state) => state.fullDepartments);
 
 	const getUser = async (userId: number) => {
 		try {
@@ -47,8 +48,8 @@ export default function DepartmentsPage() {
 	}, [USER.role]);
 
 	useEffect(() => {
-		if (DEPARTMENTS.isSuccess) {
-			const userIds: number[] = DEPARTMENTS.data.map((value) =>
+		if (departmentsQuery.isSuccess) {
+			const userIds: number[] = departmentsQuery.data.map((value) =>
 				Number(value.userId)
 			);
 
@@ -57,7 +58,7 @@ export default function DepartmentsPage() {
 					userIds.map((userId) => getUser(userId))
 				);
 				dispatch(clearData([]))
-				DEPARTMENTS.data.forEach((value, index) => {
+				departmentsQuery.data.forEach((value, index) => {
 					dispatch(
 						setData({
 							department: value.department,
@@ -71,10 +72,10 @@ export default function DepartmentsPage() {
 			};
 			fetchUserNames();
 		}
-	}, [DEPARTMENTS]);
+	}, [departmentsQuery]);
 
 	const sortDepartmentsByName = () => {
-		const sorted = [...deps.value].sort((a, b) =>
+		const sorted = [...DEPARTMENTS.value].sort((a, b) =>
 			a.department.localeCompare(b.department)
 		);
 		setSelectedSort('Название')
@@ -82,7 +83,7 @@ export default function DepartmentsPage() {
 	};
 
 	const sortDepartmentsByCuratorName = () => {
-		const sorted = [...deps.value].sort((a, b) =>
+		const sorted = [...DEPARTMENTS.value].sort((a, b) =>
 			a.fio.localeCompare(b.fio)
 		);
 		setSelectedSort('Куратор')
@@ -90,7 +91,7 @@ export default function DepartmentsPage() {
 	};
 
 	const sortDepartmentsByRating = () => {
-		const sorted = [...deps.value].sort((a, b) => b.rating - a.rating);
+		const sorted = [...DEPARTMENTS.value].sort((a, b) => b.rating - a.rating);
 		setSelectedSort('Средняя вероятность');
 		setSortedDepartments(sorted);
 	};
@@ -161,7 +162,7 @@ export default function DepartmentsPage() {
 					</motion.button>
 				</motion.div>
 				<div className={"departments--cards"}>
-					{(sortedDepartments.length > 0 ? sortedDepartments : deps.value).map((value, index) => (
+					{(sortedDepartments.length > 0 ? sortedDepartments : DEPARTMENTS.value).map((value, index) => (
 						<div key={index}>
 							<LineInformationCard
 								type={"department"}
