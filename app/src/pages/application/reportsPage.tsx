@@ -77,7 +77,7 @@ export default function EmployeesPage() {
 				<div className={"reports--cards"}>
 					{REPORTS.isSuccess ? (
 						<>
-							{REPORTS.data.value.map((value, index) => (
+							{REPORTS.data.map((value, index) => (
 								<div key={index}>
 									<LineInformationCard
 										type={'report'}

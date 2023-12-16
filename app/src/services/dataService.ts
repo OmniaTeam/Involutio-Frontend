@@ -3,7 +3,7 @@ import { IDepartment } from "../models/IDepartment.ts";
 import { IEmployee } from "../models/IEmployee.ts";
 import { IStatistic } from "../models/IStatistic.ts";
 import { IUser } from "../models/IUser.ts";
-import {IReports} from "../models/IReport.ts";
+import { IReport } from "../models/IReport.ts";
 
 export const DataService = createApi({
 	reducerPath : "data-service",
@@ -90,7 +90,7 @@ export const DataService = createApi({
 			})
 		}),
 		/*Получение ссылок на все отчёты по отделу*/
-		getReports : build.query<IReports, any>({
+		getReports : build.query<IReport[], any>({
 			query : () => ({
 				url : "/files/pdf",
 				headers : {
