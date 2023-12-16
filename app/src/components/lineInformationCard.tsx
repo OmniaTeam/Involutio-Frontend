@@ -16,6 +16,7 @@ export default function LineInformationCard(props : LineInformationCardProps) {
 		initial={{ y: props.initialY, opacity: 0 }}
 		animate={{ y: 0, opacity: 1}}
 		transition={{ duration: 0.5 }}
+	    key={props.id}
 	>
 		<div className={"line-card--info"}>
 			<p className={"line-card--info__name"}>{props.name}</p>

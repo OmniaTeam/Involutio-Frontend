@@ -149,8 +149,8 @@ export default function DepartmentPage() {
 				</motion.p>
 				<div className={'department--cards'}>
 					{EMPLOYEES.isSuccess
-						? <>{EMPLOYEES.data.map((value, index) =>
-							<div key={index}>
+						? <>{EMPLOYEES.data.map((value) =>
+							<>
 								{value.speciality === "Lead"
 									? <></>
 									: <LineInformationCard
@@ -163,7 +163,7 @@ export default function DepartmentPage() {
 										link={`/application/employee/${value.id}`}
 									/>
 								}
-							</div>
+							</>
 						)}</>
 						: <>Не загрузило(</>
 					}
