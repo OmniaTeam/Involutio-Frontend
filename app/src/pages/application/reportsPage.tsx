@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { useAppSelector } from "../../hooks/redux.ts";
-import { useGetDepartmentsQuery, useGetEmployeesQuery } from "../../services/dataService.ts";
+import {useGetDepartmentsQuery, useGetReportsQuery} from "../../services/dataService.ts";
 import { EUserRole } from "../../models/EUserRole.ts";
 
 import LineInformationCard from "../../components/lineInformationCard";
@@ -13,14 +13,10 @@ export default function EmployeesPage() {
 
 	//@ts-ignore
 	const [selectedOption, setSelectedOption] = useState<string>("");
+	//@ts-ignore
 	const [selectedId, setSelectedId] = useState<number>(0);
 
-	let REPORTS;
-	if (USER.role === EUserRole.manager) {
-		REPORTS = useGetEmployeesQuery(USER.id);
-	} else {
-		REPORTS = useGetEmployeesQuery(selectedId || 0);
-	}
+	const REPORTS = useGetReportsQuery('')
 
 	const options = DEPARTMENTS.data?.map((value) => ({
 		value: value.department,
@@ -79,18 +75,18 @@ export default function EmployeesPage() {
 					)}
 				</div>
 				<div className={"reports--cards"}>
-					{REPORTS.isSuccess && REPORTS.data.length > 0 ? (
+					{REPORTS.isSuccess && REPORTS.data.value.length > 0 ? (
 						<>
-							{REPORTS.data.map((value, index) => (
+							{REPORTS.data.value.map((value, index) => (
 								<div key={index}>
 									<LineInformationCard
 										type={'report'}
 										name={'Иван Иванов Иванович'}
-										secondColumn={'8.12.2023-13:12'}
+										secondColumn={value.date}
 										thirdColumn={'от 1.12.2023 до 8.12.2023'}
 										id={1}
 										initialY={10 + (index * 5)}
-										link={`/application/report/${value.id}`}
+										link={`https://involutio.the-omnia.ru/api/v3/files/download?fileId=${value.id}}`}
 									/>
 								</div>
 							))}

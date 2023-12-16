@@ -3,6 +3,7 @@ import { IDepartment } from "../models/IDepartment.ts";
 import { IEmployee } from "../models/IEmployee.ts";
 import { IStatistic } from "../models/IStatistic.ts";
 import { IUser } from "../models/IUser.ts";
+import {IReports} from "../models/IReport.ts";
 
 export const DataService = createApi({
 	reducerPath : "data-service",
@@ -89,15 +90,23 @@ export const DataService = createApi({
 			})
 		}),
 		/*Получение ссылок на все отчёты по отделу*/
-		getReports : build.query<any, any>({
+		getReports : build.query<IReports, any>({
 			query : () => ({
-				url : ""
+				url : "/files/pdf",
+				headers : {
+					"Content-Type": "application/json",
+				},
+				method: "GET"
 			})
 		}),
-		/*Создание отчёта пользователя или */
-		createReport : build.mutation<any, any>({
-			query : () => ({
-				url : ""
+		/*Скачивание отчёта*/
+		downloadReport : build.query<any, number>({
+			query : (fileId) => ({
+				url: `files/download?fileId=${fileId}}`,
+				headers : {
+					"Content-Type": "application/json",
+				},
+				method: "GET"
 			})
 		})
 	})
@@ -110,7 +119,8 @@ export const {
 	useGetEmployeeInfoQuery,
 	useGetEmployeeStatQuery,
 	useGetDepartmentStatQuery,
-	useGetReportsQuery,
 	useGetDepartmentInfoQuery,
-	useGetUserInfoQuery
+	useGetUserInfoQuery,
+	useGetReportsQuery,
+	useDownloadReportQuery
 } = DataService

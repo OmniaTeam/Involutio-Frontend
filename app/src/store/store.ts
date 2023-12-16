@@ -14,7 +14,8 @@ const rootReducer = combineReducers({
 	department : IDepartmentSlice.reducer,
 	employee : IEmployeeSlice.reducer,
 	fullDepartment : IFullDepartmentSlice.reducer,
-	fullDepartments : IFullDepartmentsSlice.reducer
+	fullDepartments : IFullDepartmentsSlice.reducer,
+	
 })
 
 export const setupStore = () => configureStore({
