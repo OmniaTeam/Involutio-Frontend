@@ -50,6 +50,14 @@ export default function EmployeesPage() {
 		}
 	};
 
+	const parseValueFromFileName = (fileName: string): string => {
+		const startIndex = fileName.indexOf('_');
+		const endIndex = fileName.indexOf('.pdf');
+		if (startIndex !== -1 && endIndex !== -1 && endIndex > startIndex)
+			return fileName.substring(startIndex + 1, endIndex);
+		return "";
+	}
+
 	const handleOptionSelect = (selectedValue: string) => {
 		const selectedDepartment = options.find(
 			(option) => option.value === selectedValue
@@ -70,7 +78,7 @@ export default function EmployeesPage() {
 					name: value.name,
 					processed: value.processed,
 					type: value.type,
-					worker_fio: String(Promise.resolve(getWorkerFio(value.id)))
+					worker_fio: String(Promise.resolve(getWorkerFio(Number(parseValueFromFileName(value.name)))))
 				}))
 			})
 		}
