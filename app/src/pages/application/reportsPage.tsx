@@ -69,21 +69,22 @@ export default function EmployeesPage() {
 
 	useEffect(() => {
 		if (reportsQuery.isSuccess) {
-			reportsQuery.data.map((value) => {
-				dispatch(setData({
-					date: value.date,
-					id: value.id,
-					manager_id: value.manager_id,
-					name: value.name,
-					processed: value.processed,
-					type: value.type,
-					worker_fio: String(Promise.resolve(getWorkerFio(Number(parseValueFromFileName(value.name)))))
-				}))
-			})
+			reportsQuery.data.map(async (value) => {
+				const workerFio = await getWorkerFio(Number(parseValueFromFileName(value.name)));
+				dispatch(
+					setData({
+						date: value.date,
+						id: value.id,
+						manager_id: value.manager_id,
+						name: value.name,
+						processed: value.processed,
+						type: value.type,
+						worker_fio: String(workerFio)
+					})
+				);
+			});
 		}
 	}, [reportsQuery]);
-
-	//TODO: написать ролевое разделение. Менеджер видит отчёты всех своих сотрудников, а админ отчёты всех отедлов
 
 	return (
 		<div className={"reports"}>
