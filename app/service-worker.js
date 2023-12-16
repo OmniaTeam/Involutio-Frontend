@@ -1,6 +1,7 @@
 const CACHE_NAME = 'involution-cache';
 
 const urlsToCache = [
+    "/",
     "../public/robots.txt",
     "../public/fonts/Oswald/Oswald-VariableFont_wght.ttf",
     "../src/assets/home.svg",
