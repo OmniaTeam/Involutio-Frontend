@@ -42,7 +42,6 @@ export default function EmployeesPage() {
 			);
 			if (response.ok) {
 				const data = await response.json();
-				console.log(data.fio)
 				return data.fio;
 			}
 		} catch (error) {
@@ -131,7 +130,7 @@ export default function EmployeesPage() {
 								<div key={index}>
 									<LineInformationCard
 										type={'report'}
-										name={'Иван Иванов Иванович'}
+										name={value.worker_fio}
 										secondColumn={value.date}
 										thirdColumn={
 										`от ${new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString().split("T")[0]} 
