@@ -86,7 +86,7 @@ export default function EmployeesPage() {
 										thirdColumn={'от 1.12.2023 до 8.12.2023'}
 										id={1}
 										initialY={10 + (index * 5)}
-										link={`https://involutio.the-omnia.ru/api/v3/files/download?fileId=${value.id}}`}
+										link={`https://involutio.the-omnia.ru/api/v3/files/download?fileId=${value.id}`}
 									/>
 								</div>
 							))}

@@ -23,6 +23,8 @@ export default function LineInformationCard(props : LineInformationCardProps) {
 			<p className={"line-card--info__third-column"}>{props.secondColumn}</p>
 			<p className={"line-card--info__probability"}>{props.thirdColumn}</p>
 		</div>
-		<Link to={`${props.link}`} className={"line-card__details"}>{props.type === "report" ? "посмотреть" : "скачать"}</Link>
+		<Link to={`${props.link}`}
+		      target={props.type === "report" ? "_blank" : ""}
+		      className={"line-card__details"}>{props.type === "report" ? "скачать" : "подробнее"}</Link>
 	</motion.div>
 }
