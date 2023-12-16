@@ -75,7 +75,7 @@ export default function EmployeesPage() {
 					)}
 				</div>
 				<div className={"reports--cards"}>
-					{REPORTS.isSuccess && REPORTS.data.value.length > 0 ? (
+					{REPORTS.isSuccess ? (
 						<>
 							{REPORTS.data.value.map((value, index) => (
 								<div key={index}>
