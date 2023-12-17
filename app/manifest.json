@@ -1,6 +1,6 @@
 {
-  "theme_color": "#000000",
-  "background_color": "#000000",
+  "theme_color": "#FFFFFF",
+  "background_color": "#FFFFFF",
   "icons": [
     {
       "purpose": "maskable",
@@ -16,15 +16,20 @@
     }
   ],
   "orientation": "any",
-  "prefer_related_applications": false,
   "display": "standalone",
+  "lang": "ru-Ru",
+  "name": "Involutio",
   "start_url": "https://involutio.the-omnia.ru/",
   "short_name": "Involutio",
-  "name": "Involutio - система контроля за сотрудниками",
   "description": "Бесплатное веб-приложение для контроля деятельности сотрудников компании.",
-  "lang": "ru-RU",
-  "scope": "/",
-  "related_applications": [],
+  "web_apps": [
+    {
+      "manifest": "/app/manifest.json",
+      "details": {
+        "paths": [ "/*" ]
+      }
+    }
+  ],
   "serviceworker": {
     "src": "/service-worker.js",
     "scope": "/"
