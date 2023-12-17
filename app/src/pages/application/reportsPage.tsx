@@ -85,22 +85,41 @@ export default function EmployeesPage() {
 
 	useEffect(() => {
 		if (reportsQuery.isSuccess) {
-			reportsQuery.data.map(async (value) => {
-				if (selectedId !== 0 && value.manager_id === selectedId) {
-					const workerFio = await getWorkerFio(Number(parseValueFromFileName(value.name)));
-					dispatch(
-						setData({
-							date: value.date,
-							id: value.id,
-							manager_id: value.manager_id,
-							name: value.name,
-							processed: value.processed,
-							type: value.type,
-							worker_fio: String(workerFio),
-						})
-					);
-				}
-			})
+			if (USER.role === EUserRole.admin) {
+				reportsQuery.data.map((value) => {
+					if (selectedId !== 0 && value.manager_id === selectedId) {
+						const workerFio = getWorkerFio(Number(parseValueFromFileName(value.name)));
+						dispatch(
+							setData({
+								date: value.date,
+								id: value.id,
+								manager_id: value.manager_id,
+								name: value.name,
+								processed: value.processed,
+								type: value.type,
+								worker_fio: String(workerFio),
+							})
+						);
+					}
+				})
+			} else if (USER.role === EUserRole.manager) {
+				reportsQuery.data.map((value) => {
+					if (value.manager_id === USER.id) {
+						const workerFio = getWorkerFio(Number(parseValueFromFileName(value.name)));
+						dispatch(
+							setData({
+								date: value.date,
+								id: value.id,
+								manager_id: value.manager_id,
+								name: value.name,
+								processed: value.processed,
+								type: value.type,
+								worker_fio: String(workerFio),
+							})
+						);
+					}
+				})
+			}
 		}
 	}, [reportsQuery, selectedId, USER.role, USER.id]);
 
