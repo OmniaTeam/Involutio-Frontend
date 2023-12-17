@@ -56,14 +56,14 @@ export default function HomePage() {
 								animate={{opacity: 1}}
 								transition={{delay: 0.1, duration: 0.5}}
 								onClick={() => navigator('/application/employees')}
-							>Посмотреть сотрудников отделений</motion.p>
+							>Посмотреть сотрудников подразделений</motion.p>
 							<motion.p
 								className={'statistic--button'}
 								initial={{opacity: 0}}
 								animate={{opacity: 1}}
 								transition={{delay: 0.1, duration: 0.5}}
 								onClick={() => navigator('/application/reports')}
-							>Посмотреть отчёты по отделениям</motion.p>
+							>Посмотреть отчёты по подразделениям</motion.p>
 						</div>
 					</>
 					: <></>
