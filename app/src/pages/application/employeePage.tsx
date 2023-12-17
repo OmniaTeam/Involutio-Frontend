@@ -12,7 +12,7 @@ import {
 	setId,
 	setMail,
 	setManagerId,
-	setRating,
+	setRating, setRegressions,
 	setSpeciality
 } from "../../store/reducers/IEmployeeSlice.ts";
 
@@ -38,6 +38,10 @@ export default function EmployeePage() {
 			dispatch(setManagerId(employeeQuery.data.managerId))
 			dispatch(setRating(employeeQuery.data.rating))
 			dispatch(setSpeciality(employeeQuery.data.speciality))
+			dispatch(setRegressions({
+				regressionB: employeeQuery.data.regression_b,
+				regressionK: employeeQuery.data.regression_k
+			}))
 		} else {
 			dispatch(setId(-1))
 			dispatch(setFio("nothing"))
@@ -162,6 +166,31 @@ export default function EmployeePage() {
 						            animate={{opacity: 1, y: 0}}
 						            transition={{duration: 0.5}}
 						>Вероятность увольнения на данный момент равна {EMPLOYEE.rating}%</motion.p>
+						: <>{employeeQuery.isLoading
+							? <motion.p className={'statistic--path'}
+							            initial={{opacity: 0, y: 10}}
+							            animate={{opacity: 1, y: 0}}
+							            transition={{duration: 0.5}}
+							>Загрузка</motion.p>
+							: <motion.p className={'statistic--path'}
+							            initial={{opacity: 0, y: 10}}
+							            animate={{opacity: 1, y: 0}}
+							            transition={{duration: 0.5}}
+							>Ошибка</motion.p>
+						}</>
+					}
+					{employeeQuery.isSuccess
+						? <motion.p className={'statistic--path'}
+						            initial={{opacity: 0, y: 10}}
+						            animate={{opacity: 1, y: 0}}
+						            transition={{duration: 0.5}}
+						>{EMPLOYEE.regression_k < 0
+							? <>Тенденция заинтерисованности сотрудника <strong>положительна</strong></>
+							: <>{EMPLOYEE.regression_k > 0
+								? <>Тенденция заинтерисованности сотрудника <strong>отрицательна</strong></>
+								: <>Никаких изменений не наблюдается</>
+							}</>
+						}</motion.p>
 						: <>{employeeQuery.isLoading
 							? <motion.p className={'statistic--path'}
 							            initial={{opacity: 0, y: 10}}

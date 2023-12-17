@@ -7,7 +7,9 @@ const initialState : IEmployee = {
 	mail: "nothing",
 	managerId: 0,
 	rating: 0,
-	speciality: "nothing"
+	speciality: "nothing",
+	regression_k: 0,
+	regression_b: 0
 }
 
 export const IEmployeeSlice = createSlice({
@@ -31,6 +33,10 @@ export const IEmployeeSlice = createSlice({
 		},
 		setSpeciality : (state, action : PayloadAction<string>) => {
 			state.speciality = action.payload
+		},
+		setRegressions : (state, action : PayloadAction<{regressionK: number, regressionB: number}>) => {
+			state.regression_k = action.payload.regressionK
+			state.regression_b = action.payload.regressionB
 		}
 	}
 })
@@ -41,5 +47,6 @@ export const {
 	setMail,
 	setManagerId,
 	setRating,
-	setSpeciality
+	setSpeciality,
+	setRegressions
 } = IEmployeeSlice.actions
