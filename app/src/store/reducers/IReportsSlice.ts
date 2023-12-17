@@ -14,11 +14,16 @@ export const IReportsSlice = createSlice({
 		},
 		clearData : (state, action : PayloadAction<[]>) => {
 			state.value = action.payload
-		}
+		},
+		removeData: (state, action: PayloadAction<number>) => {
+			const itemId = action.payload;
+			state.value = state.value.filter((item) => item.id !== itemId);
+		},
 	}
 })
 
 export const {
 	setData,
-	clearData
+	clearData,
+	removeData
 } = IReportsSlice.actions
