@@ -1,9 +1,9 @@
-import { useEffect, useState } from "react";
-import { useAppDispatch, useAppSelector } from "../../hooks/redux.ts";
-import { motion } from "framer-motion";
-import { useGetDepartmentsQuery, useGetReportsQuery } from "../../services/dataService.ts";
-import { clearData, setData } from "../../store/reducers/IReportsSlice.ts";
-import { EUserRole } from "../../models/EUserRole.ts";
+import {useEffect, useState} from "react";
+import {useAppDispatch, useAppSelector} from "../../hooks/redux.ts";
+import {motion} from "framer-motion";
+import {useGetDepartmentsQuery, useGetReportsQuery} from "../../services/dataService.ts";
+import {clearData, setData} from "../../store/reducers/IReportsSlice.ts";
+import {EUserRole} from "../../models/EUserRole.ts";
 
 import LineInformationCard from "../../components/lineInformationCard";
 import DropdownMenu from "../../components/dropdownMenu.tsx";
@@ -70,10 +70,11 @@ export default function EmployeesPage() {
 
 	useEffect(() => {
 		console.log(selectedId)
-		if (USER.role === EUserRole.admin) {
-			if (selectedId === 0) {
-				dispatch(clearData([]));
-			}
+		if (selectedId === 0) {
+			dispatch(clearData([]));
+		}
+		if (USER.role === EUserRole.manager) {
+			setSelectedId(USER.id)
 		}
 	}, [selectedId, USER.role]);
 
