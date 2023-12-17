@@ -72,8 +72,6 @@ export default function EmployeesPage() {
 		setSortedEmployees(sorted);
 	};
 
-	//TODO: Написать сортировку по разным атрибутам
-
 	return (
 		<div className={"employees"}>
 			<motion.h2

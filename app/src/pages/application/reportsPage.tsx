@@ -51,6 +51,7 @@ export default function EmployeesPage() {
 			}
 		}
 		if (USER.role === EUserRole.manager) {
+			window.location.reload()
 			if (REPORTS.selectedId === 0 || REPORTS.selectedId !== USER.id) {
 				dispatch(clearData([]));
 				dispatch(
