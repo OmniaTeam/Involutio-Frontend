@@ -9,5 +9,7 @@ export interface IReport {
 }
 
 export interface IReports {
-	value : Array<IReport>
+	value : Array<IReport>,
+	selectedId : number,
+	selectedOption : string
 }
