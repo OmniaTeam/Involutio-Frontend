@@ -60,6 +60,7 @@ export default function EmployeesPage() {
 			(option) => option.value === selectedValue
 		);
 		if (selectedDepartment) {
+			console.log("Dep:", selectedDepartment.id)
 			if (selectedDepartment.id !== selectedId) {
 				dispatch(clearData([]));
 			}
@@ -69,7 +70,7 @@ export default function EmployeesPage() {
 	};
 
 	useEffect(() => {
-		console.log(selectedId)
+		console.log("ID:", selectedId)
 		if (USER.role === EUserRole.admin) {
 			if (selectedId === 0) {
 				dispatch(clearData([]));
