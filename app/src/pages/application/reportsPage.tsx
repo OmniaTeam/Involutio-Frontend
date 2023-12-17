@@ -96,18 +96,20 @@ export default function EmployeesPage() {
 						);
 					}
 				} else {
-					const workerFio = await getWorkerFio(Number(parseValueFromFileName(value.name)));
-					dispatch(
-						setData({
-							date: value.date,
-							id: value.id,
-							manager_id: value.manager_id,
-							name: value.name,
-							processed: value.processed,
-							type: value.type,
-							worker_fio: String(workerFio),
-						})
-					);
+					if (selectedId !== 0 && value.manager_id === USER.id) {
+						const workerFio = await getWorkerFio(Number(parseValueFromFileName(value.name)));
+						dispatch(
+							setData({
+								date: value.date,
+								id: value.id,
+								manager_id: value.manager_id,
+								name: value.name,
+								processed: value.processed,
+								type: value.type,
+								worker_fio: String(workerFio),
+							})
+						);
+					}
 				}
 			});
 		}
