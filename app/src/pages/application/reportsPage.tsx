@@ -70,19 +70,18 @@ export default function EmployeesPage() {
 	};
 
 	useEffect(() => {
-		console.log("ID:", selectedId)
 		if (USER.role === EUserRole.admin) {
 			if (selectedId === 0) {
 				dispatch(clearData([]));
 			}
 		}
 		if (USER.role === EUserRole.manager) {
-			if (selectedId === 0) {
+			if (selectedId === 0 || selectedId !== USER.id) {
 				dispatch(clearData([]));
+				setSelectedId(USER.id);
 			}
-			setSelectedId(USER.id)
 		}
-	}, [selectedId, USER.role]);
+	}, [selectedId, USER.role, USER.id]);
 
 	useEffect(() => {
 		if (reportsQuery.isSuccess) {
@@ -90,7 +89,6 @@ export default function EmployeesPage() {
 				if (USER.role === EUserRole.admin) {
 					if (selectedId !== 0 && value.manager_id === selectedId) {
 						const workerFio = await getWorkerFio(Number(parseValueFromFileName(value.name)));
-						console.log("For admin: ", value)
 						dispatch(
 							setData({
 								date: value.date,
@@ -106,7 +104,6 @@ export default function EmployeesPage() {
 				} else {
 					if (value.manager_id === USER.id) {
 						const workerFio = await getWorkerFio(Number(parseValueFromFileName(value.name)));
-						console.log("For manager: ", value)
 						dispatch(
 							setData({
 								date: value.date,
@@ -122,7 +119,8 @@ export default function EmployeesPage() {
 				}
 			});
 		}
-	}, [reportsQuery, selectedId, USER.role]);
+	}, [reportsQuery, selectedId, USER.role, USER.id]);
+
 
 	return (
 		<div className={"reports"}>
