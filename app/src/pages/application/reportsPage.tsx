@@ -86,9 +86,9 @@ export default function EmployeesPage() {
 	useEffect(() => {
 		if (reportsQuery.isSuccess) {
 			if (USER.role === EUserRole.admin) {
-				reportsQuery.data.map((value) => {
+				reportsQuery.data.map(async (value) => {
 					if (selectedId !== 0 && value.manager_id === selectedId) {
-						const workerFio = getWorkerFio(Number(parseValueFromFileName(value.name)));
+						const workerFio = await getWorkerFio(Number(parseValueFromFileName(value.name)));
 						dispatch(
 							setData({
 								date: value.date,
@@ -103,9 +103,9 @@ export default function EmployeesPage() {
 					}
 				})
 			} else if (USER.role === EUserRole.manager) {
-				reportsQuery.data.map((value) => {
+				reportsQuery.data.map(async (value) => {
 					if (value.manager_id === USER.id) {
-						const workerFio = getWorkerFio(Number(parseValueFromFileName(value.name)));
+						const workerFio = await getWorkerFio(Number(parseValueFromFileName(value.name)));
 						dispatch(
 							setData({
 								date: value.date,
