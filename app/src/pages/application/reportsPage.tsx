@@ -70,10 +70,15 @@ export default function EmployeesPage() {
 
 	useEffect(() => {
 		console.log(selectedId)
-		if (selectedId === 0) {
-			dispatch(clearData([]));
+		if (USER.role === EUserRole.admin) {
+			if (selectedId === 0) {
+				dispatch(clearData([]));
+			}
 		}
 		if (USER.role === EUserRole.manager) {
+			if (selectedId === 0) {
+				dispatch(clearData([]));
+			}
 			setSelectedId(USER.id)
 		}
 	}, [selectedId, USER.role]);
