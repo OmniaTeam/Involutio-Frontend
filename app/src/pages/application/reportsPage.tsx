@@ -51,7 +51,6 @@ export default function EmployeesPage() {
 			}
 		}
 		if (USER.role === EUserRole.manager) {
-			window.location.reload()
 			if (REPORTS.selectedId === 0 || REPORTS.selectedId !== USER.id) {
 				dispatch(clearData([]));
 				dispatch(
@@ -66,15 +65,14 @@ export default function EmployeesPage() {
 
 	useEffect(() => {
 		if (reportsQuery.isSuccess) {
+			dispatch(clearData([]))
 			const filteredReports = reportsQuery.data.filter(
 				(value) => value.manager_id === REPORTS.selectedId
 			);
-
 			filteredReports.forEach(async (value) => {
 				const workerFio = await getWorkerFio(
 					Number(parseValueFromFileName(value.name))
 				);
-
 				dispatch(
 					setData({
 						date: value.date,
