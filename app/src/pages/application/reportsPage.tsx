@@ -67,7 +67,9 @@ export default function EmployeesPage() {
 		if (reportsQuery.isSuccess) {
 			dispatch(clearData([]))
 			const filteredReports = reportsQuery.data.filter(
-				(value) => value.manager_id === REPORTS.selectedId
+				(value) =>
+					(value.manager_id === REPORTS.selectedId &&
+						value.date === new Date().toISOString().split("T")[0])
 			);
 			filteredReports.forEach(async (value) => {
 				const workerFio = await getWorkerFio(

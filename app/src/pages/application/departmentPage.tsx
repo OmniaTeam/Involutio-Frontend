@@ -17,14 +17,15 @@ export default function DepartmentPage() {
 	const managerId = useParams()
 
 	const USER = useAppSelector((state) => state.user)
-	const EMPLOYEES = useGetEmployeesQuery(Number(managerId.id))
-	const DEPARTMENT = useGetDepartmentInfoQuery(Number(managerId.id))
-	const CURATOR = useGetUserInfoQuery(Number(managerId.id))
-	const STATISTIC = useGetDepartmentStatQuery({
+
+	const employeesQuery = useGetEmployeesQuery(Number(managerId.id))
+	const departmentInfoQuery = useGetDepartmentInfoQuery(Number(managerId.id))
+	const curatorInfoQuery = useGetUserInfoQuery(Number(managerId.id))
+	const departmentStatQuery = useGetDepartmentStatQuery({
 		departmentId: Number(managerId.id),
-		start: // Update the start date to 7 days ago
+		start:
 			new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString().split("T")[0],
-		end: // Update the end date to today
+		end:
 			new Date().toISOString().split("T")[0],
 	});
 
@@ -34,13 +35,13 @@ export default function DepartmentPage() {
 
 	return (<>
 		<div className={'department'}>
-			{DEPARTMENT.isSuccess
+			{departmentInfoQuery.isSuccess
 				? <motion.h2 className={'department--title'}
 						initial={{opacity: 0}}
 						animate={{opacity: 1}}
 						transition={{delay: 0.1, duration: 0.5}}
-				>{DEPARTMENT.data.department}</motion.h2>
-				: <>{DEPARTMENT.isLoading
+				>{departmentInfoQuery.data.department}</motion.h2>
+				: <>{departmentInfoQuery.isLoading
 					? <motion.h2 className={'department--title'}
 						initial={{opacity: 0}}
 						animate={{opacity: 1}}
@@ -71,11 +72,11 @@ export default function DepartmentPage() {
 						alignItems: "flex-start"
 					}}
 				>
-					{STATISTIC.isSuccess
+					{departmentStatQuery.isSuccess
 						? <>
-							<Chart data={STATISTIC.data}/>
+							<Chart data={departmentStatQuery.data}/>
 						</>
-						: <>{STATISTIC.isLoading
+						: <>{departmentStatQuery.isLoading
 							? <>Загрузка...</>
 							: <>Не удалось загрузить данные</>
 						}</>
@@ -87,7 +88,7 @@ export default function DepartmentPage() {
 				          transition={{delay: 0.1, duration: 0.5}}
 				>Куратор отдела
 				</motion.p>
-				{CURATOR.isSuccess
+				{curatorInfoQuery.isSuccess
 					? <motion.p className={'statistic--path'}
 					            initial={{opacity: 0}}
 					            animate={{opacity: 1}}
@@ -97,9 +98,9 @@ export default function DepartmentPage() {
 						            textAlign: "center"
 					            }}
 					>
-						{CURATOR.data.fio}
+						{curatorInfoQuery.data.fio}
 					</motion.p>
-					: <>{CURATOR.isLoading
+					: <>{curatorInfoQuery.isLoading
 						? <motion.p className={'statistic--path'}
 						            initial={{opacity: 0}}
 						            animate={{opacity: 1}}
@@ -121,8 +122,8 @@ export default function DepartmentPage() {
 				>Глава отдела
 				</motion.p>
 				<div className={'department--cards'}>
-					{EMPLOYEES.isSuccess
-						? <>{EMPLOYEES.data.map((value) => <>{
+					{employeesQuery.isSuccess
+						? <>{employeesQuery.data.map((value) => <>{
 							value.speciality === "Lead"
 								? <LineInformationCard
 									type={'employee'}
@@ -135,7 +136,7 @@ export default function DepartmentPage() {
 								/>
 								: <></>
 						}</>)}</>
-						: <>{EMPLOYEES.isLoading
+						: <>{employeesQuery.isLoading
 							? <>Загрузка</>
 							: <>Ошибка загрузки</>
 						}</>
@@ -148,8 +149,8 @@ export default function DepartmentPage() {
 				>Сотрудники отдела
 				</motion.p>
 				<div className={'department--cards'}>
-					{EMPLOYEES.isSuccess
-						? <>{EMPLOYEES.data.map((value) =>
+					{employeesQuery.isSuccess
+						? <>{employeesQuery.data.map((value) =>
 							<>
 								{value.speciality === "Lead"
 									? <></>
