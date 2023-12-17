@@ -11,18 +11,18 @@
   "icons": [
     {
       "purpose": "maskable",
-      "src": "./logo.svg",
+      "src": "logo_maskable.svg",
       "sizes": "144x144"
     },
     {
       "purpose": "any",
-      "src": "./logo.svg",
+      "src": "logo_rounded.svg",
       "sizes": "150x150"
     }
   ],
   "web_apps": [
     {
-      "manifest": "/app/public/manifest.json",
+      "manifest": "/app/manifest.json",
       "details": {
         "paths": [ "/*" ]
       }
