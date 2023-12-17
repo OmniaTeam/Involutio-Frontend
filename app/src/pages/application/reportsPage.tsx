@@ -21,7 +21,6 @@ export default function EmployeesPage() {
 	const [selectedOption, setSelectedOption] = useState<string>("");
 	const [selectedId, setSelectedId] = useState<number>(0);
 
-
 	const options = departmentsQuery.data?.map((value) => ({
 		value: value.department,
 		label: value.department,
@@ -70,6 +69,7 @@ export default function EmployeesPage() {
 	};
 
 	useEffect(() => {
+		console.log(selectedId)
 		if (USER.role === EUserRole.admin) {
 			if (selectedId === 0) {
 				dispatch(clearData([]));
