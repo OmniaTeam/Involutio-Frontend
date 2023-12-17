@@ -12,19 +12,21 @@
     {
       "src": "logo_maskable.png",
       "sizes": "512x512",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any"
     },
     {
       "src": "logo_rounded.png",
       "sizes": "512x512",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any"
     }
   ],
   "web_apps": [
     {
       "manifest": "/app/manifest.json",
       "details": {
-        "paths": [ "/*" ]
+        "paths": ["/*"]
       }
     }
   ],
