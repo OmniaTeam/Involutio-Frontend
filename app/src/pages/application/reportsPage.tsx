@@ -97,7 +97,7 @@ export default function EmployeesPage() {
 						);
 					}
 				} else {
-					if (selectedId !== 0 && value.manager_id === USER.id) {
+					if (value.manager_id === USER.id) {
 						const workerFio = await getWorkerFio(Number(parseValueFromFileName(value.name)));
 						console.log("For manager: ", value)
 						dispatch(
