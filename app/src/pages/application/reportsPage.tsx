@@ -87,7 +87,7 @@ export default function EmployeesPage() {
 		if (reportsQuery.isSuccess) {
 			if (USER.role === EUserRole.admin) {
 				reportsQuery.data.map(async (value) => {
-					if (selectedId !== 0 && value.manager_id === selectedId) {
+					if (value.manager_id === selectedId) {
 						const workerFio = await getWorkerFio(Number(parseValueFromFileName(value.name)));
 						dispatch(
 							setData({
