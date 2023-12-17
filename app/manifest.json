@@ -8,6 +8,7 @@
   "display": "standalone",
   "orientation": "any",
   "theme_color": "#000000",
+  "background_color": "#000000",
   "icons": [
     {
       "src": "./logo_maskable.png",
@@ -31,7 +32,7 @@
     }
   ],
   "serviceworker": {
-    "src": "/service-worker.js",
+    "src": "./service-worker.js",
     "scope": "/"
   }
 }
