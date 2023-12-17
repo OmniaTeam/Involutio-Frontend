@@ -1,4 +1,4 @@
-const CACHE_NAME = 'involutio-cache';
+const CACHE_NAME = 'involutio-cache-data';
 
 // Установка Service Worker
 self.addEventListener("install", (event) => {
