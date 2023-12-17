@@ -87,7 +87,7 @@ export default function EmployeesPage() {
 		if (reportsQuery.isSuccess) {
 			if (USER.role === EUserRole.admin) {
 				reportsQuery.data.map(async (value) => {
-					if (value.manager_id === selectedId) {
+					if (value.manager_id === selectedId && value.date === new Date().toISOString().split("T")[0]) {
 						const workerFio = await getWorkerFio(Number(parseValueFromFileName(value.name)));
 						dispatch(
 							setData({
@@ -104,7 +104,7 @@ export default function EmployeesPage() {
 				})
 			} else if (USER.role === EUserRole.manager) {
 				reportsQuery.data.map(async (value) => {
-					if (value.manager_id === USER.id) {
+					if (value.manager_id === USER.id && value.date === new Date().toISOString().split("T")[0]) {
 						const workerFio = await getWorkerFio(Number(parseValueFromFileName(value.name)));
 						dispatch(
 							setData({
