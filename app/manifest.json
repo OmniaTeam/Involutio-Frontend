@@ -3,7 +3,7 @@
   "short_name": "Involutio",
   "description": "Бесплатное веб-приложение для контроля деятельности сотрудников компании.",
   "lang": "ru-RU",
-  "start_url": "https://involutio.the-omnia.ru",
+  "start_url": "/",
   "scope": "https://involutio.the-omnia.ru/",
   "display": "standalone",
   "orientation": "any",
